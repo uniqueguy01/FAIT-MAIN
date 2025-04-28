@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS real (
 	saleprice NUMBER NOT NULL,
 	amount NUMBER NOT NULL,
 	orderdate DATE NULL,
-	reservation DATE NOT NULL,
+	reservation TIMESTAMP NOT NULL,
 	FOREIGN KEY (ceonum) REFERENCES store (ceonum)
 	FOREIGN KEY (shoeid) REFERENCES shoe (id)
 );
