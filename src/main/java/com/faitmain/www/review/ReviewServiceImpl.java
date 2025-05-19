@@ -1,10 +1,12 @@
 package com.faitmain.www.review;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.faitmain.www.model.Review;
 import com.faitmain.www.model.ReviewImg;
 
+@Service
 public class ReviewServiceImpl implements ReviewService {
 
 	@Autowired
