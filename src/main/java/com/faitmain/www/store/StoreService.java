@@ -21,4 +21,6 @@ public interface StoreService {
 
 	void deleteStoreImg(String ceonum);
 
+	Store getCeonum(String id);
+
 }

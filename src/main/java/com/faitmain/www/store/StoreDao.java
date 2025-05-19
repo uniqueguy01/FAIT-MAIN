@@ -26,4 +26,6 @@ public interface StoreDao {
 
 	void addMaker(Maker maker);
 
+	Store getCeonum(String id);
+
 }

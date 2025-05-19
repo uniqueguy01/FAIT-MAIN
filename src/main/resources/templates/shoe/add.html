@@ -33,35 +33,30 @@
 							</select>
 						</div>
 					</div>
-				
-					<div>
-						<div><label>신발번호</label></div>
-						<div><input type="text" name="id" readonly></div>
-					</div>
 					
 					<div>
 						<div><label>사업자번호:</label></div>
-						<div><input type="text" name="ceonum"></div>
+						<div><input type="text" name="ceonum" th:value="${item.ceonum}" readonly></div>
 					</div>
 					
 					<div>
 						<div><label>신발이름:</label></div>
-						<div><input type="text" name="name"></div>
+						<div><input type="text" name="name" required></div>
 					</div>
 					
 					<div>
 						<div><label>가격:</label></div>
-						<div><input type="number" name="price"></div>
+						<div><input type="number" name="price" required></div>
 					</div>
 					
 					<div>
 						<div><label>세부사항:</label></div>
-						<div><input type="text" name="detail"></div>
+						<div><input type="text" name="detail" required></div>
 					</div>
 					
 					<div>
-						<label>포스터 이미지</label>
-						<input type="file" name="uploadFile" accept="image/*">
+						<label>신발 이미지</label>
+						<input type="file" name="uploadFile" accept="image/*" required>
 					</div>
 					
 					<div>

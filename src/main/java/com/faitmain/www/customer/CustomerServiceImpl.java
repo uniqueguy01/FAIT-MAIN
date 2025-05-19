@@ -2,6 +2,7 @@ package com.faitmain.www.customer;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,9 +39,21 @@ public class CustomerServiceImpl implements CustomerService {
       dao.update(item);
    }
 
+	@Override
+	public boolean login(Customer item) {
 
-   public Customer login(String id, String password) {
-      return dao.login(id,password);
-   }
+		Customer customer = dao.item(item.getId());
+		
+		if(customer != null) {
+			if (item.getPassword().equals(customer.getPassword())) {
+				BeanUtils.copyProperties(customer, item);
+				item.setPassword(null);
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 }

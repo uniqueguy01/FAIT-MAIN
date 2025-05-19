@@ -22,14 +22,14 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
-function searchRoadAddress() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // ✅ 도로명 주소만 입력창에 삽입
-            document.getElementById('roadAddress').value = data.roadAddress;
-        }
-    }).open();
-}
+	function searchRoadAddress() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            // ✅ 도로명 주소만 입력창에 삽입
+	            document.getElementById('roadAddress').value = data.roadAddress;
+	        }
+	    }).open();
+	}
 </script>
 
 <script>
@@ -64,29 +64,30 @@ function searchRoadAddress() {
 				<div>
 					<div>
 						<h4>가게</h4>
-						<div>
-							<div><label>사업자번호</label></div>
-							<div><input type="text" name="ceonum"></div>
-						</div>
 						
 						<div>
 							<div><label>고객id:</label></div>
-							<div><input type="text" name="custid"></div>
+							<div><input type="text" name="custid" th:value="${session.customer.id}" readonly></div>
+						</div>
+						
+						<div>
+							<div><label>사업자번호</label></div>
+							<div><input type="text" name="ceonum" required></div>
 						</div>
 						
 						<div>
 							<div><label>가게이름:</label></div>
-							<div><input type="text" name="name"></div>
+							<div><input type="text" name="name" required></div>
 						</div>
 						
 						<div>
-							<input type="text" id="roadAddress" name="address" placeholder="도로명 주소">
+							<input type="text" id="roadAddress" name="address" placeholder="도로명 주소" required>
 							<button type="button" onclick="searchRoadAddress()">주소 검색</button>
 						</div>
 						
 						<div>
 							<label>배너 이미지</label>
-							<input type="file" name="storeBanner" accept="image/*">
+							<input type="file" name="storeBanner" accept="image/*" required>
 						</div>
 					</div>
 					
