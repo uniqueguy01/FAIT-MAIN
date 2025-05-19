@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -- customer 더미값 --
 INSERT INTO customer (id, password, name, address, phone, birth)
 VALUES ('kopo', 'pass', '홍길동', '서울시', '010-1234-5678', '1990-01-01');
@@ -21,3 +22,10 @@ VALUES (1, 'first.jpeg', '2ac33236-1993-4f78-9fc9-121aff094206');
 -- maker 더미값 --
 INSERT INTO maker (ceonum, name, info, file, uuid)
 VALUES ('123-45-567-8', '홍길동', '안녕하세요', 'first.jpeg', '2ac33236-1993-4f78-9fc9-121aff094206');
+=======
+INSERT INTO customer (id, password, name, address, phone, birth) VALUES
+('user01', 'pass1234', '장관협', '대전시 동구', '010-1234-5678', '2006-12-12'),
+('user02', 'pass5678', '정근화', '대전시 유성구', '010-4321-5678', '2007-03-01'),
+('user03', 'test4321', '최현', '대전시 중구', '010-3456-7890', '2006-03-02'),
+('1234', '1234', '관리자', '대전', '010-1234-5678', '2005-03-02');
+>>>>>>> 606f4e9f63ad7e70e5708924349bba2110251ae4
