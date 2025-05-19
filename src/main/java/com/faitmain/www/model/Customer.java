@@ -5,11 +5,9 @@ import java.sql.Date;
 public class Customer {
 	
 	private String id;
-	private String passwd;
+	private String password;
 	private String name;
 	private String address;
-	private String phone;
-	private Date birth;
 	
 	public String getId() {
 		return id;
@@ -17,11 +15,11 @@ public class Customer {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPasswd() {
-		return passwd;
+	public String getPassword() {
+		return password;
 	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getName() {
 		return name;
@@ -47,5 +45,7 @@ public class Customer {
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
-
+	private String phone;
+	private Date birth;
+	
 }

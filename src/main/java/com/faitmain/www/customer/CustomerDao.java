@@ -6,14 +6,16 @@ import com.faitmain.www.model.Customer;
 
 public interface CustomerDao {
 
-	List<Customer> list();
+   List<Customer> list();
 
-	void add(Customer item);
+   void add(Customer item);
 
-	void delete(String id);
+   void delete(String id);
 
-	Customer item(String id);
+   Customer item(String id);
 
-	void update(Customer item);
+   void update(Customer item);
+
+   Customer login(String id, String password);
 
 }

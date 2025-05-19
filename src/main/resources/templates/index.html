@@ -5,6 +5,25 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div>
+		<div>
+			<h1>FAIT-MAIN</h1>
+		</div>
+		
+          <div>
+            <div th:if="${loggedInCustomer == null}">
+                <a href="/customer/login">로그인</a>
+            </div>
 
+            <div th:if="${loggedInCustomer != null}">
+                <p>안녕하세요, <span th:text="${loggedInCustomer.name}"></span>님!</p>
+                <a href="/customer/logout">로그아웃</a>
+            </div>
+        </div>
+		
+		<div>
+			<div><a href="customer/list">고객관리</a></div>
+		</div>
+	</div>
 </body>
 </html>

@@ -9,33 +9,38 @@ import com.faitmain.www.model.Customer;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-	
-	@Autowired
-	CustomerDao dao;
+   
+   @Autowired
+   CustomerDao dao;
 
-	@Override
-	public List<Customer> list() {
-		return dao.list();
-	}
+   @Override
+   public List<Customer> list() {
+      return dao.list();
+   }
 
-	@Override
-	public void add(Customer item) {
-		dao.add(item);
-	}
+   @Override
+   public void add(Customer item) {
+      dao.add(item);
+   }
 
-	@Override
-	public void delete(String id) {
-		dao.delete(id);
-	}
+   @Override
+   public void delete(String id) {
+      dao.delete(id);
+   }
 
-	@Override
-	public Customer item(String id) {
-		return dao.item(id);
-	}
+   @Override
+   public Customer item(String id) {
+      return dao.item(id);
+   }
 
-	@Override
-	public void update(Customer item) {
-		dao.update(item);
-	}
+   @Override
+   public void update(Customer item) {
+      dao.update(item);
+   }
+
+
+   public Customer login(String id, String password) {
+      return dao.login(id,password);
+   }
 
 }
