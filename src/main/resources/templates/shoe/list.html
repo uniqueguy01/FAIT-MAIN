@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Fait Main List</title>
+<th:block th:replace="/fragment/head.html :: header"></th:block>
+</head>
+<body>
+	<div>
+		<div>
+			<h3>신발 목록</h3>
+		</div>
+		
+		<div>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>카테고리</th>
+						<th>신발번호</th>
+						<th>사업자번호</th>
+						<th>신발이름</th>
+						<th>가격</th>
+						<th>세부사항</th>
+						<th>신발사진</th>
+						<th>관리</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:if="${list == null or list.size() < 1}">
+						<td>검색 된 신발이 없습니다</td>
+					</tr>
+					
+					<tr th:each="item : ${list}">
+						<td th:text="${item.category}"></td>
+						<td th:text="${item.id}"></td>
+						<td th:text="${item.ceonum}"></td>
+						<td th:text="${item.name}"></td>
+						<td th:text="${item.price}"></td>
+						<td th:text="${item.detail}"></td>
+						<td>
+							<div th:each="img : ${item.shoeImg}">
+								<img th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.file}}" width="100"/>
+							</div>
+						</td>
+						<td><a th:href="@{|update/${item.id}|}">변경</a> <a th:href="@{|delete/${item.id}|}">삭제</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div>
+			<div><a href="add">등록</a></div>
+			<div><a href="..">이전</a></div>
+		</div>
+	</div>
+</body>
+</html>

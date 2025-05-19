@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS store (
     ceonum VARCHAR(32) NOT NULL PRIMARY KEY,
     custid VARCHAR(32) NOT NULL,
     name VARCHAR(32) NOT NULL,
+    address VARCHAR(64) NOT NULL,
     FOREIGN KEY (custid) REFERENCES customer (id)
 );
 
@@ -46,10 +47,23 @@ DROP TABLE IF EXISTS storeimg;
 
 CREATE TABLE IF NOT EXISTS storeimg (
     id NUMBER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    ceonum VARCHAR(32) NULL,
-    file VARCHAR(32) NULL,
-    uuid VARCHAR(32) NULL,
+    ceonum VARCHAR(32) NOT NULL,
+    file VARCHAR(32) NOT NULL,
+    uuid VARCHAR(36) NOT NULL,
     FOREIGN KEY (ceonum) REFERENCES store (ceonum)
+);
+
+-- 작가 테이블(이미지 정보 포함)
+DROP TABLE IF EXISTS maker;
+
+CREATE TABLE IF NOT EXISTS maker(
+	id NUMBER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	ceonum VARCHAR(32) NOT NULL,
+	name VARCHAR(32),
+	info TEXT,
+	file VARCHAR(32) NOT NULL,
+    uuid VARCHAR(36) NOT NULL,
+	FOREIGN KEY (ceonum) REFERENCES store (ceonum)
 );
 
 -- 발 테이블
@@ -83,6 +97,7 @@ CREATE TABLE IF NOT EXISTS shoe (
     name VARCHAR(32) NULL,
     price NUMBER NULL,
     detail VARCHAR(255) NULL,
+    category VARCHAR(32) NOT NULL,
     FOREIGN KEY (ceonum) REFERENCES store (ceonum)
 );
 
@@ -93,8 +108,33 @@ CREATE TABLE IF NOT EXISTS shoeimg (
     id NUMBER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     shoeid NUMBER NULL,
     file VARCHAR(32) NULL,
-    uuid VARCHAR(32) NULL,
+    uuid VARCHAR(36) NULL,
     FOREIGN KEY (shoeid) REFERENCES shoe (id)
+);
+
+-- 리뷰 테이블
+DROP TABLE IF EXISTS review;
+
+CREATE TABLE IF NOT EXISTS review (
+    id NUMBER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    ceonum VARCHAR(32),
+    custid VARCHAR(32),
+    rating INT,
+    content TEXT,
+    regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ceonum) REFERENCES store(ceonum),
+    FOREIGN KEY (custid) REFERENCES customer(id)
+);
+
+-- 리뷰 이미지 테이블
+DROP TABLE IF EXISTS reviewimg;
+
+CREATE TABLE IF NOT EXISTS reviewimg (
+    id NUMBER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    reviewid NUMBER NULL,
+    file VARCHAR(32) NULL,
+    uuid VARCHAR(36) NULL,
+    FOREIGN KEY (reviewid) REFERENCES review (id)
 );
 
 -- 주문 테이블
@@ -137,28 +177,3 @@ CREATE TABLE IF NOT EXISTS online (
     FOREIGN KEY (ceonum) REFERENCES store (ceonum),
     FOREIGN KEY (shoeid) REFERENCES shoe (id)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

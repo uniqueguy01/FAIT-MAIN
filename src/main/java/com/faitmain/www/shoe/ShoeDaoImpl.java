@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.faitmain.www.model.Shoe;
+import com.faitmain.www.model.ShoeImg;
 
 @Repository
 public class ShoeDaoImpl implements ShoeDao {
@@ -32,6 +33,31 @@ public class ShoeDaoImpl implements ShoeDao {
 	@Override
 	public void delete(Long id) {
 		sql.delete("shoe.delete", id);
+	}
+
+	@Override
+	public void addShoeImg(ShoeImg shoeImg) {
+		sql.insert("shoe.addShoeImg", shoeImg);
+	}
+
+	@Override
+	public Shoe item(Long id) {
+		return sql.selectOne("shoe.item", id);
+	}
+
+	@Override
+	public void deleteShoeImg(Long id) {
+		sql.delete("shoe.delete_shoeImg", id);
+	}
+
+	@Override
+	public ShoeImg itemShoeImg(Long id) {
+		return sql.selectOne("shoe.itemShoeImg", id);
+	}
+
+	@Override
+	public List<Shoe> list(String ceonum) {
+		return sql.selectList("shoe.storeList", ceonum);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.faitmain.www.model;
 
+import java.util.List;
+
 public class Shoe {
 
 	private Long id;
@@ -7,6 +9,8 @@ public class Shoe {
 	private String name;
 	private int price;
 	private String detail;
+	private String category;
+	private List<ShoeImg> shoeImg;
 
 	public Long getId() {
 		return id;
@@ -46,6 +50,22 @@ public class Shoe {
 
 	public void setDetail(String detail) {
 		this.detail = detail;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public List<ShoeImg> getShoeImg() {
+		return shoeImg;
+	}
+
+	public void setShoeImg(List<ShoeImg> shoeImg) {
+		this.shoeImg = shoeImg;
 	}
 
 }
