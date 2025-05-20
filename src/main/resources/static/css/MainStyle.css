@@ -1,0 +1,276 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #222;
+    user-select: none;
+}
+
+img {
+    pointer-events: none;
+    -webkit-user-drag: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    background-color: white;
+}
+
+.logo {
+    margin-top: 61px;
+    margin-bottom: 53.85px;
+}
+
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 70px;
+    padding-top: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.header-container {
+    width: 100%;
+    text-align: center;
+}
+
+.header-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 25px;
+}
+
+.nav {
+    display: flex;
+    gap: 70px;
+    font-size: 30px;
+    font-family: 'Noto Serif KR', serif;
+    width: fit-content;
+    margin: 0 auto;
+    white-space: nowrap;
+}
+
+.header-bottom .nav {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+    font-size: 30px;
+    font-family: 'Noto Serif KR', serif;
+}
+.header-bottom .nav a {
+    padding: 8px 0;
+    position: relative;
+}
+.header-bottom .nav a:hover::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #111;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.nav a, .auth-links a {
+    text-decoration: none;
+    color: black;
+}
+
+.header.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 10px 0;
+}
+
+.header.sticky .logo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transform: scale(0.7); /* 로고 크기 줄이기 */
+    transition: transform 0.3s ease;
+}
+
+.header.sticky .nav {
+    font-size: 20px; /* 글자 크기 줄이기 */
+    gap: 40px;
+}
+
+.hero {
+    background: url('/img/hero.png') no-repeat center center/cover;
+    color: white;
+    overflow: hidden;
+    height: 795px;
+    width: 100%;
+}
+
+.slogan1 {
+    display: flex;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    margin-left: 2%;
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin-left: 2%;
+}
+
+.slogan2 {
+    display: block;
+    position: relative;
+    margin-top: 260px;
+    left: 54.5%;
+}
+
+.label-group {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 30px;
+    display: flex;
+    gap: 34px;
+    margin-bottom: 28px;
+}
+
+.search-bar input {
+    margin-bottom: 10px;
+    padding: 8px;
+}
+
+.custom-shoes, .curated, .stores, .journal {
+    text-align: center;
+    padding: 60px 20px;
+}
+.custom-shoes h2 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 85px;
+    margin-top: 130px;
+}
+
+.custom-shoes p {
+    font-family: 'Noto Sans Display', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    color: #626262;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.shoes-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.shoe-item {
+    text-align: center;
+}
+
+.shoe-item img {
+    width: 120px;
+    height: auto;
+}
+
+.store-logos {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.store-logos img {
+    width: 100px;
+    height: auto;
+}
+
+.journal-articles {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.journal-articles article {
+    max-width: 220px;
+}
+
+.journal-articles img {
+    width: 100%;
+    height: auto;
+}
+
+.footer {
+    background: #111;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.social-icons span {
+    margin: 0 8px;
+    font-size: 20px;
+}
+
+/* ===== Responsive (Mobile) ===== */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+    }
+    .header-container {
+        text-align: left;
+        width: 100%;
+    }
+    .header-bottom .nav {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .hero {
+        height: auto;
+        padding: 100px 20px 40px;
+    }
+    .search-bar {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .shoes-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .store-logos {
+        flex-direction: column;
+        align-items: center;
+    } 
+
+    .journal-articles {
+        flex-direction: column;
+        align-items: center;
+    }
+}

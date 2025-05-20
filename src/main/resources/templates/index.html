@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Fait Main</title>
+
+<th:block th:replace="/fragment/head.html :: header"></th:block>
 </head>
 <body>
+	<div>
+		<div>
+			<h1>FAIT-MAIN</h1>
+		</div>
+		
+		<div>
+            <div th:if="${session.customer == null}">
+                <a href="/customer/login">로그인</a>
+            </div>
 
+            <div th:if="${session.customer != null}">
+                <p>안녕하세요, <span th:text="${session.customer.name}"></span>님!</p>
+                <a href="/customer/logout">로그아웃</a>
+                
+                <div>
+					<div><a href="customer/list">고객관리</a></div>
+				</div>
+				
+				<div>
+					<div><a href="shoe/list">신발관리</a></div>
+					<div><a th:href="@{'/store/update/' + ${myStore.ceonum}}">가게수정</a></div>
+					<div><a href="store/add">가게등록</a></div>
+				</div>
+            </div>
+        </div>
+		
+		
+			
+		<div th:each="store : ${storeList}">
+			<a th:href="@{'/store/list/' + ${store.ceonum}}" th:text="${store.name}">가게 이름</a>
+		</div>
+
+	</div>
 </body>
 </html>

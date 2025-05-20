@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Fait Main Add</title>
+
+<style>
+.maker-group {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.remove-btn {
+    background-color: crimson;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+</style>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+	function searchRoadAddress() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            // ✅ 도로명 주소만 입력창에 삽입
+	            document.getElementById('roadAddress').value = data.roadAddress;
+	        }
+	    }).open();
+	}
+</script>
+
+<script>
+	window.addEventListener("DOMContentLoaded", () => {
+	    const template = document.getElementById("maker-template");
+	
+	    document.getElementById("add-button").addEventListener("click", () => {
+	        const container = document.getElementById("maker-container");
+	        const clone = template.content.cloneNode(true);
+	        container.appendChild(clone);
+	    });
+	
+	    document.getElementById("maker-container").addEventListener("click", (e) => {
+	        if (e.target.classList.contains("remove-btn")) {
+	            e.target.closest(".maker-group").remove();
+	        }
+	    });
+	});
+</script>
+
+
+<th:block th:replace="/fragment/head.html :: header"></th:block>
+</head>
+<body>
+	<div>
+		<div>
+			<h3>가게 등록</h3>
+		</div>
+		
+		<div>
+			<form method="post" id="add" enctype="multipart/form-data">
+				<div>
+					<div>
+						<h4>가게</h4>
+						
+						<div>
+							<div><label>고객id:</label></div>
+							<div><input type="text" name="custid" th:value="${session.customer.id}" readonly></div>
+						</div>
+						
+						<div>
+							<div><label>사업자번호</label></div>
+							<div><input type="text" name="ceonum" required></div>
+						</div>
+						
+						<div>
+							<div><label>가게이름:</label></div>
+							<div><input type="text" name="name" required></div>
+						</div>
+						
+						<div>
+							<input type="text" id="roadAddress" name="address" placeholder="도로명 주소" required>
+							<button type="button" onclick="searchRoadAddress()">주소 검색</button>
+						</div>
+						
+						<div>
+							<label>배너 이미지</label>
+							<input type="file" name="storeBanner" accept="image/*" required>
+						</div>
+					</div>
+					
+					<div id="maker-container"></div>
+					
+					 <template id="maker-template">
+					    <div class="maker-group">
+					        <hr>
+					        <h4>작가</h4>
+					        <div>
+					            <label>작가 이름:</label>
+					            <input type="text" name="makerName" required />
+					        </div>
+					        <div>
+					            <label>작가 소개:</label>
+					            <input type="text" name="makerInfo" required />
+					        </div>
+					        <div>
+					            <label>작가 이미지:</label>
+					            <input type="file" name="makerImages" accept="image/*" required />
+					        </div>
+					        <button type="button" class="remove-btn">삭제</button>
+					    </div>
+					</template>
+				    
+				    <div><button type="button" id="add-button">작가 추가</button></div>
+					
+					<div>
+						<div><button>등록</button></div>
+						<div><a href="/"><button type="button">취소</button></a></div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
