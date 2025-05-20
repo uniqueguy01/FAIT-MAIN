@@ -35,7 +35,7 @@ public class FaitMainRootController {
 	        model.addAttribute("myStore", myStore); // 로그인한 고객의 가게 정보
 	    }
 		
-		return "index";
+		return "index-new";
 	}
 
 }
