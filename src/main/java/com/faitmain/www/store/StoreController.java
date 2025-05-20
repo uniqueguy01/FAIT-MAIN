@@ -28,7 +28,7 @@ public class StoreController {
 
 	final String path = "store/";
 	
-	final String uploadPath = "src/main/resources/static/img/";
+	final String uploadPath = "c:/upload/";
 	
 	@Autowired
 	StoreService service;
@@ -125,6 +125,7 @@ public class StoreController {
 	        makerList.add(maker);
 	    }
 	    
+	    item.setStoreImg(storeImgs);
 	    item.setMaker(makerList);
 	    
 	    // 가게 정보 저장
