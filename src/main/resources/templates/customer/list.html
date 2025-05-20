@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<th:block th:replace="~{/fragment/head.html :: header}"></th:block>itle>Insert title here</title>
+</head>
+<body>
+	<div>
+		<div>
+			<h3>고객 목록</h3>
+		</div>
+		<div>
+			<table>
+				<thead>
+					<tr>
+						<th>아이디</th>
+						<th>비밀번호</th>
+						<th>이름</th>
+						<th>주소</th>
+						<th>전화번호</th>
+						<th>생년월일</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="customer : ${list}">
+						<td th:text="${customer.id}"></td>
+						<td th:text="${customer.password}"></td>
+						<td th:text="${customer.name}"></td>
+						<td th:text="${customer.address}"></td>
+						<td th:text="${customer.phone}"></td>
+						<td th:text="${customer.birth}"></td>
+						<td>
+            				<a th:href="@{'/customer/update/' + ${customer.id}}">변경</a>
+            				<a th:href="@{/customer/delete/{id}(id=${customer.id})}">삭제</a>
+        				</td>
+					</tr>
+						<tr th:if="${#lists.isEmpty(list)}">
+                        <td colspan="5">검색 된 고객이 없습니다</td>
+                    </tr>
+				</tbody>
+			</table>
+		</div>
+		 <div>
+            <a th:href="@{/customer/add}">등록</a>
+        </div>
+        <div>
+            <a th:href="@{/}">이전</a>
+        </div>
+	</div>
+</body>
+</html>

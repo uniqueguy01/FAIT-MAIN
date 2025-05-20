@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Fait Main Add</title>
+
+<th:block th:replace="/fragment/head.html :: header"></th:block>
+</head>
+<body>
+	<div>
+		<div>
+			<h3>신발 등록</h3>
+		</div>
+		
+		<div>
+			<form method="post" id="add" enctype="multipart/form-data">
+				<div>
+				
+					<div>
+						<div><label>카테고리:</label></div>
+						<div>
+							<select name="category">
+								<option value="">선택</option>
+							    <option value="플레인 토">플레인 토</option>
+							    <option value="윙팁">윙팁</option>
+							    <option value="몽크 스트랩">몽크 스트랩</option>
+							    <option value="스트레이트 팁">스트레이트 팁</option>
+							    <option value="모카신">모카신</option>
+							    <option value="더비">더비</option>
+							    <option value="로퍼">로퍼</option>
+							    <option value="옥스포드">옥스포드</option>
+							    <option value="보트 슈즈">보트 슈즈</option>
+							</select>
+						</div>
+					</div>
+					
+					<div>
+						<div><label>사업자번호:</label></div>
+						<div><input type="text" name="ceonum" th:value="${item.ceonum}" readonly></div>
+					</div>
+					
+					<div>
+						<div><label>신발이름:</label></div>
+						<div><input type="text" name="name" required></div>
+					</div>
+					
+					<div>
+						<div><label>가격:</label></div>
+						<div><input type="number" name="price" required></div>
+					</div>
+					
+					<div>
+						<div><label>세부사항:</label></div>
+						<div><input type="text" name="detail" required></div>
+					</div>
+					
+					<div>
+						<label>신발 이미지</label>
+						<input type="file" name="uploadFile" accept="image/*" required>
+					</div>
+					
+					<div>
+						<div><button>등록</button></div>
+						<div><a href="list"><button type="button">취소</button></a></div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

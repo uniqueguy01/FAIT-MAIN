@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shoe">
+
+	<resultMap type="Shoe" id="shoeMap" autoMapping="true">
+	    <!-- ID 매핑 -->
+	    <id column="shoe_id" property="id" />
+	
+	    <!-- 사진 정보 매핑 (collection) -->
+	    <collection property="shoeImg" ofType="ShoeImg" javaType="ArrayList">
+	        <id column="shoeimg_id" property="id" />
+	        <result column="file" property="file" />
+	        <result column="uuid" property="uuid" />
+	        <result column="shoeid" property="shoeid" />
+	    </collection>
+	</resultMap>
+	
+	<!-- 신발 정보 전부 -->
+	<select id="list" resultMap="shoeMap">
+        SELECT shoe.id as shoe_id,
+			   shoe.ceonum,
+			   shoe.name,
+			   shoe.price,
+			   shoe.detail,
+			   shoe.category,
+			   
+			   shoeimg.id as shoeimg_id,
+			   shoeimg.shoeid,
+			   shoeimg.file,
+			   shoeimg.uuid
+		FROM shoe
+		LEFT JOIN shoeimg ON shoe.id=shoeimg.shoeid
+    </select>
+    
+    <!-- 신발 정보 하나 -->
+    <select id="item" resultMap="shoeMap">
+		SELECT shoe.id as shoe_id,
+			   shoe.ceonum,
+			   shoe.name,
+			   shoe.price,
+			   shoe.detail,
+			   shoe.category,
+			   
+			   shoeimg.id as shoeimg_id,
+			   shoeimg.shoeid,
+			   shoeimg.file,
+			   shoeimg.uuid
+		FROM shoe
+		LEFT JOIN shoeimg ON shoe.id=shoeimg.shoeid
+		WHERE shoe.id=#{id}
+	</select>
+	
+	<!-- 가게와 관련된 신발 정보 하나 -->
+    <select id="storeList" parameterType="String" resultMap="shoeMap">
+		SELECT shoe.id as shoe_id,
+			   shoe.ceonum,
+			   shoe.name,
+			   shoe.price,
+			   shoe.detail,
+			   shoe.category,
+			   
+			   shoeimg.id as shoeimg_id,
+			   shoeimg.shoeid,
+			   shoeimg.file,
+			   shoeimg.uuid
+		FROM shoe
+		LEFT JOIN shoeimg ON shoe.id=shoeimg.shoeid
+		WHERE shoe.ceonum=#{ceonum}
+	</select>
+	
+	<!-- 신발 사진 하나 -->
+	<select id="itemShoeImg" resultType="ShoeImg">
+		SELECT * FROM shoeimg
+		WHERE id=#{id}
+	</select>
+    
+    <!-- 신발 정보 추가 -->
+    <insert id="add" parameterType="Shoe" useGeneratedKeys="true" keyProperty="id">
+    	INSERT INTO shoe (ceonum, name, price, detail, category) VALUES (#{ceonum}, #{name}, #{price}, #{detail}, #{category})
+    </insert>
+    
+    <!-- 신발 사진 추가 -->
+    <insert id="addShoeImg">
+		INSERT INTO shoeimg(shoeid, file, uuid)
+		VALUES (#{shoeid}, #{file}, #{uuid})
+	</insert>
+    
+    <!-- 신발 정보 수정 -->
+    <update id="update">
+    	UPDATE shoe
+		SET ceonum=#{ceonum}, name=#{name}, price=#{price}, detail=#{detail}, category=#{category}
+		WHERE id=#{id}
+    </update>
+    
+    <!-- 신발 정보 삭제 -->
+    <delete id="delete">
+    	DELETE FROM shoe
+		WHERE id=#{id}
+    </delete>
+    
+    <!-- 신발 사진 삭제 -->
+    <delete id="delete_shoeImg">
+    	DELETE FROM shoeimg
+    	WHERE shoeid=#{id}
+    </delete>
+
+</mapper>
