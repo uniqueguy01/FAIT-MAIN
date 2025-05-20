@@ -28,7 +28,7 @@
         </div>
         
         <div th:if="${session.customer != null}">
-        	<a href="#">MYPAGE</a>
+        	<a href="/mypage">MYPAGE</a>
         	<img src="/img/Line 1.png" alt="">
 			<a href="/customer/logout">LOGOUT</a>
         </div>
@@ -73,7 +73,7 @@
 	        	<th:block th:if="${iter.count <= 4}">
 	        		<div class="shoe-item">
 					    <th:block th:if="${shoe.shoeImg != null and !shoe.shoeImg.isEmpty()}"
-					              th:with="imgPath='/img/' + ${shoe.shoeImg[0].uuid} + '_' + ${shoe.shoeImg[0].file}">
+					              th:with="imgPath='/upload/' + ${shoe.shoeImg[0].uuid} + '_' + ${shoe.shoeImg[0].file}">
 					        <img th:src="@{${imgPath}}" alt="신발 이미지"/>
 					    </th:block>
 					</div>
@@ -96,7 +96,11 @@
         	<th:block th:each="store, iter : ${storeList}">
         		<th:block th:if="${iter.count <= 4}">
         			<a th:href="@{'/store/list/' + ${store.ceonum}}">
-			            <img th:if="${store.mainImage != null}" th:src="@{'/img/' + ${store.mainImage.uuid} + '_' + ${store.mainImage.file}}" alt="대표 이미지" />
+			            <th:block th:each="img : ${store.storeImg}">
+	    					<img th:if="${img.type == 'main'}"
+	    					     th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.file}}"
+	    					     alt="대표 이미지" />
+	    				</th:block>
 			        </a>
         		</th:block>
         	</th:block>

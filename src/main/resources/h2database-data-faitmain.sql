@@ -7,7 +7,7 @@ VALUES ('user01', 'pass1234', '장관협', '대전시 동구', '010-1234-5678', 
 
 -- store 더미 값 --
 INSERT INTO store (ceonum, custid, name, address)
-VALUES ('123-45-567-8', 'user01', 'ABC매장', '대전광역시 서구 둔산남로 175번길 19');
+VALUES ('123-45-567-8', 'user02', 'ABC매장', '대전광역시 서구 둔산남로 175번길 19');
 
 -- storeimg (main)더미값 --
 INSERT INTO storeimg (ceonum, type, file, uuid)

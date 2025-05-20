@@ -7,7 +7,6 @@ public class Store {
 	private String custid;
 	private String name;
 	private String address;
-	private StoreImg mainImage;
 	private List<StoreImg> storeImg;
 	private List<Maker> maker;
 
@@ -41,14 +40,6 @@ public class Store {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public StoreImg getMainImage() {
-		return mainImage;
-	}
-
-	public void setMainImage(StoreImg mainImage) {
-		this.mainImage = mainImage;
 	}
 
 	public List<StoreImg> getStoreImg() {
