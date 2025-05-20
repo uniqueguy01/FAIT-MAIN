@@ -91,7 +91,7 @@
 				<div id="image-section">
 				<!-- 기존 이미지가 있을 경우 -->
 				<div th:if="${item.shoeImg != null and item.shoeImg.size() > 0}">
-					<img th:src="@{'/upload/' + ${item.shoeImg[0].uuid} + '_' + ${item.shoeImg[0].file}}"
+					<img th:src="@{'/img/' + ${item.shoeImg[0].uuid} + '_' + ${item.shoeImg[0].file}}"
 						 width="150" height="150" alt="신발 이미지"/>
 					<input type="hidden" name="existingImageId" th:value="${item.shoeImg[0].id}" />
 					<button type="button" id="delete-image-btn">삭제</button>

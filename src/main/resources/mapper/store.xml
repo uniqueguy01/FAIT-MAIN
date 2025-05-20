@@ -9,9 +9,10 @@
 	    <!-- 사진 정보 매핑 (collection) -->
 	    <collection property="storeImg" ofType="StoreImg" javaType="ArrayList">
 	        <id column="id" property="id" />
+	        <result column="store_ceonum" property="ceonum" />
+	        <result column="type" property="type" />
 	        <result column="file" property="file" />
 	        <result column="uuid" property="uuid" />
-	        <result column="store_ceonum" property="ceonum" />
 	    </collection>
 	    
 	    <!-- Maker 리스트 매핑 추가 -->
@@ -34,6 +35,7 @@
         	   
         	   storeimg.id,
         	   storeimg.ceonum AS store_ceonum,
+        	   storeimg.type,
         	   storeimg.file,
         	   storeimg.uuid,
         	   
@@ -58,6 +60,7 @@
         	   
         	   storeimg.id,
         	   storeimg.ceonum as store_ceonum,
+        	   storeimg.type,
         	   storeimg.file,
         	   storeimg.uuid,
         	   
@@ -80,6 +83,7 @@
 		WHERE ceonum=#{ceonum}
 	</select>
 	
+	<!-- custid의 가게 -->
 	<select id="getCeonum" resultMap="storeMap">
 		SELECT * FROM store
 		WHERE custid=#{id}
@@ -92,8 +96,8 @@
     
     <!-- 가게 사진 추가 -->
     <insert id="addStoreImg">
-		INSERT INTO storeimg(ceonum, file, uuid)
-		VALUES (#{ceonum}, #{file}, #{uuid})
+		INSERT INTO storeimg(ceonum, type, file, uuid)
+		VALUES (#{ceonum}, #{type}, #{file}, #{uuid})
 	</insert>
 	
 	<!-- 작가 정보 추가 -->

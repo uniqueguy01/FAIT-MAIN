@@ -9,9 +9,13 @@ VALUES ('user01', 'pass1234', '장관협', '대전시 동구', '010-1234-5678', 
 INSERT INTO store (ceonum, custid, name, address)
 VALUES ('123-45-567-8', 'user01', 'ABC매장', '대전광역시 서구 둔산남로 175번길 19');
 
--- storeimg 더미값 --
-INSERT INTO storeimg (ceonum, file, uuid)
-VALUES ('123-45-567-8', 'first.jpeg', '2ac33236-1993-4f78-9fc9-121aff094206');
+-- storeimg (main)더미값 --
+INSERT INTO storeimg (ceonum, type, file, uuid)
+VALUES ('123-45-567-8', 'main', 'first.jpeg', '5ca9bdaa-281e-40f1-a4bf-c80888fc18d7');
+
+-- storeimg (banner)더미값 --
+INSERT INTO storeimg (ceonum, type, file, uuid)
+VALUES ('123-45-567-8', 'banner', 'first.jpeg', '5ca9bdaa-281e-40f1-a4bf-c80888fc18d7');
 
 -- shoe 더미값 --
 INSERT INTO shoe (ceonum, name, price, detail, category)
@@ -19,9 +23,9 @@ VALUES ('123-45-567-8', '홍길동', 1324, '안녕하세요', '옥스포드');
 
 -- shoeimg 더미값 --
 INSERT INTO shoeimg (shoeid, file, uuid)
-VALUES (1, 'first.jpeg', '2ac33236-1993-4f78-9fc9-121aff094206');
+VALUES (1, 'first.jpeg', '5ca9bdaa-281e-40f1-a4bf-c80888fc18d7');
 
 -- maker 더미값 --
 INSERT INTO maker (ceonum, name, info, file, uuid)
-VALUES ('123-45-567-8', '홍길동', '안녕하세요', 'first.jpeg', '2ac33236-1993-4f78-9fc9-121aff094206');
+VALUES ('123-45-567-8', '홍길동', '안녕하세요', 'first.jpeg', '5ca9bdaa-281e-40f1-a4bf-c80888fc18d7');
 

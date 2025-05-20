@@ -166,7 +166,7 @@ window.addEventListener("DOMContentLoaded", function () {
 		<!-- 가게 배너 이미지 -->
 		<section class="store-banner">
 		    <img th:if="${item.storeImg != null and !item.storeImg.isEmpty()}"
-     			 th:src="@{'/upload/' + ${item.storeImg[0].uuid} + '_' + ${item.storeImg[0].file}}"
+     			 th:src="@{'/img/' + ${item.storeImg[0].uuid} + '_' + ${item.storeImg[0].file}}"
 		         alt="Store Banner" style="width: 100%; max-height: 350px; object-fit: cover;" />
 		    
 		    <div class="store-info" style="padding: 20px;">
@@ -186,7 +186,7 @@ window.addEventListener("DOMContentLoaded", function () {
 			<h3>Signature Shoes</h3>
 			<div class="product-card" th:each="shoe : ${list}">
 			    <th:block th:if="${shoe.shoeImg != null and !shoe.shoeImg.isEmpty()}"
-			              th:with="imgPath='/upload/' + ${shoe.shoeImg[0].uuid} + '_' + ${shoe.shoeImg[0].file}">
+			              th:with="imgPath='/img/' + ${shoe.shoeImg[0].uuid} + '_' + ${shoe.shoeImg[0].file}">
 			        <img th:src="@{${imgPath}}" alt="신발 이미지"/>
 			    </th:block>
 			    <p th:text="${shoe.name}">신발 이름</p>
@@ -197,7 +197,7 @@ window.addEventListener("DOMContentLoaded", function () {
 			<div th:each="shoe : ${list}">
 			    <div class="product-card" th:if="${shoe.category == '옥스포드'}">
 			        <img th:if="${shoe.shoeImg != null and !shoe.shoeImg.isEmpty()}"
-			             th:src="@{'/upload/' + ${shoe.shoeImg[0].uuid} + '_' + ${shoe.shoeImg[0].file}}"
+			             th:src="@{'/img/' + ${shoe.shoeImg[0].uuid} + '_' + ${shoe.shoeImg[0].file}}"
 			             alt="제품 이미지"/>
 			        <p th:text="${shoe.name}">신발 이름</p>
 			        <p th:text="'₩' + ${shoe.price}">가격</p>
@@ -210,7 +210,7 @@ window.addEventListener("DOMContentLoaded", function () {
 			<div>
 				<h3>ShoeMaker</h3>
 				<div th:each="maker : ${item.maker}">
-					<img th:src="@{'/upload/' + ${maker.uuid} + '_' + ${maker.file}}" alt="작가 이미지">
+					<img th:src="@{'/img/' + ${maker.uuid} + '_' + ${maker.file}}" alt="작가 이미지">
 					<p th:text="${maker.name}">작가 이름</p>
 					<p th:text="${maker.info}">작가 정보</p>
 				</div>
