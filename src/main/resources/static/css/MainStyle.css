@@ -6,6 +6,10 @@ body {
     user-select: none;
 }
 
+.hidden {
+    display: none !important;
+}
+
 img {
     pointer-events: none;
     -webkit-user-drag: none;
@@ -20,24 +24,28 @@ img {
     flex-direction: column;
     align-items: center;
     position: relative;
-    transition: all 0.3s ease;
     z-index: 1000;
     background-color: white;
+    padding: clamp(10px, 2vw, 20px) clamp(15px, 4vw, 40px);
 }
 
 .logo {
-    margin-top: 61px;
-    margin-bottom: 53.85px;
+    margin-top: clamp(30px, 6vh, 61px);
+    margin-bottom: clamp(20px, 5vh, 53.85px);
+    height: clamp(50px, 6vw, 85.15px);
+}
+
+.logo img {
+    height: 100%;
 }
 
 .auth-links {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: clamp(6px, 1vw, 12px);
     font-family: 'Noto Sans', sans-serif;
-    font-size: 13px;
+    font-size: clamp(10px, 1vw, 13px);
     font-weight: 600;
-    margin-left: 70px;
     padding-top: 20px;
     position: absolute;
     top: 20px;
@@ -54,30 +62,23 @@ img {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding-bottom: 25px;
-}
+}   
 
 .nav {
     display: flex;
-    gap: 70px;
-    font-size: 30px;
+    gap: clamp(30px, 6vw, 70px);
+    font-size: clamp(16px, 3vw, 30px);
     font-family: 'Noto Serif KR', serif;
     width: fit-content;
     margin: 0 auto;
     white-space: nowrap;
 }
 
-.header-bottom .nav {
-    display: flex;
-    justify-content: center;
-    gap: 70px;
-    font-size: 30px;
-    font-family: 'Noto Serif KR', serif;
-}
 .header-bottom .nav a {
     padding: 8px 0;
     position: relative;
 }
+
 .header-bottom .nav a:hover::after {
     content: '';
     display: block;
@@ -94,68 +95,138 @@ img {
     color: black;
 }
 
-.header.sticky {
+/* sticky 상태일 때 */
+.header-ver2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+    background-color: white;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 10px 0;
 }
 
-.header.sticky .logo {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    transform: scale(0.7); /* 로고 크기 줄이기 */
-    transition: transform 0.3s ease;
+.header-ver2-container {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* nav가 중앙 */
+    align-items: center;
+    position: relative;
+    height: 74px;
 }
 
-.header.sticky .nav {
-    font-size: 20px; /* 글자 크기 줄이기 */
-    gap: 40px;
+.logo-ver2 {
+    margin-top: 1px;
+    margin-bottom: 5.85px;
+    position: absolute;
+    left: clamp(22.4px, 4.43vw, 85px);
+    height: clamp(25px, 3.6vw, 69.15px);
+}
+
+.logo-ver2 img {
+    height: 100%;
+}
+
+.auth-links-ver2 {
+    position: absolute;
+    right: clamp(9.1px, 1.82vw, 35px);
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1vw, 12px);
+    font-family: 'Noto Sans', sans-serif;
+    font-size: clamp(4px, 0.63vw, 13px);
+    font-weight: 600;
+}
+.auth-links-ver2 img {
+    height: clamp(3px, 0.77vw, 14px);
+}
+
+.nav-ver2 {
+    display: flex;
+    gap: clamp(15px, 3.87vw, 70px);
+    font-size: clamp(10px, 1.5625vw, 30px);
+    font-family: 'Noto Serif KR', serif;
+    white-space: nowrap;
+}
+
+.nav-ver2 a {
+    position: relative;
+}
+
+.nav-ver2 a:hover::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #111;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.nav-ver2 a, .auth-links-ver2 a {
+    text-decoration: none;
+    color: black;
+}
+
+.auth-links-ver2 a {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;  
 }
 
 .hero {
-    background: url('/img/hero.png') no-repeat center center/cover;
+    position: relative;
+    background: url('/img/hero.png') no-repeat center center / cover;
     color: white;
     overflow: hidden;
-    height: 795px;
+    height: clamp(500px, 80vh, 795px); /* 화면 높이에 따라 반응 */
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .slogan1 {
-    display: flex;
-    margin-top: 60px;
-    margin-bottom: 40px;
-    margin-left: 2%;
+    display: block;
+    margin-top: clamp(30px, 5vh, 60px);
+    margin-bottom: clamp(20px, 5vh, 40px);
+    margin-left: clamp(10px, 2vw, 2%);
+    width: clamp(200px, 30vw, 588px); /* 이미지도 반응형 */
 }
 
 .search-bar {
     display: flex;
     flex-direction: column;
-    max-width: 300px;
-    margin-left: 2%;
-}
-
-.slogan2 {
-    display: block;
-    position: relative;
-    margin-top: 260px;
-    left: 54.5%;
+    max-width: clamp(200px, 30vw, 300px);
+    margin-left: clamp(10px, 2vw, 2%);
 }
 
 .label-group {
     font-family: 'Noto Serif KR', serif;
-    font-size: 30px;
+    font-size: clamp(18px, 2.5vw, 30px);
     display: flex;
-    gap: 34px;
-    margin-bottom: 28px;
+    gap: clamp(16px, 4vw, 34px);
+    margin-bottom: clamp(10px, 2vh, 28px);
 }
 
 .search-bar input {
     margin-bottom: 10px;
-    padding: 8px;
+    padding: clamp(6px, 1.2vh, 10px);
+    font-size: clamp(12px, 1.5vw, 16px);
 }
+
+.slogan2 {
+    display: block;
+    position: absolute; /* 절대 위치 기준 */
+    right: 35px; /* 오른쪽에서 35px 떨어지게 */
+    margin-top: clamp(100px, 20vh, 260px);
+    width: clamp(300px, 43.44vw, 834px);
+    bottom: 70px;
+}
+
 
 .custom-shoes, .curated, .stores, .journal {
     text-align: center;
@@ -234,7 +305,7 @@ img {
 }
 
 /* ===== Responsive (Mobile) ===== */
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
     .header {
         flex-direction: column;
         align-items: flex-start;
@@ -273,4 +344,4 @@ img {
         flex-direction: column;
         align-items: center;
     }
-}
+}*/
