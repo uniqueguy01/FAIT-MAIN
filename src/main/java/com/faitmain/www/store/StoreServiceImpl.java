@@ -64,44 +64,44 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public void delete(String ceonum) {
+	public void delete(Long id) {
 		
 		// 1. 가게 이미지 삭제
-		dao.deleteStoreImg(ceonum);
+		dao.deleteStoreImg(id);
 		
 		// 2. 가게 정보 삭제
-		dao.delete(ceonum);
+		dao.delete(id);
 	}
 
 	@Override
-	public Store item(String ceonum) {
+	public Store item(Long id) {
 		
 		// 1. 가게 정보 하나 가져와서 저장
-		Store item = dao.item(ceonum);
+		Store item = dao.item(id);
 		
 		// 2. 가게 정보 하나 리턴
 		return item;
 	}
 
 	@Override
-	public StoreImg itemStoreImg(String ceonum) {
+	public StoreImg itemStoreImg(Long id) {
 		
 		// 가게 이미지 하나 리턴
-		return dao.itemStoreImg(ceonum);
+		return dao.itemStoreImg(id);
 		
 	}
 
 	@Override
-	public void deleteStoreImg(String ceonum) {
+	public void deleteStoreImg(Long id) {
 		
 		// 가게 이미지 삭제
-		dao.deleteStoreImg(ceonum);
+		dao.deleteStoreImg(id);
 		
 	}
 
 	@Override
-	public Store getCeonum(String id) {
-		return dao.getCeonum(id);
+	public Store getStoreId(String id) {
+		return dao.getStoreId(id);
 	}
 
 }

@@ -14,18 +14,18 @@ public interface StoreDao {
 
 	void update(Store item);
 
-	void delete(String ceonum);
+	void delete(Long id);
 
-	Store item(String ceonum);
+	Store item(Long id);
 
-	StoreImg itemStoreImg(String ceonum);
+	StoreImg itemStoreImg(Long id);
 
-	void deleteStoreImg(String ceonum);
+	void deleteStoreImg(Long id);
 
 	void addStoreImg(StoreImg storeImg);
 
 	void addMaker(Maker maker);
 
-	Store getCeonum(String id);
+	Store getStoreId(String id);
 
 }

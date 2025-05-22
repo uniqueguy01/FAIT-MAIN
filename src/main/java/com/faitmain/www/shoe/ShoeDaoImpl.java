@@ -47,7 +47,7 @@ public class ShoeDaoImpl implements ShoeDao {
 
 	@Override
 	public void deleteShoeImg(Long id) {
-		sql.delete("shoe.delete_shoeImg", id);
+		sql.delete("shoe.deleteShoeImg", id);
 	}
 
 	@Override
@@ -56,8 +56,8 @@ public class ShoeDaoImpl implements ShoeDao {
 	}
 
 	@Override
-	public List<Shoe> list(String ceonum) {
-		return sql.selectList("shoe.storeList", ceonum);
+	public List<Shoe> list(Long id) {
+		return sql.selectList("shoe.storeList", id);
 	}
 
 }

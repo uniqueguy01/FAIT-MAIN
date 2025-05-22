@@ -39,7 +39,7 @@ public class FaitMainRootController {
 
 	    // 로그인 상태일 경우만 해당 고객의 가게 가져오기
 	    if (customer != null) {
-	        Store myStore = storeService.getCeonum(customer.getId());  // 고객 ID로 가게 조회
+	        Store myStore = storeService.getStoreId(customer.getId());  // 고객 ID로 가게 조회
 	        model.addAttribute("myStore", myStore); // 로그인한 고객의 가게 정보
 	    }
 		
@@ -54,7 +54,7 @@ public class FaitMainRootController {
 
 	    // 로그인 상태일 경우만 해당 고객의 가게 가져오기
 	    if (customer != null) {
-	        Store myStore = storeService.getCeonum(customer.getId());  // 고객 ID로 가게 조회
+	        Store myStore = storeService.getStoreId(customer.getId());  // 고객 ID로 가게 조회
 	        model.addAttribute("myStore", myStore); // 로그인한 고객의 가게 정보
 	    }
 	    
