@@ -27,7 +27,7 @@ public class ShoeServiceImpl implements ShoeService {
 		
 		if(item.getShoeImg() != null) {
 			for(ShoeImg shoeImg : item.getShoeImg()) {
-				shoeImg.setShoeid(item.getId());
+				shoeImg.setShoeId(item.getId());
 				dao.addShoeImg(shoeImg);
 			}
 		}
@@ -39,7 +39,7 @@ public class ShoeServiceImpl implements ShoeService {
 		
 		if(item.getShoeImg() != null) {
 			for(ShoeImg shoeImg : item.getShoeImg()) {
-				shoeImg.setShoeid(item.getId());
+				shoeImg.setShoeId(item.getId());
 				dao.addShoeImg(shoeImg);
 			}
 		}

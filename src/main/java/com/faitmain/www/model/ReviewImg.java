@@ -4,7 +4,7 @@ public class ReviewImg {
 
 	private Long id;
 	private Long reivewId;
-	private String file;
+	private String filename;
 	private String uuid;
 
 	public Long getId() {
@@ -23,12 +23,12 @@ public class ReviewImg {
 		this.reivewId = reivewId;
 	}
 
-	public String getFile() {
-		return file;
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setFile(String file) {
-		this.file = file;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public String getUuid() {

@@ -5,7 +5,7 @@ import java.util.List;
 public class Shoe {
 
 	private Long id;
-	private String ceonum;
+	private Long storeId;
 	private String name;
 	private int price;
 	private String detail;
@@ -20,12 +20,12 @@ public class Shoe {
 		this.id = id;
 	}
 
-	public String getCeonum() {
-		return ceonum;
+	public Long getStoreId() {
+		return storeId;
 	}
 
-	public void setCeonum(String ceonum) {
-		this.ceonum = ceonum;
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
 	}
 
 	public String getName() {

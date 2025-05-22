@@ -3,8 +3,8 @@ package com.faitmain.www.model;
 public class ShoeImg {
 
 	private Long id;
-	private Long shoeid;
-	private String file;
+	private Long shoeId;
+	private String filename;
 	private String uuid;
 
 	public Long getId() {
@@ -15,20 +15,20 @@ public class ShoeImg {
 		this.id = id;
 	}
 
-	public Long getShoeid() {
-		return shoeid;
+	public Long getShoeId() {
+		return shoeId;
 	}
 
-	public void setShoeid(Long shoeid) {
-		this.shoeid = shoeid;
+	public void setShoeId(Long shoeId) {
+		this.shoeId = shoeId;
 	}
 
-	public String getFile() {
-		return file;
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setFile(String file) {
-		this.file = file;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public String getUuid() {

@@ -2,10 +2,10 @@ package com.faitmain.www.model;
 
 public class Maker {
 	private Long id;
-	private String ceonum;
+	private Long storeId;
 	private String name;
 	private String info;
-	private String file;
+	private String filename;
 	private String uuid;
 
 	public Long getId() {
@@ -16,12 +16,12 @@ public class Maker {
 		this.id = id;
 	}
 
-	public String getCeonum() {
-		return ceonum;
+	public Long getStoreId() {
+		return storeId;
 	}
 
-	public void setCeonum(String ceonum) {
-		this.ceonum = ceonum;
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
 	}
 
 	public String getName() {
@@ -40,12 +40,12 @@ public class Maker {
 		this.info = info;
 	}
 
-	public String getFile() {
-		return file;
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setFile(String file) {
-		this.file = file;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public String getUuid() {

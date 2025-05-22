@@ -62,7 +62,7 @@ public class ShoeController {
 					file.transferTo(new File(uploadPath + uuid + "_" + filename));
 						
 					ShoeImg shoeImg = new ShoeImg();
-					shoeImg.setFile(filename);
+					shoeImg.setFilename(filename);
 					shoeImg.setUuid(uuid);
 						
 					shoeImgs.add(shoeImg);
@@ -105,7 +105,7 @@ public class ShoeController {
 					file.transferTo(new File(uploadPath + uuid + "_" + filename));
 						
 					ShoeImg shoeImg = new ShoeImg();
-					shoeImg.setFile(filename);
+					shoeImg.setFilename(filename);
 					shoeImg.setUuid(uuid);
 						
 					shoeImgs.add(shoeImg);
@@ -128,7 +128,7 @@ public class ShoeController {
 		Shoe item = service.item(id);
 		
 		for(ShoeImg shoeImg : item.getShoeImg()) {
-			File file = new File (uploadPath + shoeImg.getUuid() + "_" + shoeImg.getFile());
+			File file = new File (uploadPath + shoeImg.getUuid() + "_" + shoeImg.getFilename());
 			file.delete();
 		}
 		
@@ -145,7 +145,7 @@ public class ShoeController {
 		
 		service.deleteShoeImg(id);
 		
-		File file = new File (uploadPath + item.getUuid() + "_" + item.getFile());
+		File file = new File (uploadPath + item.getUuid() + "_" + item.getFilename());
 		file.delete();
 		
 		return id.toString();

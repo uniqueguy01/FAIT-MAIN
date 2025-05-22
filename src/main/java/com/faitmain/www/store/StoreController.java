@@ -71,7 +71,7 @@ public class StoreController {
 	            mainImage.transferTo(new File(uploadPath + uuid + "_" + filename));
 
 	            StoreImg storeImg = new StoreImg();
-	            storeImg.setFile(filename);
+	            storeImg.setFilename(filename);
 	            storeImg.setUuid(uuid);
 	            storeImg.setType("main"); // ✅ 타입 지정
 
@@ -90,7 +90,7 @@ public class StoreController {
 	                file.transferTo(new File(uploadPath + uuid + "_" + filename));
 
 	                StoreImg storeImg = new StoreImg();
-	                storeImg.setFile(filename);
+	                storeImg.setFilename(filename);
 	                storeImg.setUuid(uuid);
 	                storeImg.setType("banner"); // ✅ 타입 지정
 
@@ -104,7 +104,7 @@ public class StoreController {
 	    // 작가 정보 처리
 	    for (int i = 0; i < makerName.size(); i++) {
 	        Maker maker = new Maker();
-	        maker.setCeonum(item.getCeonum());
+	        maker.setStoreId(item.getId());
 	        maker.setName(makerName.get(i));
 	        maker.setInfo(makerInfo.get(i));
 
@@ -115,7 +115,7 @@ public class StoreController {
 	                String uuid = UUID.randomUUID().toString();
 	                file.transferTo(new File(uploadPath + uuid + "_" + filename));
 
-	                maker.setFile(filename);
+	                maker.setFilename(filename);
 	                maker.setUuid(uuid);
 	            } catch (Exception e) {
 	                e.printStackTrace();
@@ -161,7 +161,7 @@ public class StoreController {
 					file.transferTo(new File(uploadPath + uuid + "_" + filename));
 						
 					StoreImg storeImg = new StoreImg();
-					storeImg.setFile(filename);
+					storeImg.setFilename(filename);
 					storeImg.setUuid(uuid);
 						
 					storeImgs.add(storeImg);
@@ -184,7 +184,7 @@ public class StoreController {
 		Store item = service.item(ceonum);
 		
 		for(StoreImg storeImg : item.getStoreImg()) {
-			File file = new File (uploadPath + storeImg.getUuid() + "_" + storeImg.getFile());
+			File file = new File (uploadPath + storeImg.getUuid() + "_" + storeImg.getFilename());
 			file.delete();
 		}
 		
@@ -201,7 +201,7 @@ public class StoreController {
 		
 		service.deleteStoreImg(ceonum);
 		
-		File file = new File (uploadPath + item.getUuid() + "_" + item.getFile());
+		File file = new File (uploadPath + item.getUuid() + "_" + item.getFilename());
 		file.delete();
 		
 		return "index";

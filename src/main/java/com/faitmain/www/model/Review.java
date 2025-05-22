@@ -6,8 +6,8 @@ import java.util.List;
 public class Review {
 
 	private Long id;
-	private String ceonum;
-	private String custid;
+	private Long storeId;
+	private String custId;
 	private int rating;
 	private String content;
 	private Date regDate;
@@ -21,20 +21,20 @@ public class Review {
 		this.id = id;
 	}
 
-	public String getCeonum() {
-		return ceonum;
+	public Long getStoreId() {
+		return storeId;
 	}
 
-	public void setCeonum(String ceonum) {
-		this.ceonum = ceonum;
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
 	}
 
-	public String getCustid() {
-		return custid;
+	public String getCustId() {
+		return custId;
 	}
 
-	public void setCustid(String custid) {
-		this.custid = custid;
+	public void setCustId(String custId) {
+		this.custId = custId;
 	}
 
 	public int getRating() {

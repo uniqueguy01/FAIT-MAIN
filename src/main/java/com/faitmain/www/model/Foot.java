@@ -1,34 +1,51 @@
 package com.faitmain.www.model;
 
 public class Foot {
-	
-	private String custid;
-	private Long size;
+
+	private String id;
+	private String custId;
+	private Long footSize;
 	private String shape;
 	private String insole;
-	
-	public String getCustid() {
-		return custid;
+
+	public String getId() {
+		return id;
 	}
-	public void setCustid(String custid) {
-		this.custid = custid;
+
+	public void setId(String id) {
+		this.id = id;
 	}
-	public Long getSize() {
-		return size;
+
+	public String getCustId() {
+		return custId;
 	}
-	public void setSize(Long size) {
-		this.size = size;
+
+	public void setCustId(String custId) {
+		this.custId = custId;
 	}
+
+	public Long getFootSize() {
+		return footSize;
+	}
+
+	public void setFootSize(Long footSize) {
+		this.footSize = footSize;
+	}
+
 	public String getShape() {
 		return shape;
 	}
+
 	public void setShape(String shape) {
 		this.shape = shape;
 	}
+
 	public String getInsole() {
 		return insole;
 	}
+
 	public void setInsole(String insole) {
 		this.insole = insole;
 	}
+
 }
