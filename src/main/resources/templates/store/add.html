@@ -85,9 +85,16 @@
 							<button type="button" onclick="searchRoadAddress()">주소 검색</button>
 						</div>
 						
+						<!-- 대표 이미지 (메인 페이지 대표 이미지) -->
 						<div>
-							<label>배너 이미지</label>
-							<input type="file" name="storeBanner" accept="image/*" required>
+						    <label>대표 이미지</label>
+						    <input type="file" name="mainImage" accept="image/*" required>
+						</div>
+						
+						<!-- 배너 이미지 (여러 개 업로드 가능) -->
+						<div>
+						    <label>배너 이미지</label>
+						    <input type="file" name="bannerImage" accept="image/*" multiple required>
 						</div>
 					</div>
 					

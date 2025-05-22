@@ -57,26 +57,47 @@ public class StoreController {
 	
 	// 가게 정보 추가
 	@PostMapping("/add")
-	String imgadd(Store item, @RequestParam("makerName") List<String> makerName, @RequestParam("makerInfo") List<String> makerInfo, @RequestParam("storeBanner") MultipartFile storeBanner, @RequestParam("makerImages") List<MultipartFile> makerImages) {
+	String imgadd(Store item, @RequestParam("makerName") List<String> makerName, @RequestParam("makerInfo") List<String> makerInfo, @RequestParam("mainImage") MultipartFile mainImage, @RequestParam("bannerImage") List<MultipartFile> bannerImage, @RequestParam("makerImages") List<MultipartFile> makerImages) {
 		
 		List<Maker> makerList = new ArrayList<>();
 		
-	    // 가게 배너 이미지 처리
-	    if (storeBanner != null && !storeBanner.isEmpty()) {
+		List<StoreImg> storeImgs = new ArrayList<>();
+		
+		// 대표 이미지 (1개)
+	    if (mainImage != null && !mainImage.isEmpty()) {
 	        try {
-	            String filename = storeBanner.getOriginalFilename();
+	            String filename = mainImage.getOriginalFilename();
 	            String uuid = UUID.randomUUID().toString();
-	            storeBanner.transferTo(new File(uploadPath + uuid + "_" + filename));
+	            mainImage.transferTo(new File(uploadPath + uuid + "_" + filename));
 
-	            StoreImg img = new StoreImg();
-	            img.setFile(filename);
-	            img.setUuid(uuid);
+	            StoreImg storeImg = new StoreImg();
+	            storeImg.setFile(filename);
+	            storeImg.setUuid(uuid);
+	            storeImg.setType("main"); // ✅ 타입 지정
 
-	            List<StoreImg> imgs = new ArrayList<>();
-	            imgs.add(img);
-	            item.setStoreImg(imgs);
+	            storeImgs.add(storeImg);
 	        } catch (Exception e) {
 	            e.printStackTrace();
+	        }
+	    }
+	    
+	 // 배너 이미지 (여러 개)
+	    for (MultipartFile file : bannerImage) {
+	        if (file != null && !file.isEmpty()) {
+	            try {
+	                String filename = file.getOriginalFilename();
+	                String uuid = UUID.randomUUID().toString();
+	                file.transferTo(new File(uploadPath + uuid + "_" + filename));
+
+	                StoreImg storeImg = new StoreImg();
+	                storeImg.setFile(filename);
+	                storeImg.setUuid(uuid);
+	                storeImg.setType("banner"); // ✅ 타입 지정
+
+	                storeImgs.add(storeImg);
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
 	        }
 	    }
 
@@ -104,6 +125,7 @@ public class StoreController {
 	        makerList.add(maker);
 	    }
 	    
+	    item.setStoreImg(storeImgs);
 	    item.setMaker(makerList);
 	    
 	    // 가게 정보 저장

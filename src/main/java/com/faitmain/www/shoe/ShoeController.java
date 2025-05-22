@@ -24,7 +24,7 @@ public class ShoeController {
 
 	final String path = "shoe/";
 	
-	final String uploadPath = "c:/upload/";
+	final String uploadPath = "src/main/resources/static/img/";
 	
 	@Autowired
 	ShoeService service;

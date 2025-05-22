@@ -40,7 +40,7 @@
 						<td th:text="${item.detail}"></td>
 						<td>
 							<div th:each="img : ${item.shoeImg}">
-								<img th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.file}}" width="100"/>
+								<img th:src="@{'/img/' + ${img.uuid} + '_' + ${img.file}}" width="100"/>
 							</div>
 						</td>
 						<td><a th:href="@{|update/${item.id}|}">변경</a> <a th:href="@{|delete/${item.id}|}">삭제</a></td>

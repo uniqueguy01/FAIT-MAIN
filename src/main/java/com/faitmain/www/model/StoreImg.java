@@ -4,6 +4,7 @@ public class StoreImg {
 
 	private Long id;
 	private String ceonum;
+	private String type;
 	private String file;
 	private String uuid;
 
@@ -21,6 +22,14 @@ public class StoreImg {
 
 	public void setCeonum(String ceonum) {
 		this.ceonum = ceonum;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getFile() {

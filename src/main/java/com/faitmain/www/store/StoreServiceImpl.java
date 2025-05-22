@@ -20,8 +20,7 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public List<Store> list() {
 		
-		// 가게 정보 리턴
-		return dao.list();
+	    return dao.list();
 		
 	}
 
