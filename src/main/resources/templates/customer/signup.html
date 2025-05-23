@@ -4,6 +4,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <th:block th:replace="~{/fragment/head.html :: header}"></th:block>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+	function searchRoadAddress() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            // ✅ 도로명 주소만 입력창에 삽입
+	            document.getElementById('roadAddress').value = data.roadAddress;
+	        }
+	    }).open();
+	}
+</script>
+
 </head>
 <body>
 	<div>
@@ -12,40 +26,41 @@
 		</div>
 		
 		<div>
-            <form th:action="@{/customer/add}" th:object="${customer}" method="post">
+            <form method="post" id="signup" action="signup">
                 <div>
                     <label>아이디:</label>
-                    <div><input type="text" th:field="*{id}" /></div>
+                    <div><input type="text" name="id"/></div>
                 </div>
 
                 <div>
                     <label>비밀번호:</label>
-                    <div><input type="text" th:field="*{password}" /></div>
+                    <div><input type="text" name="password"/></div>
                 </div>
 
                 <div>
                     <label>이름:</label>
-                    <div><input type="text" th:field="*{name}" /></div>
+                    <div><input type="text" name="name"/></div>
                 </div>
 
                 <div>
-                    <label>주소:</label>
-                    <div><input type="text" th:field="*{address}" /></div>
-                </div>
+                	<label>주소</label>
+					<input type="text" id="roadAddress" name="address" placeholder="도로명 주소" required>
+					<button type="button" onclick="searchRoadAddress()">주소 검색</button>
+				</div>
                 
                 <div>
                     <label>전화번호:</label>
-                    <div><input type="text" th:field="*{phone}" /></div>
+                    <div><input type="text" name="phone" /></div>
                 </div>
                 
                 <div>
                     <label>생년월일:</label>
-                    <div><input type="date" th:field="*{birth}" /></div>
+                    <div><input type="date" name="birth"/></div>
                 </div>
 
                 <div>
-                    <div><button type="submit">등록</button></div>
-                    <div><a th:href="@{/customer/list}">취소</a></div>
+                    <div><button>등록</button></div>
+                    <div><a href="/">취소</a></div>
                 </div>
             </form>
         </div>

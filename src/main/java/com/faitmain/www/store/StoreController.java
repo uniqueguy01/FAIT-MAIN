@@ -81,7 +81,7 @@ public class StoreController {
 	        }
 	    }
 	    
-	 // 배너 이미지 (여러 개)
+	 // 배너 이미지
 	    for (MultipartFile file : bannerImage) {
 	        if (file != null && !file.isEmpty()) {
 	            try {
@@ -100,11 +100,12 @@ public class StoreController {
 	            }
 	        }
 	    }
+	    
+	    
 
 	    // 작가 정보 처리
 	    for (int i = 0; i < makerName.size(); i++) {
 	        Maker maker = new Maker();
-	        maker.setStoreId(item.getId());
 	        maker.setName(makerName.get(i));
 	        maker.setInfo(makerInfo.get(i));
 
@@ -131,7 +132,7 @@ public class StoreController {
 	    // 가게 정보 저장
 	    service.add(item); // 내부적으로 StoreImg도 insert됨 + 작가 정보
 		
-		return "redirect:/";
+		return "redirect:/mypage";
 
 	}
 	
@@ -183,10 +184,18 @@ public class StoreController {
 	String delete(@PathVariable Long id) {
 		Store item = service.item(id);
 		
+		// 1. 가게 이미지 삭제
 		for(StoreImg storeImg : item.getStoreImg()) {
 			File file = new File (uploadPath + storeImg.getUuid() + "_" + storeImg.getFilename());
 			file.delete();
 		}
+		
+		// 2. 작가 이미지 삭제
+	    if (item.getMaker() != null) {
+	        for (Maker maker : item.getMaker()) {
+	            new File(uploadPath + maker.getUuid() + "_" + maker.getFilename()).delete();
+	        }
+	    }
 		
 		service.delete(id);
 		

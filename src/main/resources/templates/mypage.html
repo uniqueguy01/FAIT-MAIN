@@ -17,11 +17,15 @@
 		</div>
 		
 		<div>
-			<div><a href="shoe/list">신발관리</a></div>
 			<div th:if="${myStore != null}">
-				<a th:href="@{'/store/update/' + ${myStore.ceonum}}">가게수정</a>
+				<a th:href="@{'/add/list/' + ${myStore.id}}">신발관리</a>
+				<a th:href="@{'/store/update/' + ${myStore.id}}">가게수정</a>
+				<a th:href="@{'/store/delete/' + ${myStore.id}}">가게삭제</a>
 			</div>
-			<div><a href="store/add">가게등록</a></div>
+			
+			<div th:unless="${myStore != null}">
+	            <a href="store/add">가게등록</a> <!-- ✅ 조건에 따라 숨겨짐 -->
+	        </div>
 		</div>
 	</div>
 </body>

@@ -92,10 +92,14 @@
 	</select>
     
     <!-- 가게 정보 추가 -->
-    <insert id="add" parameterType="Store" useGeneratedKeys="true" keyProperty="ceonum">
-    	INSERT INTO store (id, cust_id, ceonum, name, address)
-    	VALUES (STORE_SEQ.nextval, #{custid}, #{ceonum}, #{name}, #{address})
-    </insert>
+    <insert id="add" parameterType="Store">
+	    <selectKey keyProperty="id" order="BEFORE" resultType="Long">
+	        SELECT STORE_SEQ.NEXTVAL FROM dual
+	    </selectKey>
+	    
+	    INSERT INTO store (id, cust_id, ceonum, name, address)
+	    VALUES (#{id}, #{custId}, #{ceonum}, #{name}, #{address})
+	</insert>
     
     <!-- 가게 사진 추가 -->
     <insert id="addStoreImg">
@@ -125,6 +129,12 @@
     <!-- 가게 사진 삭제 -->
     <delete id="deleteStoreImg">
     	DELETE FROM store_img
+    	WHERE store_id=#{storeId}
+    </delete>
+    
+    <!-- 작가 정보 삭제 -->
+    <delete id="deleteMaker">
+    	DELETE FROM maker
     	WHERE store_id=#{storeId}
     </delete>
     

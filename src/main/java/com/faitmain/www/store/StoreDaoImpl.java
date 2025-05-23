@@ -66,4 +66,10 @@ public class StoreDaoImpl implements StoreDao {
 		return sql.selectOne("store.getStoreId", id);
 	}
 
+	@Override
+	public void deleteMaker(Long id) {
+		sql.delete("store.deleteMaker", id);
+		
+	}
+
 }

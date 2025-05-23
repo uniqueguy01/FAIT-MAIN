@@ -28,4 +28,6 @@ public interface StoreDao {
 
 	Store getStoreId(String id);
 
+	void deleteMaker(Long id);
+
 }
