@@ -61,11 +61,11 @@ public class CustomerController {
        return path + "signup";
    }
    
-   @PostMapping("/add")
+   @PostMapping("/signup")
    String add(Customer item) {
       service.add(item);
       
-      return "redirect:list";
+      return "redirect:/";
    }
    
    @GetMapping("/delete/{id}")

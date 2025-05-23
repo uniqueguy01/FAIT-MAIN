@@ -25,8 +25,15 @@
             <div class="auth-links" th:if="${session.customer == null}">
                 <a href="customer/login">LOGIN</a>
                 <img src="/img/Line 1.png" alt="">
-                <a href="customer/singup">SIGNUP</a>
+                <a href="customer/signup">SIGNUP</a>
             </div>
+            
+            <div class="auth-links" th:if="${session.customer != null}">
+	        	<a href="/mypage">MYPAGE</a>
+	        	<img src="/img/Line 1.png" alt="">
+				<a href="/customer/logout">LOGOUT</a>
+	        </div>
+        
             <div class="logo">
                 <a href="#">
                     <img src="/img/logo.png"/>
@@ -100,10 +107,17 @@
         <h2>CURATED STORES</h2>
         <p>개성넘치는 디자인과 다양한 수제화 장인을<br>다양한 매장에서 특별한 신발을 만들어보세요</p>
         <div class="store-logos">
-        <img src="img/ladeng.png" alt="Ladeng" />
-        <img src="img/dragon.png" alt="Dragon" />
-        <img src="img/crockett.png" alt="Crockett" />
-        <img src="img/vass.png" alt="Vass" />
+        	<th:block th:each="store, iter : ${storeList}">
+        		<th:block th:if="${iter.count <= 4}">
+        			<a th:href="@{'/store/list/' + ${store.id}}">
+			            <th:block th:each="img : ${store.storeImg}">
+	    					<img th:if="${img.type == 'main'}"
+	    					     th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.filename}}"
+	    					     alt="대표 이미지" />
+	    				</th:block>
+			        </a>
+        		</th:block>
+        	</th:block>
         </div>
     </section>
 

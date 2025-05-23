@@ -69,7 +69,10 @@ public class StoreServiceImpl implements StoreService {
 		// 1. 가게 이미지 삭제
 		dao.deleteStoreImg(id);
 		
-		// 2. 가게 정보 삭제
+		// 2. 작가 삭제
+		dao.deleteMaker(id);
+		
+		// 3. 가게 정보 삭제
 		dao.delete(id);
 	}
 
