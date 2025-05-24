@@ -43,15 +43,15 @@
 								<img th:src="@{'/img/' + ${img.uuid} + '_' + ${img.filename}}" width="100"/>
 							</div>
 						</td>
-						<td><a th:href="@{|update/${item.id}|}">변경</a> <a th:href="@{|delete/${item.id}|}">삭제</a></td>
+						<td><a th:href="@{'/shoe/update/' + ${item.id}}">변경</a> <a th:href="@{'/shoe/delete/' + ${item.id}}">삭제</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		
 		<div>
-			<div><a href="add">등록</a></div>
-			<div><a href="../mypage">이전</a></div>
+			<div><a href="/shoe/add">등록</a></div>
+			<div><a href="/mypage">이전</a></div>
 		</div>
 	</div>
 </body>

@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.faitmain.www.model.Customer;
 import com.faitmain.www.model.Shoe;
 import com.faitmain.www.model.ShoeImg;
+import com.faitmain.www.model.Store;
+import com.faitmain.www.store.StoreService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/shoe")
@@ -29,20 +34,29 @@ public class ShoeController {
 	@Autowired
 	ShoeService service;
 	
+	@Autowired
+	StoreService storeService;
+	
 	// 신발 리스트 페이지
-	@GetMapping("/list")
-	String list(Model model) {
+	@GetMapping("/list/{id}")
+	String list(@PathVariable Long id, Model model) {
 		
-		List<Shoe> list = service.list();
+		List<Shoe> list = service.list(id); // storeId 기준 신발 목록
 		
-		model.addAttribute("list", list);
+	    model.addAttribute("list", list);
 		
 		return path + "list";
 	}
 	
 	// 신발 정보 추가 페이지
 	@GetMapping("/add")
-	String add() {
+	String add(Model model, HttpSession session) {
+		
+		Customer customer = (Customer) session.getAttribute("customer");
+		
+		Store item = storeService.getStoreId(customer.getId());
+		
+	    model.addAttribute("item", item);
 		
 		return path + "add";
 	}

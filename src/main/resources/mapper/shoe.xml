@@ -52,7 +52,7 @@
 	</select>
 
 	<!-- 가게와 관련된 신발 정보 하나 -->
-	<select id="storeList" parameterType="String"
+	<select id="storeList" parameterType="Long"
 		resultMap="shoeMap">
 		SELECT shoe.id,
 			   shoe.store_id,

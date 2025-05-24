@@ -53,7 +53,7 @@
     </select>
     
     <!-- 가게 정보 하나 -->
-    <select id="item" resultMap="storeMap">
+    <select id="item" resultMap="storeMap" parameterType="Long">
     	SELECT store.id,
         	   store.cust_id,
         	   store.ceonum,
@@ -76,7 +76,7 @@
         FROM store
         LEFT JOIN store_img ON store.id=store_img.store_id
         LEFT JOIN maker ON store.id = maker.store_id
-        WHERE store.id=#{storeId}
+        WHERE store.id=#{id}
     </select>
     
     <!-- 가게 사진 하나 -->
