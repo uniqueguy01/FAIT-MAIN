@@ -79,10 +79,13 @@
 	</select>
 
 	<!-- 신발 정보 추가 -->
-	<insert id="add" parameterType="Shoe" useGeneratedKeys="true"
-		keyProperty="id">
-		INSERT INTO shoe (id, store_id, name, price, detail, category)
-		VALUES (SHOE_SEQ.nextval, #{storeId}, #{name}, #{price}, #{detail}, #{category})
+	<insert id="add" parameterType="Shoe">
+	    <selectKey keyProperty="id" resultType="long" order="BEFORE">
+	        SELECT SHOE_SEQ.NEXTVAL FROM DUAL
+	    </selectKey>
+	    
+	    INSERT INTO shoe (id, store_id, name, price, detail, category)
+	    VALUES (#{id}, #{storeId}, #{name}, #{price}, #{detail}, #{category})
 	</insert>
 
 	<!-- 신발 사진 추가 -->
@@ -107,7 +110,7 @@
 	<!-- 신발 사진 삭제 -->
 	<delete id="deleteShoeImg">
 		DELETE FROM shoe_img
-		WHERE id=#{id}
+		WHERE shoe_img.shoe_id=#{id}
 	</delete>
 
 </mapper>

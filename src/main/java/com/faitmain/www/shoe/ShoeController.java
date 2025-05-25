@@ -29,7 +29,7 @@ public class ShoeController {
 
 	final String path = "shoe/";
 	
-	final String uploadPath = "src/main/resources/static/img/";
+	final String uploadPath = "c:/upload/";
 	
 	@Autowired
 	ShoeService service;
@@ -90,7 +90,7 @@ public class ShoeController {
 		
 		service.add(item);
 		
-		return "redirect:list";
+		return "redirect:/shoe/list/" + item.getStoreId();
 
 	}
 	
@@ -148,7 +148,7 @@ public class ShoeController {
 		
 		service.delete(id);
 		
-		return "redirect:../list";
+		return "redirect:/shoe/list/" + item.getStoreId();
 	}
 	
 	// 신발 사진 삭제
