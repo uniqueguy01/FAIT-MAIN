@@ -19,7 +19,7 @@ public interface ShoeService {
 
 	ShoeImg itemShoeImg(Long id);
 
-	void deleteShoeImg(Long id);
+	void deleteItemShoeImg(Long id);
 
 	List<Shoe> list(Long id);
 	

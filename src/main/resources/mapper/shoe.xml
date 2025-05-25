@@ -112,5 +112,11 @@
 		DELETE FROM shoe_img
 		WHERE shoe_img.shoe_id=#{id}
 	</delete>
+	
+	<!-- 신발 사진 삭제 -->
+	<delete id="deleteItemShoeImg">
+		DELETE FROM shoe_img
+		WHERE id=#{id}
+	</delete>
 
 </mapper>
