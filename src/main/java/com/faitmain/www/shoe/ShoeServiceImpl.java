@@ -64,8 +64,8 @@ public class ShoeServiceImpl implements ShoeService {
 	}
 
 	@Override
-	public void deleteShoeImg(Long id) {
-		dao.deleteShoeImg(id);
+	public void deleteItemShoeImg(Long id) {
+		dao.deleteItemShoeImg(id);
 	}
 
 	@Override

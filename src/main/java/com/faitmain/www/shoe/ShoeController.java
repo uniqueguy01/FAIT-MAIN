@@ -110,30 +110,31 @@ public class ShoeController {
 		
 		List<ShoeImg> shoeImgs = new ArrayList<ShoeImg>();
 			
-		for(MultipartFile file : uploadFile) {
-			if(file != null && !file.isEmpty()) {
-				String filename = file.getOriginalFilename();
-				String uuid = UUID.randomUUID().toString();
-					
-				try {
-					file.transferTo(new File(uploadPath + uuid + "_" + filename));
-						
-					ShoeImg shoeImg = new ShoeImg();
-					shoeImg.setFilename(filename);
-					shoeImg.setUuid(uuid);
-						
-					shoeImgs.add(shoeImg);
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		if (uploadFile != null) {
+	        for (MultipartFile file : uploadFile) {
+	            if (file != null && !file.isEmpty()) {
+	                String filename = file.getOriginalFilename();
+	                String uuid = UUID.randomUUID().toString();
+
+	                try {
+	                    file.transferTo(new File(uploadPath + uuid + "_" + filename));
+
+	                    ShoeImg shoeImg = new ShoeImg();
+	                    shoeImg.setFilename(filename);
+	                    shoeImg.setUuid(uuid);
+	                    shoeImgs.add(shoeImg);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	    }
 			
 		item.setShoeImg(shoeImgs);
 		
 		service.update(item);
 		
-		return "redirect:../list";
+		return "redirect:/shoe/list/" + item.getStoreId();
 	}
 	
 	// 신발 정보 삭제
@@ -157,7 +158,7 @@ public class ShoeController {
 	String deleteShoeImg(@PathVariable Long id) {
 		ShoeImg item = service.itemShoeImg(id);
 		
-		service.deleteShoeImg(id);
+		service.deleteItemShoeImg(id);
 		
 		File file = new File (uploadPath + item.getUuid() + "_" + item.getFilename());
 		file.delete();

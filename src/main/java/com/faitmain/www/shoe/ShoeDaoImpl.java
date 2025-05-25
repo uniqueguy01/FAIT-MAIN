@@ -60,4 +60,9 @@ public class ShoeDaoImpl implements ShoeDao {
 		return sql.selectList("shoe.storeList", id);
 	}
 
+	@Override
+	public void deleteItemShoeImg(Long id) {
+		sql.delete("shoe.deleteItemShoeImg", id);
+	}
+
 }
