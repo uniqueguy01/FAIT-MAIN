@@ -181,3 +181,4 @@ CREATE TABLE IF NOT EXISTS online (
 	FOREIGN KEY (ceonum) REFERENCES store (ceonum),
 	FOREIGN KEY (shoeid) REFERENCES shoe (id)
 );
+
