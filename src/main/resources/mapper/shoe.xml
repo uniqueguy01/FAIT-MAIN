@@ -118,5 +118,17 @@
 		DELETE FROM shoe_img
 		WHERE id=#{id}
 	</delete>
+	
+	<!-- 1. shoe_img 삭제 -->
+	<delete id="delShoeImgs" parameterType="long">
+	    DELETE FROM shoe_img
+	    WHERE shoe_id IN (SELECT id FROM shoe WHERE store_id=#{id})
+	</delete>
+	
+	<!-- 2. shoe 삭제 -->
+	<delete id="delShoes" parameterType="long">
+	    DELETE FROM shoe
+	    WHERE store_id=#{id}
+	</delete>
 
 </mapper>

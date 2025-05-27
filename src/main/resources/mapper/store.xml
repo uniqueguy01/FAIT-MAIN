@@ -82,13 +82,18 @@
     <!-- 가게 사진 하나 -->
 	<select id="itemStoreImg" resultType="StoreImg">
 		SELECT * FROM store_img
-		WHERE store_id=#{storeId}
+		WHERE id=#{id}
 	</select>
 	
 	<!-- custId의 가게 -->
 	<select id="getStoreId" resultMap="storeMap">
 		SELECT * FROM store
 		WHERE cust_id=#{id}
+	</select>
+	
+	<select id="itemMaker" resultType="Maker">
+		SELECT * FROM maker
+		WHERE id=#{id}
 	</select>
     
     <!-- 가게 정보 추가 -->
@@ -102,15 +107,21 @@
 	</insert>
     
     <!-- 가게 사진 추가 -->
-    <insert id="addStoreImg">
+    <insert id="addStoreImg" parameterType="StoreImg">
+    	<selectKey keyProperty="id" order="BEFORE" resultType="Long">
+	        SELECT STOREIMG_SEQ.NEXTVAL FROM dual
+	    </selectKey>
 		INSERT INTO store_img(id, store_id, type, filename, uuid)
-		VALUES (STOREIMG_SEQ.nextval, #{storeId}, #{type}, #{filename}, #{uuid})
+		VALUES (#{id}, #{storeId}, #{type}, #{filename}, #{uuid})
 	</insert>
 	
 	<!-- 작가 정보 추가 -->
 	<insert id="addMaker" parameterType="Maker">
+		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
+	        SELECT MAKER_SEQ.NEXTVAL FROM dual
+	    </selectKey>
 		INSERT INTO maker (id, store_id, name, info, filename, uuid)
-		VALUES (MAKER_SEQ.nextval, #{storeId}, #{name}, #{info}, #{filename}, #{uuid})
+		VALUES (#{id}, #{storeId}, #{name}, #{info}, #{filename}, #{uuid})
 	</insert>
     
     <!-- 가게 정보 수정 -->
@@ -119,6 +130,14 @@
 		SET cust_id=#{custId}, ceonum=#{ceonum}, name=#{name}, address=#{address}
 		WHERE id=#{id}
     </update>
+    
+    <update id="updateMaker" parameterType="Maker">
+	    UPDATE maker
+	    SET name=#{name}, info=#{info}
+	    <if test="filename != null">, filename = #{filename}</if>
+        <if test="uuid != null">, uuid = #{uuid}</if>
+	    WHERE id=#{id}
+	</update>
     
     <!-- 가게 정보 삭제 -->
     <delete id="delete">
@@ -129,13 +148,13 @@
     <!-- 가게 사진 삭제 -->
     <delete id="deleteStoreImg">
     	DELETE FROM store_img
-    	WHERE store_id=#{storeId}
+    	WHERE store_id=#{id}
     </delete>
     
     <!-- 작가 정보 삭제 -->
     <delete id="deleteMaker">
     	DELETE FROM maker
-    	WHERE store_id=#{storeId}
+    	WHERE store_id=#{id}
     </delete>
     
 </mapper>

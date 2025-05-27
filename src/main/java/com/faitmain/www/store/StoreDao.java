@@ -30,4 +30,8 @@ public interface StoreDao {
 
 	void deleteMaker(Long id);
 
+	Maker itemMaker(Long id);
+
+	void updateMaker(Maker maker);
+
 }

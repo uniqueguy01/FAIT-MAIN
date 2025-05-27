@@ -15,88 +15,201 @@
 	    }).open();
 	}
 </script>
+
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
-		const deleteBtn = document.getElementById("delete-image-btn");
-		if (deleteBtn) {
-			deleteBtn.addEventListener("click", function () {
-				const imageId = document.querySelector('input[name="existingImageId"]').value;
-	
-				if (!imageId) return;
-	
-				// Ajax 요청으로 이미지 삭제
-				fetch(`/shoe/delete/storeimg/${imageId}`)
-					.then(res => res.text())
-					.then(result => {
-						console.log("삭제 완료:", result);
-	
-						// 이미지 영역을 업로드 필드로 교체
-						const imageSection = document.getElementById("image-section");
-						imageSection.innerHTML = `
-							<div id="upload-field">
-								<input type="file" name="uploadFile" accept="image/*">
-							</div>
-						`;
-					})
-					.catch(err => {
-						console.error("삭제 실패:", err);
-						alert("이미지 삭제 중 오류가 발생했습니다.");
-					});
-			});
+	    // ✅ 대표 이미지 삭제
+	    const deleteMainBtn = document.getElementById("delete-main-btn");
+		if (deleteMainBtn) {
+		    deleteMainBtn.addEventListener("click", function () {
+		        const imageId = document.querySelector("input[name='existingMainImageId']").value;
+		        if (!imageId) return;
+		
+		        fetch(`/store/delete/storeimg/${imageId}`)
+		            .then(res => res.text())
+		            .then(result => {
+		            	console.log("삭제 완료:", result);
+		                    const mainBox = document.getElementById("main-image-box");
+		                    if (mainBox) mainBox.remove();
+		                    
+		                 	// 업로드 input 동적으로 생성
+		                    const uploadField = document.getElementById("main-upload-field");
+		                    uploadField.style.display = "block";
+		            });
+		    });
 		}
+	
+	    // ✅ 배너 이미지 삭제
+	   	const deleteBannerBtn = document.getElementById("delete-banner-btn");
+		if (deleteBannerBtn) {
+			deleteBannerBtn.addEventListener("click", function () {
+		        const imageId = document.querySelector("input[name='existingBannerImageId']").value;
+		        if (!imageId) return;
+			
+		        fetch(`/store/delete/storeimg/${imageId}`)
+		            .then(res => res.text())
+		            .then(result => {
+		            	console.log("삭제 완료:", result);
+		                    const bannerBox = document.getElementById("banner-image-box");
+		                    if (bannerBox) bannerBox.remove();
+			                    
+		                 	// 업로드 input 동적으로 생성
+		                    const uploadField = document.getElementById("banner-upload-field");
+		                    uploadField.style.display = "block";
+		            });
+		    });
+		}
+	
+	    // ✅ 작가 삭제 버튼 처리 (위임 방식)
+	    const makerContainer = document.getElementById("maker-container");
+	    makerContainer.addEventListener("click", function (e) {
+		    if (e.target.classList.contains("delete-maker-btn")) {
+		        const group = e.target.closest(".maker-group");
+		        const makerId = group.querySelector("input[name='makerIds']")?.value;
+		
+		        if (makerId) {
+		            fetch(`/store/delete/maker/${makerId}`)
+		                .then(res => res.text())
+		                .then(result => {
+		                    if (result === makerId) {
+		                        group.remove();
+		                    }
+		                });
+		        } else {
+		            group.remove(); // 새로 추가된 작가면 바로 제거
+		        }
+		    }
+		});
+	
+	    // ✅ 작가 추가 버튼 클릭 시 템플릿 복제
+	    const addMakerBtn = document.getElementById("add-maker-btn");
+	    const makerTemplate = document.getElementById("maker-template");
+	
+	    if (addMakerBtn && makerTemplate) {
+	        addMakerBtn.addEventListener("click", function () {
+	            const clone = makerTemplate.content.cloneNode(true);
+	            makerContainer.appendChild(clone);
+	        });
+	    }
+	
+	    // ✅ 페이지 처음 로드 시 작가가 0명이라면 인풋 자동 표시
+	    if (makerContainer.children.length === 0) {
+	        const clone = makerTemplate.content.cloneNode(true);
+	        makerContainer.appendChild(clone);
+	    }
 	});
 </script>
+
 </head>
 <body>
 	<div>
-		<div>
-			<h3>신발 정보 변경</h3>
-		</div>
-		
-		<div>
-			<form method="post" id="update" enctype="multipart/form-data">
-			
-				<div>
-					<label>사업자번호:</label>
-					<div><input type="text" name="ceonum" th:value="${item.ceonum}" readonly></div>
-				</div>
-				
-				<div>
-					<label>고객번호:</label>
-					<div><input type="text" name="custid" th:value="${item.custid}" readonly></div>
-				</div>
-				
-				<div>
-					<label>가게이름:</label>
-					<div><input type="text" name="name" th:value="${item.name}" required></div>
-				</div>
-				
-				<div>
-					<input type="text" id="roadAddress" name="address" placeholder="도로명 주소" th:value="${item.address}" required>
-					<button type="button" onclick="searchRoadAddress()">주소 검색</button>
-				</div>
-				
-				<div id="image-section">
-				<!-- 기존 이미지가 있을 경우 -->
-				<div th:if="${item.storeImg != null and item.storeImg.size() > 0}">
-					<img th:src="@{'/upload/' + ${item.storeImg[0].uuid} + '_' + ${item.storeImg[0].file}}"
-						 width="150" height="150" alt="가게 배너 이미지"/>
-					<input type="hidden" name="existingImageId" th:value="${item.storeImg[0].id}" required/>
-					<button type="button" id="delete-image-btn">삭제</button>
-				</div>
+	    <h3>가게 정보 수정</h3>
+	    <form method="post" id="update" enctype="multipart/form-data">
 	
-				<!-- 이미지 없을 때 파일 업로드 -->
-				<div th:if="${item.storeImg == null or item.storeImg.size() == 0}" id="upload-field">
-					<input type="file" name="uploadFile" accept="image/*">
-				</div>
-			</div>
-				
-				<div>
-					<div><button>변경</button></div>
-					<div><a href="/">취소</a></div>
-				</div>
-			</form>
-		</div>
+	        <!-- 기본 정보 -->
+	        <div>
+	        	<label>고객 ID</label>
+	        	<input type="text" name="custId" th:value="${item.custId}" readonly>
+	       	</div>
+	       	
+	        <div>
+	        	<label>사업자번호</label>
+	        	<input type="text" name="ceonum" th:value="${item.ceonum}" readonly>
+	        </div>
+	        
+	        <div>
+	        	<label>가게 이름</label>
+	        	<input type="text" name="name" th:value="${item.name}" required>
+	        </div>
+	        
+	        <div>
+	            <label>주소</label>
+	            <input type="text" id="roadAddress" name="address" th:value="${item.address}" required>
+	            <button type="button" onclick="searchRoadAddress()">주소 검색</button>
+	        </div>
+	
+	        <!-- ✅ 대표 이미지 -->
+	        <div id="main-image-section">
+	            <label>대표 이미지</label>
+	            <th:block th:each="img : ${item.storeImg}">
+	                <th:block th:if="${img.type == 'main'}">
+	                    <div id="main-image-box">
+	                        <img th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.filename}}" width="150" />
+	                        <input type="hidden" name="existingMainImageId" th:value="${img.id}" />
+	                        <button type="button" id="delete-main-btn">삭제</button>
+	                    </div>
+	                </th:block>
+	            </th:block>
+	            
+	            <!-- 항상 존재, 초기에 안 보이게 -->
+			    <div id="main-upload-field" th:style="${#lists.isEmpty(item.storeImg.?[type == 'main'])} ? 'display: block;' : 'display: none;'">
+			        <label>대표 이미지 업로드:</label>
+			        <input type="file" name="mainImage" accept="image/*" />
+			    </div>
+	        </div>
+	
+	        <!-- ✅ 배너 이미지 -->
+	        <div id="banner-image-section">
+	            <label>배너 이미지</label>
+	            <th:block th:each="img : ${item.storeImg}">
+	                <th:block th:if="${img.type == 'banner'}">
+	                    <div id="banner-image-box">
+	                        <img th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.filename}}" width="150" />
+	                        <input type="hidden" name="existingBannerImageId" th:value="${img.id}" />
+	                        <button type="button" id="delete-banner-btn">삭제</button>
+	                    </div>
+	                </th:block>
+	            </th:block>
+	            
+	            <!-- 항상 존재, 초기에 안 보이게 -->
+			    <div id="banner-upload-field" th:style="${#lists.isEmpty(item.storeImg.?[type == 'banner'])} ? 'display: block;' : 'display: none;'">
+			        <label>배너 이미지 업로드:</label>
+			        <input type="file" name="bannerImage" accept="image/*" />
+			    </div>
+	        </div>
+	
+	        <!-- ✅ 작가 정보 -->
+	        <h3>작가 정보</h3>
+	        <div id="maker-container">
+	            <th:block th:each="maker, iterStat : ${item.maker}">
+	                <div class="maker-group">
+	                    <input type="hidden" name="makerIds" th:value="${maker.id}" />
+	                    <p>이름: <input type="text" name="makerName" th:value="${maker.name}" /></p>
+	                    <p>소개: <input type="text" name="makerInfo" th:value="${maker.info}" /></p>
+	
+	                    <th:block th:if="${maker.filename != null}">
+	                        <img th:src="@{'/upload/' + ${maker.uuid} + '_' + ${maker.filename}}" width="150" />
+	                        <!-- 기존 이미지 정보 hidden으로 유지 -->
+	    					<input type="hidden" name="existingMakerFilenames" th:value="${maker.filename}" />
+	    					<input type="hidden" name="existingMakerUuids" th:value="${maker.uuid}" />
+	                    </th:block>
+	
+	                    <button type="button" class="delete-maker-btn">작가 삭제</button>
+	                </div>
+	            </th:block>
+	        </div>
+	
+	        <!-- ✅ 작가 추가 버튼 -->
+	        <button type="button" id="add-maker-btn">작가 추가</button>
+	
+	        <!-- ✅ 작가 템플릿 -->
+	        <template id="maker-template">
+	            <div class="maker-group">
+	                <hr>
+	                <p>이름: <input type="text" name="makerName"/></p>
+	                <p>소개: <input type="text" name="makerInfo"/></p>
+	                <input type="file" name="makerImages" accept="image/*" />
+	                <button type="button" class="delete-maker-btn">작가 삭제</button>
+	            </div>
+	        </template>
+	
+	        <!-- 제출 -->
+	        <div>
+	            <button type="submit">변경</button>
+	            <a href="/">취소</a>
+	        </div>
+	
+	    </form>
 	</div>
 </body>
 </html>

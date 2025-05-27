@@ -149,34 +149,101 @@ public class StoreController {
 	
 	// 가게 정보 수정
 	@PostMapping("/update/{id}")
-	String update(@PathVariable Long id, Store item, List<MultipartFile> uploadFile) {
+	String update(@PathVariable Long id, Store item, @RequestParam(required = false) MultipartFile mainImage,
+													 @RequestParam(required = false) List<MultipartFile> bannerImage,
+													 @RequestParam(required = false) List<Long> makerIds,
+													 @RequestParam(required = false) List<String> makerName,
+													 @RequestParam(required = false) List<String> makerInfo,
+													 @RequestParam(required = false) List<MultipartFile> makerImages,
+													 @RequestParam(required = false) List<String> existingMakerFilenames,
+													 @RequestParam(required = false) List<String> existingMakerUuids) {
 		
-		List<StoreImg> storeImgs = new ArrayList<StoreImg>();
+		List<Maker> makerList = new ArrayList<>();
 		
-		for(MultipartFile file : uploadFile) {
-			if(file != null && !file.isEmpty()) {
-				String filename = file.getOriginalFilename();
-				String uuid = UUID.randomUUID().toString();
-					
-				try {
-					file.transferTo(new File(uploadPath + uuid + "_" + filename));
-						
-					StoreImg storeImg = new StoreImg();
-					storeImg.setFilename(filename);
-					storeImg.setUuid(uuid);
-						
-					storeImgs.add(storeImg);
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-			
-		item.setStoreImg(storeImgs);
+		List<StoreImg> storeImgs = new ArrayList<>();
 		
-		service.update(item);
-		
-		return "redirect:/";
+		// 대표 이미지 (1개)
+	    if (mainImage != null && !mainImage.isEmpty()) {
+	        try {
+	            String filename = mainImage.getOriginalFilename();
+	            String uuid = UUID.randomUUID().toString();
+	            mainImage.transferTo(new File(uploadPath + uuid + "_" + filename));
+
+	            StoreImg storeImg = new StoreImg();
+	            storeImg.setFilename(filename);
+	            storeImg.setUuid(uuid);
+	            storeImg.setType("main"); // ✅ 타입 지정
+
+	            storeImgs.add(storeImg);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    // 배너 이미지
+	    if (bannerImage != null) {
+	        for (MultipartFile file : bannerImage) {
+	            if (file != null && !file.isEmpty()) {
+	                try {
+	                    String filename = file.getOriginalFilename();
+	                    String uuid = UUID.randomUUID().toString();
+	                    file.transferTo(new File(uploadPath + uuid + "_" + filename));
+
+	                    StoreImg storeImg = new StoreImg();
+	                    storeImg.setFilename(filename);
+	                    storeImg.setUuid(uuid);
+	                    storeImg.setType("banner");
+
+	                    storeImgs.add(storeImg);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	    }
+
+	    // 작가 정보 처리
+	    if (makerName != null && makerInfo != null && makerName.size() > 0) {
+	        for (int i = 0; i < makerName.size(); i++) {
+	            Maker maker = new Maker();
+	            maker.setName(makerName.get(i));
+	            maker.setInfo(makerInfo.get(i));
+
+	            if (makerImages != null && i < makerImages.size() && !makerImages.get(i).isEmpty()) {
+	                try {
+	                    MultipartFile file = makerImages.get(i);
+	                    String filename = file.getOriginalFilename();
+	                    String uuid = UUID.randomUUID().toString();
+	                    file.transferTo(new File(uploadPath + uuid + "_" + filename));
+
+	                    maker.setFilename(filename);
+	                    maker.setUuid(uuid);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	             // 기존 이미지 유지 조건
+	            } else if (existingMakerFilenames != null && existingMakerUuids != null &&
+	                    i < existingMakerFilenames.size() && i < existingMakerUuids.size()) {
+
+	                maker.setFilename(existingMakerFilenames.get(i));
+	                maker.setUuid(existingMakerUuids.get(i));
+	            }
+	            
+	            // 기존 작가 ID가 있다면 설정
+	            if (makerIds != null && i < makerIds.size()) {
+	                maker.setId(makerIds.get(i));
+	            }
+
+	            makerList.add(maker);
+	        }
+	    }
+
+	    item.setStoreImg(storeImgs);
+	    item.setMaker(makerList);
+	    
+	    service.update(item);
+
+	    return "redirect:/mypage";
 	}
 	
 	// 가게 정보 삭제
@@ -213,7 +280,21 @@ public class StoreController {
 		File file = new File (uploadPath + item.getUuid() + "_" + item.getFilename());
 		file.delete();
 		
-		return "index";
+		return id.toString();
+	}
+	
+	// 작가 삭제
+	@ResponseBody
+	@GetMapping("/delete/maker/{id}")
+	public String deleteMaker(@PathVariable Long id) {
+	    Maker item = service.itemMaker(id);  // 기존 작가 정보 가져오기
+	    
+	    service.deleteMaker(id);             // DB에서 삭제
+	    
+	    File file = new File (uploadPath + item.getUuid() + "_" + item.getFilename());
+		file.delete();
+		
+	    return id.toString();
 	}
 
 }

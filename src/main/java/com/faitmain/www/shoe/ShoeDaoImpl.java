@@ -65,4 +65,14 @@ public class ShoeDaoImpl implements ShoeDao {
 		sql.delete("shoe.deleteItemShoeImg", id);
 	}
 
+	@Override
+	public void delShoeImgs(Long id) {
+		sql.delete("shoe.delShoeImgs", id);
+	}
+
+	@Override
+	public void deleteShoes(Long id) {
+		sql.delete("shoe.delShoes", id);
+	}
+
 }
