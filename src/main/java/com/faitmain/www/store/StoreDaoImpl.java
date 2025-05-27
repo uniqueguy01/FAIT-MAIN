@@ -72,4 +72,15 @@ public class StoreDaoImpl implements StoreDao {
 		
 	}
 
+	@Override
+	public Maker itemMaker(Long id) {
+		return sql.selectOne("store.itemMaker", id);
+	}
+
+	@Override
+	public void updateMaker(Maker maker) {
+		sql.update("store.updateMaker", maker);
+		
+	}
+
 }

@@ -26,5 +26,9 @@ public interface ShoeDao {
 	List<Shoe> list(Long id);
 
 	void deleteItemShoeImg(Long id);
+	
+	void delShoeImgs(Long id);
+
+	void deleteShoes(Long id);
 
 }
