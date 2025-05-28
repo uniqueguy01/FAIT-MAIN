@@ -193,16 +193,20 @@ window.addEventListener("DOMContentLoaded", function () {
 			    <p th:text="'₩' + ${shoe.price}">가격</p>
 			</div>
 	
-			<h3>옥스포드</h3>
-			<div th:each="shoe : ${list}">
-			    <div class="product-card" th:if="${shoe.category == '옥스포드'}">
-			        <img th:if="${shoe.shoeImg != null and !shoe.shoeImg.isEmpty()}"
-			             th:src="@{'/upload/' + ${shoe.shoeImg[0].uuid} + '_' + ${shoe.shoeImg[0].filename}}"
-			             alt="제품 이미지"/>
-			        <p th:text="${shoe.name}">신발 이름</p>
-			        <p th:text="'₩' + ${shoe.price}">가격</p>
+			<th:block th:each="category : ${categories}">
+			    <h3 th:text="${category}">카테고리명</h3>
+			    <div class="product-container">
+			        <div class="product-card"
+			             th:each="shoe : ${list}"
+			             th:if="${shoe.category == category}">
+			            <img th:if="${shoe.shoeImg != null and !shoe.shoeImg.isEmpty()}"
+			                 th:src="@{'/upload/' + ${shoe.shoeImg[0].uuid} + '_' + ${shoe.shoeImg[0].filename}}"
+			                 alt="제품 이미지" />
+			            <p th:text="${shoe.name}">신발 이름</p>
+			            <p th:text="'₩' + ${shoe.price}">가격</p>
+			        </div>
 			    </div>
-			</div>
+			</th:block>
 		</section>
 	
 		<!-- Store Profile -->

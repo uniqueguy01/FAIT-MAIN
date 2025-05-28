@@ -31,4 +31,6 @@ public interface ShoeDao {
 
 	void deleteShoes(Long id);
 
+	List<String> getCategories(Long id);
+
 }
