@@ -22,5 +22,7 @@ public interface ShoeService {
 	void deleteItemShoeImg(Long id);
 
 	List<Shoe> list(Long id);
+
+	List<String> getCategories(Long id);
 	
 }

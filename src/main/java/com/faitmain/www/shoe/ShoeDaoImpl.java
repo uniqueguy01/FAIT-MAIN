@@ -75,4 +75,9 @@ public class ShoeDaoImpl implements ShoeDao {
 		sql.delete("shoe.delShoes", id);
 	}
 
+	@Override
+	public List<String> getCategories(Long id) {
+		return sql.selectList("shoe.getCategories", id);
+	}
+
 }

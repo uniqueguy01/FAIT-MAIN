@@ -77,6 +77,13 @@
 		WHERE
 		id=#{id}
 	</select>
+	
+	<!-- 카테고리 유무 확인 -->
+	<select id="getCategories" resultType="string">
+	    SELECT DISTINCT category
+	    FROM shoe
+	    WHERE store_id=#{storeId}
+	</select>
 
 	<!-- 신발 정보 추가 -->
 	<insert id="add" parameterType="Shoe">

@@ -42,8 +42,10 @@ public class StoreController {
 		
 		List<Shoe> list = shoeService.list(id);
 		Store item = service.item(id);
+		List<String> categories = shoeService.getCategories(id); // 카테고리 목록
 		
 		model.addAttribute("list", list);
+		model.addAttribute("categories", categories); // 카테고리 추가
 		model.addAttribute("item", item);
 		
 		return path + "list";

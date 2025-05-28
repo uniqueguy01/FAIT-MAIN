@@ -73,4 +73,9 @@ public class ShoeServiceImpl implements ShoeService {
 		return dao.list(id);
 	}
 
+	@Override
+	public List<String> getCategories(Long id) {
+		return dao.getCategories(id);
+	}
+
 }
