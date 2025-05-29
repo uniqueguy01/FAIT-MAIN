@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.faitmain.www.model.Customer;
 import com.faitmain.www.model.Maker;
 import com.faitmain.www.model.Shoe;
 import com.faitmain.www.model.Store;
 import com.faitmain.www.model.StoreImg;
 import com.faitmain.www.shoe.ShoeService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/store")
@@ -38,15 +41,25 @@ public class StoreController {
 	
 	// 가게 리스트 페이지
 	@GetMapping("/list/{id}")
-	String list(@PathVariable Long id, Model model) {
+	String list(@PathVariable Long id, Model model,  HttpSession session) {
 		
 		List<Shoe> list = shoeService.list(id);
 		Store item = service.item(id);
 		List<String> categories = shoeService.getCategories(id); // 카테고리 목록
 		
+		// ✅ 세션에서 Customer 객체 꺼내서 ID 비교
+	    Customer customer = (Customer) session.getAttribute("customer");
+	    String loginId = customer != null ? customer.getId() : null;
+	    boolean isOwner = loginId != null && loginId.equals(item.getCustId());
+		
 		model.addAttribute("list", list);
 		model.addAttribute("categories", categories); // 카테고리 추가
 		model.addAttribute("item", item);
+		model.addAttribute("isOwner", isOwner); // 뷰에서 조건 분기용
+		
+		System.out.println("로그인 ID: " + loginId); // null이면 세션에 값이 없음
+		System.out.println("가게 등록자 ID: " + item.getCustId());
+		System.out.println("isOwner: " + isOwner);
 		
 		return path + "list";
 	}
@@ -246,6 +259,23 @@ public class StoreController {
 	    service.update(item);
 
 	    return "redirect:/mypage";
+	}
+	
+	@PostMapping("/notice/{id}")
+	public String updateNotice(@PathVariable Long id, @RequestParam("notice") String notice, HttpSession session) {
+		
+		System.out.println(notice);
+		
+	    Store store = service.item(id);
+	    
+	    store.setId(id); // ✅ 혹시 모르니 명시적으로 ID 다시 세팅
+	    store.setNotice(notice);
+	    
+	    System.out.println(store.getNotice());
+
+	    service.updateNotice(store);
+
+	    return "redirect:/store/list/" + id;
 	}
 	
 	// 가게 정보 삭제

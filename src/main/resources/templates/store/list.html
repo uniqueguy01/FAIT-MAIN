@@ -223,6 +223,18 @@ window.addEventListener("DOMContentLoaded", function () {
 				<!-- 네이버 지도 api -->
 				<div id="map" style="width:100%;height:400px;"></div>
 				
+				<div th:if="${isOwner}">
+				    <form th:object="${item}" method="post" th:action="@{/store/notice/{id}(id=${item.id})}">
+					    <textarea th:field="*{notice}" rows="6"></textarea>
+					    <button type="submit">저장</button>
+					</form>
+				</div>
+				
+				<div th:unless="${isOwner != null and isOwner}">
+				    <div th:text="${item.notice != null and !item.notice.isEmpty() ? item.notice : '등록된 공지사항이 없습니다.'}"
+				         style="white-space: pre-wrap;"></div>
+				</div>
+				
 				
 				<h3>Review</h3>
 			</div>
