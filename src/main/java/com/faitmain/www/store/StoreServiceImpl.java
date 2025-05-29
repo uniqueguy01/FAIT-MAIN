@@ -143,4 +143,9 @@ public class StoreServiceImpl implements StoreService {
 		
 	}
 
+	@Override
+	public void updateNotice(Store store) {
+		dao.updateNotice(store);
+	}
+
 }

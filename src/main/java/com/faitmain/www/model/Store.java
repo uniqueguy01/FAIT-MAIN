@@ -8,6 +8,7 @@ public class Store {
 	private String ceonum;
 	private String name;
 	private String address;
+	private String notice;
 	private List<StoreImg> storeImg;
 	private List<Maker> maker;
 
@@ -51,6 +52,14 @@ public class Store {
 		this.address = address;
 	}
 
+	public String getNotice() {
+		return notice;
+	}
+
+	public void setNotice(String notice) {
+		this.notice = notice;
+	}
+
 	public List<StoreImg> getStoreImg() {
 		return storeImg;
 	}
@@ -66,4 +75,5 @@ public class Store {
 	public void setMaker(List<Maker> maker) {
 		this.maker = maker;
 	}
+
 }

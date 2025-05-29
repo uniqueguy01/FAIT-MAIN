@@ -33,6 +33,7 @@
         	   store.ceonum,
         	   store.name,
         	   store.address,
+        	   store.notice,
         	   
         	   store_img.id AS store_img_id,
         	   store_img.store_id,
@@ -59,6 +60,7 @@
         	   store.ceonum,
         	   store.name,
         	   store.address,
+        	   store.notice,
         	   
         	   store_img.id AS store_img_id,
         	   store_img.store_id,
@@ -131,11 +133,19 @@
 		WHERE id=#{id}
     </update>
     
+    <!-- 작가 정보 수정 -->
     <update id="updateMaker" parameterType="Maker">
 	    UPDATE maker
 	    SET name=#{name}, info=#{info}
 	    <if test="filename != null">, filename = #{filename}</if>
         <if test="uuid != null">, uuid = #{uuid}</if>
+	    WHERE id=#{id}
+	</update>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="Store">
+	    UPDATE store
+	    SET notice=#{notice}
 	    WHERE id=#{id}
 	</update>
     

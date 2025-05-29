@@ -28,4 +28,6 @@ public interface StoreService {
 
 	void deleteMaker(Long id);
 
+	void updateNotice(Store store);
+
 }

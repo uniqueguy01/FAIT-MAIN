@@ -83,4 +83,9 @@ public class StoreDaoImpl implements StoreDao {
 		
 	}
 
+	@Override
+	public void updateNotice(Store store) {
+		sql.update("store.updateNotice", store);
+	}
+
 }

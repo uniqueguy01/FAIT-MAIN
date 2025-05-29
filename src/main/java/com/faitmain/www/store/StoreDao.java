@@ -34,4 +34,6 @@ public interface StoreDao {
 
 	void updateMaker(Maker maker);
 
+	void updateNotice(Store store);
+
 }
