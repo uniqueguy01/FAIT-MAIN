@@ -1,57 +1,41 @@
 package com.faitmain.www.model;
 
 import java.security.Timestamp;
-import java.util.Date;
 
 public class Visit {
 	
 	private Long id;
+	private Long storeId;
+	private Long ordersId;
+	private Long shoeId;
 	private int amount;
 	private Timestamp reservation;
-	private int saleprice;
-	
-	private String custid;
-	private String ceonum;
-	private Long shoeid;
-	private Long orderid;
+//	private String custid;
 	
 	
-	
-	public Long getOrderid() {
-		return orderid;
-	}
-	public void setOrderid(Long orderid) {
-		this.orderid = orderid;
-	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getCustid() {
-		return custid;
+	public Long getStoreId() {
+		return storeId;
 	}
-	public void setCustid(String custid) {
-		this.custid = custid;
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
 	}
-	public String getCeonum() {
-		return ceonum;
+	public Long getOrdersId() {
+		return ordersId;
 	}
-	public void setCeonum(String ceonum) {
-		this.ceonum = ceonum;
+	public void setOrdersId(Long ordersId) {
+		this.ordersId = ordersId;
 	}
-	public Long getShoeid() {
-		return shoeid;
+	public Long getShoeId() {
+		return shoeId;
 	}
-	public void setShoeid(Long shoeid) {
-		this.shoeid = shoeid;
-	}
-	public int getSaleprice() {
-		return saleprice;
-	}
-	public void setSaleprice(int saleprice) {
-		this.saleprice = saleprice;
+	public void setShoeId(Long shoeId) {
+		this.shoeId = shoeId;
 	}
 	public int getAmount() {
 		return amount;
@@ -59,11 +43,11 @@ public class Visit {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	
 	public Timestamp getReservation() {
 		return reservation;
 	}
 	public void setReservation(Timestamp reservation) {
 		this.reservation = reservation;
 	}
+	
 }

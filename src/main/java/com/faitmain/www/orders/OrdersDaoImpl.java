@@ -2,10 +2,12 @@ package com.faitmain.www.orders;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.faitmain.www.model.Online;
 import com.faitmain.www.model.Orders;
 
+@Repository
 public class OrdersDaoImpl implements OrdersDao {
 
 	@Autowired

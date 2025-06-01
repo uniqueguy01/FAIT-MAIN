@@ -6,25 +6,44 @@ import java.util.List;
 public class Orders {
 	private Long id;
 	
-	private String custid;
-	private Long shoeid;
-	private Date orderdate;
+	private String custId;
+	private Long storeId;
+	private Long shoeId;
+	private Date ordersDate;
 	
 	private List<Visit> visit;
 	private List<Online> online;
 	
-
-	public Date getOrderdate() {
-		return orderdate;
+	
+	public Long getId() {
+		return id;
 	}
-	public void setOrderdate(Date orderdate) {
-		this.orderdate = orderdate;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public List<Online> getOnline() {
-		return online;
+	public String getCustId() {
+		return custId;
 	}
-	public void setOnline(List<Online> online) {
-		this.online = online;
+	public void setCustId(String custId) {
+		this.custId = custId;
+	}
+	public Long getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
+	}
+	public Long getShoeId() {
+		return shoeId;
+	}
+	public void setShoeId(Long shoeId) {
+		this.shoeId = shoeId;
+	}
+	public Date getOrdersDate() {
+		return ordersDate;
+	}
+	public void setOrdersDate(Date ordersDate) {
+		this.ordersDate = ordersDate;
 	}
 	public List<Visit> getVisit() {
 		return visit;
@@ -32,29 +51,11 @@ public class Orders {
 	public void setVisit(List<Visit> visit) {
 		this.visit = visit;
 	}
-	public Long getId() {
-		return id;
+	public List<Online> getOnline() {
+		return online;
 	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getCustid() {
-		return custid;
-	}
-	public void setCustid(String custid) {
-		this.custid = custid;
-	}
-	public String getCeonum() {
-		return ceonum;
-	}
-	public void setCeonum(String ceonum) {
-		this.ceonum = ceonum;
-	}
-	public Long getShoeid() {
-		return shoeid;
-	}
-	public void setShoeid(Long shoeid) {
-		this.shoeid = shoeid;
+	public void setOnline(List<Online> online) {
+		this.online = online;
 	}
 	
 }

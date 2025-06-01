@@ -112,7 +112,6 @@
 	<delete id="delete">
 		DELETE FROM shoe
 		WHERE id=#{id}
-<<<<<<< HEAD
 	</delete>
 
 	<!-- 신발 사진 삭제 -->

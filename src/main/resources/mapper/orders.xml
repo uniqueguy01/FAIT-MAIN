@@ -5,7 +5,7 @@
 
 	<insert id="add">
 		INSERT INTO orders
-		VALUES (ORDERS_SEQ.nextval, #{custid}, #{ceonum}, #{shoeid}, SYSDATE)
+		VALUES (ORDERS_SEQ.nextval, #{custId}, #{storeId}, #{shoeId}, SYSDATE)
 		
 		<selectKey keyProperty="id" resultType="Long" order="AFTER" >
 			SELECT ORDERS_SEQ.currval FROM dual
@@ -14,14 +14,14 @@
 	
 	<insert id="add_online">
 		INSERT INTO online
-		VALUES (ONLINE_SEQ.nextval, #{ceonum}, #{ordersid}, #{shoeid}, #{amount})
+		VALUES (ONLINE_SEQ.nextval, #{storeId}, #{ordersId}, #{shoeId}, #{amount})
 	</insert>
 	
 	<resultMap type="Orders" id="OrdersMap" autoMapping="true">
 		<id column="id" property="id"/>
 		
-		<collection property="details" column="orders_id" javaType="ArrayList" ofType="OrdersDetail" autoMapping="true">
-			<id column="detail_id" property="id"/>
+		<collection property="online" column="orders_id" javaType="ArrayList" ofType="Online" autoMapping="true"> <!-- javaType이 Orders 테이블에서 List<Online> online;이여서 -->
+			<id column="online_id" property="id"/>
 		</collection>
 	</resultMap>
 	

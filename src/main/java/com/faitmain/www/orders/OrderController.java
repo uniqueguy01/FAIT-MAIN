@@ -15,7 +15,6 @@ import com.faitmain.www.model.Cart;
 import com.faitmain.www.model.Customer;
 import com.faitmain.www.model.Online;
 import com.faitmain.www.model.Orders;
-import com.faitmain.www.model.Visit;
 
 @Controller
 @RequestMapping("/orders")
@@ -29,16 +28,16 @@ public class OrderController {
 	String order(@SessionAttribute Customer customer, @SessionAttribute Cart cart) {
 		Orders item = new Orders();
 		
-		item.setCustid(customer.getId());
+		item.setCustId(customer.getId());
 		
 		Map<Long, Integer> map = cart.getCart();
 		ArrayList<Online> onlines = new ArrayList<Online>();
 		
-		for(Long shoeid : map.keySet()) {
+		for(Long shoeId : map.keySet()) {
 			Online online = new Online();
 			
-			online.setShoeid(shoeid);
-			online.setAmount(map.get(shoeid));
+			online.setShoeId(shoeId);
+			online.setAmount(map.get(shoeId));
 			
 			onlines.add(online);
 		}

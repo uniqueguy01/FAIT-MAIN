@@ -4,50 +4,36 @@ package com.faitmain.www.model;
 public class Online {
 	
 	private Long id;
-	private String ceonum;	
-	private Long orderid;
-	private Long shoeid;
+	private String storeId;	
+	private Long ordersId;
+	private Long shoeId;
 	private int amount;
-//	private int saleprice;
 //	private String custid;
 	
 	
-	
-	public Long getOrderid() {
-		return orderid;
-	}
-	public void setOrderid(Long orderid) {
-		this.orderid = orderid;
-	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getCustid() {
-		return custid;
+	public String getStoreId() {
+		return storeId;
 	}
-	public void setCustid(String custid) {
-		this.custid = custid;
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
 	}
-	public String getCeonum() {
-		return ceonum;
+	public Long getOrdersId() {
+		return ordersId;
 	}
-	public void setCeonum(String ceonum) {
-		this.ceonum = ceonum;
+	public void setOrdersId(Long ordersId) {
+		this.ordersId = ordersId;
 	}
-	public Long getShoeid() {
-		return shoeid;
+	public Long getShoeId() {
+		return shoeId;
 	}
-	public void setShoeid(Long shoeid) {
-		this.shoeid = shoeid;
-	}
-	public int getSaleprice() {
-		return saleprice;
-	}
-	public void setSaleprice(int saleprice) {
-		this.saleprice = saleprice;
+	public void setShoeId(Long shoeId) {
+		this.shoeId = shoeId;
 	}
 	public int getAmount() {
 		return amount;
@@ -55,5 +41,5 @@ public class Online {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	
+
 }
