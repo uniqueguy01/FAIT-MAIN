@@ -23,7 +23,8 @@ public class FaitMainRootController {
 	
 	@Autowired
 	ShoeService shoeService;
-
+	
+	// 메인 페이지
 	@GetMapping("/")
 	String index(Model model, HttpSession session) {
 		
@@ -46,6 +47,7 @@ public class FaitMainRootController {
 		return "index";
 	}
 	
+	// 마이 페이지
 	@GetMapping("/mypage")
 	String mypage(Model model, HttpSession session) {
 		
