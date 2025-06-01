@@ -48,6 +48,17 @@ public class ShoeController {
 		return path + "list";
 	}
 	
+	// 신발 상세정보 페이지
+	@GetMapping("/detail/{id}")
+	String detail(@PathVariable Long id, Model model) {
+		
+		Shoe item = service.item(id);
+		
+		model.addAttribute("item", item);
+		
+		return path + "detail";
+	}
+	
 	// 신발 정보 추가 페이지
 	@GetMapping("/add")
 	String add(Model model, HttpSession session) {

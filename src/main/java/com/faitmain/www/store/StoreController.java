@@ -96,7 +96,7 @@ public class StoreController {
 	        }
 	    }
 	    
-	 // 배너 이미지
+	    // 배너 이미지
 	    for (MultipartFile file : bannerImage) {
 	        if (file != null && !file.isEmpty()) {
 	            try {
@@ -261,6 +261,7 @@ public class StoreController {
 	    return "redirect:/mypage";
 	}
 	
+	// 공지사항 수정
 	@PostMapping("/notice/{id}")
 	public String updateNotice(@PathVariable Long id, @RequestParam("notice") String notice, HttpSession session) {
 		
@@ -321,7 +322,7 @@ public class StoreController {
 	public String deleteMaker(@PathVariable Long id) {
 	    Maker item = service.itemMaker(id);  // 기존 작가 정보 가져오기
 	    
-	    service.deleteMaker(id);             // DB에서 삭제
+	    service.deleteMaker(id);	// DB에서 삭제
 	    
 	    File file = new File (uploadPath + item.getUuid() + "_" + item.getFilename());
 		file.delete();
