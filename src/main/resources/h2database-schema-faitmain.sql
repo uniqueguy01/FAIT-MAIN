@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS customer (
     birth DATE NULL
 );
 
+
 -- 권한 테이블
 DROP TABLE IF EXISTS authority;
 
@@ -18,6 +19,7 @@ CREATE TABLE IF NOT EXISTS authority (
     authority VARCHAR(32) NOT NULL,
     subject VARCHAR(64) NOT NULL
 );
+
 
 -- 권한 부여 테이블
 DROP TABLE IF EXISTS role;
