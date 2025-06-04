@@ -25,5 +25,10 @@ public class FaitMainRootController {
 		
 		return "index";
 	}
+	
+	@GetMapping("/login")
+	String login() {
+		return "login";
+	}	
 
 }
