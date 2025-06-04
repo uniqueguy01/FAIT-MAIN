@@ -37,11 +37,11 @@ public class StoreController {
 	ShoeService shoeService;
 	
 	// 가게 리스트 페이지
-	@GetMapping("/list/{ceonum}")
-	String list(@PathVariable String ceonum, Model model) {
+	@GetMapping("/list/{id}")
+	String list(@PathVariable Long id, Model model) {
 		
-		List<Shoe> list = shoeService.list(ceonum);
-		Store item = service.item(ceonum);
+		List<Shoe> list = shoeService.list(id);
+		Store item = service.item(id);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("item", item);
@@ -136,10 +136,10 @@ public class StoreController {
 	}
 	
 	// 가게 수정 페이지
-	@GetMapping("/update/{ceonum}")
-	String update(@PathVariable String ceonum, Model model) {
+	@GetMapping("/update/{id}")
+	String update(@PathVariable Long id, Model model) {
 		
-		Store item = service.item(ceonum);
+		Store item = service.item(id);
 		
 		model.addAttribute("item", item);
 		
@@ -147,8 +147,8 @@ public class StoreController {
 	}
 	
 	// 가게 정보 수정
-	@PostMapping("/update/{ceonum}")
-	String update(@PathVariable String ceonum, Store item, List<MultipartFile> uploadFile) {
+	@PostMapping("/update/{id}")
+	String update(@PathVariable Long id, Store item, List<MultipartFile> uploadFile) {
 		
 		List<StoreImg> storeImgs = new ArrayList<StoreImg>();
 		
@@ -179,27 +179,27 @@ public class StoreController {
 	}
 	
 	// 가게 정보 삭제
-	@GetMapping("/delete/{ceonum}")
-	String delete(@PathVariable String ceonum) {
-		Store item = service.item(ceonum);
+	@GetMapping("/delete/{id}")
+	String delete(@PathVariable Long id) {
+		Store item = service.item(id);
 		
 		for(StoreImg storeImg : item.getStoreImg()) {
 			File file = new File (uploadPath + storeImg.getUuid() + "_" + storeImg.getFilename());
 			file.delete();
 		}
 		
-		service.delete(ceonum);
+		service.delete(id);
 		
 		return "redirect:/";
 	}
 	
 	// 가게 사진 삭제
 	@ResponseBody
-	@GetMapping("/delete/storeimg/{ceonum}")
-	String deleteStoreImg(@PathVariable String ceonum) {
-		StoreImg item = service.itemStoreImg(ceonum);
+	@GetMapping("/delete/storeimg/{id}")
+	String deleteStoreImg(@PathVariable Long id) {
+		StoreImg item = service.itemStoreImg(id);
 		
-		service.deleteStoreImg(ceonum);
+		service.deleteStoreImg(id);
 		
 		File file = new File (uploadPath + item.getUuid() + "_" + item.getFilename());
 		file.delete();

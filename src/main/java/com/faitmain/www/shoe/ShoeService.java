@@ -21,6 +21,6 @@ public interface ShoeService {
 
 	void deleteShoeImg(Long id);
 
-	List<Shoe> list(String ceonum);
+	List<Shoe> list(Long id);
 	
 }

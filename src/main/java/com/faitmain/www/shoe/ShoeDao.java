@@ -23,6 +23,6 @@ public interface ShoeDao {
 
 	ShoeImg itemShoeImg(Long id);
 
-	List<Shoe> list(String ceonum);
+	List<Shoe> list(Long id);
 
 }

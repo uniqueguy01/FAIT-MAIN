@@ -32,23 +32,23 @@ public class StoreDaoImpl implements StoreDao {
 	}
 
 	@Override
-	public void delete(String ceonum) {
-		sql.delete("store.delete", ceonum);
+	public void delete(Long id) {
+		sql.delete("store.delete", id);
 	}
 
 	@Override
-	public Store item(String ceonum) {
-		return sql.selectOne("store.item", ceonum);
+	public Store item(Long id) {
+		return sql.selectOne("store.item", id);
 	}
 
 	@Override
-	public StoreImg itemStoreImg(String ceonum) {
-		return sql.selectOne("store.itemStoreImg", ceonum);
+	public StoreImg itemStoreImg(Long id) {
+		return sql.selectOne("store.itemStoreImg", id);
 	}
 
 	@Override
-	public void deleteStoreImg(String ceonum) {
-		sql.delete("store.deleteStoreImg", ceonum);
+	public void deleteStoreImg(Long id) {
+		sql.delete("store.deleteStoreImg", id);
 	}
 
 	@Override
@@ -62,8 +62,8 @@ public class StoreDaoImpl implements StoreDao {
 	}
 
 	@Override
-	public Store getCeonum(String id) {
-		return sql.selectOne("store.getCeonum", id);
+	public Store getStoreId(String id) {
+		return sql.selectOne("store.getStoreId", id);
 	}
 
 }

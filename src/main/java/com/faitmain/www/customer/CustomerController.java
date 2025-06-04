@@ -56,10 +56,9 @@ public class CustomerController {
       return path + "list";
    }
    
-   @GetMapping("/add")
-   String add(Model model) {
-       model.addAttribute("customer", new Customer());
-       return path + "add";
+   @GetMapping("/signup")
+   String signup() {
+       return path + "signup";
    }
    
    @PostMapping("/add")

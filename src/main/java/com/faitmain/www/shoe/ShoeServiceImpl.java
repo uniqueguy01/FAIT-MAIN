@@ -69,8 +69,8 @@ public class ShoeServiceImpl implements ShoeService {
 	}
 
 	@Override
-	public List<Shoe> list(String ceonum) {
-		return dao.list(ceonum);
+	public List<Shoe> list(Long id) {
+		return dao.list(id);
 	}
 
 }
