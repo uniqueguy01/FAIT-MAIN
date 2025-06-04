@@ -33,7 +33,7 @@ public class StoreServiceImpl implements StoreService {
 		// 2. Store 이미지 저장
 		if(item.getStoreImg() != null) {
 			for(StoreImg storeImg : item.getStoreImg()) {
-				storeImg.setCeonum(item.getCeonum());	// 가게에서 ceonum 가져와서 외래키 설정
+				storeImg.setStoreId(item.getId());	// 가게에서 ceonum 가져와서 외래키 설정
 				dao.addStoreImg(storeImg);
 			}
 		}
@@ -41,7 +41,7 @@ public class StoreServiceImpl implements StoreService {
 		// 3. Maker(작가) 정보 저장
 		if (item.getMaker() != null) {
 			for (Maker maker : item.getMaker()) {
-				maker.setCeonum(item.getCeonum());	// 가게에서 ceonum 가져와서 외래키 설정
+				maker.setStoreId(item.getId());	// 가게에서 ceonum 가져와서 외래키 설정
 				dao.addMaker(maker);
 			}
 		}
@@ -57,7 +57,7 @@ public class StoreServiceImpl implements StoreService {
 		// 2. 가게 이미지 업데이트
 		if(item.getStoreImg() != null) {
 			for(StoreImg storeImg : item.getStoreImg()) {
-				storeImg.setCeonum(item.getCeonum());
+				storeImg.setStoreId(item.getId());
 				dao.addStoreImg(storeImg);
 			}
 		}

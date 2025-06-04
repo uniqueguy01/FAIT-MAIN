@@ -46,7 +46,7 @@ public class ReviewController {
 					file.transferTo(new File(uploadPath + uuid + "_" + filename));
 						
 					ReviewImg reviewImg = new ReviewImg();
-					reviewImg.setFile(filename);
+					reviewImg.setFilename(filename);
 					reviewImg.setUuid(uuid);
 						
 					reviewImgs.add(reviewImg);
