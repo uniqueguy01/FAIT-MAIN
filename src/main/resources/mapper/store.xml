@@ -2,23 +2,118 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="store">
 
-    <select id="list" resultType="Store">
-        SELECT * FROM store
+	<resultMap type="Store" id="storeMap" autoMapping="true">
+	    <!-- ID 매핑 -->
+	    <id column="ceonum" property="ceonum" />
+	
+	    <!-- 사진 정보 매핑 (collection) -->
+	    <collection property="storeImg" ofType="StoreImg" javaType="ArrayList">
+	        <id column="id" property="id" />
+	        <result column="file" property="file" />
+	        <result column="uuid" property="uuid" />
+	        <result column="store_ceonum" property="ceonum" />
+	    </collection>
+	    
+	    <!-- Maker 리스트 매핑 추가 -->
+	    <collection property="maker" ofType="Maker" javaType="ArrayList">
+	    	<id column="maker_id" property="id" />
+	        <result column="maker_name" property="name" />
+	        <result column="maker_info" property="info" />
+	        <result column="maker_file" property="file" />
+	        <result column="maker_uuid" property="uuid" />
+	        <result column="maker_ceonum" property="ceonum" />
+	    </collection>
+	</resultMap>
+
+	<!-- 가게 정보 전부 -->
+    <select id="list" resultMap="storeMap">
+        SELECT store.ceonum,
+        	   store.custid,
+        	   store.name,
+        	   store.address,
+        	   
+        	   storeimg.id,
+        	   storeimg.ceonum AS store_ceonum,
+        	   storeimg.file,
+        	   storeimg.uuid,
+        	   
+        	   maker.id AS maker_id,
+	           maker.name AS maker_name,
+	           maker.info AS maker_info,
+	           maker.file AS maker_file,
+	           maker.uuid AS maker_uuid,
+	           maker.ceonum AS maker_ceonum
+        
+        FROM store
+        LEFT JOIN storeimg ON store.ceonum=storeimg.ceonum
+        LEFT JOIN maker ON store.ceonum = maker.ceonum
     </select>
     
-    <insert id="add">
-    	INSERT INTO store (ceonum, custid, name) VALUES (#{ceonum}, #{custid}, #{name})
+    <!-- 가게 정보 하나 -->
+    <select id="item" resultMap="storeMap">
+    	SELECT store.ceonum,
+        	   store.custid,
+        	   store.name,
+        	   store.address,
+        	   
+        	   storeimg.id,
+        	   storeimg.ceonum as store_ceonum,
+        	   storeimg.file,
+        	   storeimg.uuid,
+        	   
+        	   maker.id AS maker_id,
+	           maker.name AS maker_name,
+	           maker.info AS maker_info,
+	           maker.file AS maker_file,
+	           maker.uuid AS maker_uuid,
+	           maker.ceonum AS maker_ceonum
+	           
+        FROM store
+        LEFT JOIN storeimg ON store.ceonum=storeimg.ceonum
+        LEFT JOIN maker ON store.ceonum = maker.ceonum
+        WHERE store.ceonum=#{ceonum}
+    </select>
+    
+    <!-- 가게 사진 하나 -->
+	<select id="itemStoreImg" resultType="StoreImg">
+		SELECT * FROM storeimg
+		WHERE ceonum=#{ceonum}
+	</select>
+    
+    <!-- 가게 정보 추가 -->
+    <insert id="add" parameterType="Store" useGeneratedKeys="true" keyProperty="ceonum">
+    	INSERT INTO store (ceonum, custid, name, address) VALUES (#{ceonum}, #{custid}, #{name}, #{address})
     </insert>
     
+    <!-- 가게 사진 추가 -->
+    <insert id="addStoreImg">
+		INSERT INTO storeimg(ceonum, file, uuid)
+		VALUES (#{ceonum}, #{file}, #{uuid})
+	</insert>
+	
+	<!-- 작가 정보 추가 -->
+	<insert id="addMaker" parameterType="Maker">
+		INSERT INTO maker (ceonum, name, info, file, uuid)
+		VALUES (#{ceonum}, #{name}, #{info}, #{file}, #{uuid})
+	</insert>
+    
+    <!-- 가게 정보 수정 -->
     <update id="update">
     	UPDATE store
-		SET custid=#{custid}, name=#{name}
+		SET custid=#{custid}, name=#{name}, address=#{address}
 		WHERE ceonum=#{ceonum}
     </update>
     
+    <!-- 가게 정보 삭제 -->
     <delete id="delete">
     	DELETE FROM store
 		WHERE ceonum=#{ceonum}
+    </delete>
+    
+    <!-- 가게 사진 삭제 -->
+    <delete id="delete_storeImg">
+    	DELETE FROM storeimg
+    	WHERE ceonum=#{ceonum}
     </delete>
     
 </mapper>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Fait Main List</title>
+<th:block th:replace="/fragment/head.html :: header"></th:block>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const deleteBtn = document.getElementById("delete-image-btn");
+		if (deleteBtn) {
+			deleteBtn.addEventListener("click", function () {
+				const imageId = document.querySelector('input[name="existingImageId"]').value;
+	
+				if (!imageId) return;
+	
+				// Ajax 요청으로 이미지 삭제
+				fetch(`/shoe/delete/shoeimg/${imageId}`)
+					.then(res => res.text())
+					.then(result => {
+						console.log("삭제 완료:", result);
+	
+						// 이미지 영역을 업로드 필드로 교체
+						const imageSection = document.getElementById("image-section");
+						imageSection.innerHTML = `
+							<div id="upload-field">
+								<input type="file" name="uploadFile" accept="image/*">
+							</div>
+						`;
+					})
+					.catch(err => {
+						console.error("삭제 실패:", err);
+						alert("이미지 삭제 중 오류가 발생했습니다.");
+					});
+			});
+		}
+	});
+</script>
+
+</head>
+<body>
+	<div>
+		<div>
+			<h3>신발 정보 변경</h3>
+		</div>
+		
+		<div>
+			<form method="post" id="update" enctype="multipart/form-data">
+				<div>
+					<div><label>카테고리:</label></div>
+					<div>
+						<select name="category" class="form-select m-1">
+						    <option value="">선택</option>
+						    <option value="플레인 토" th:selected="${item.category == '플레인 토'}">플레인 토</option>
+						    <option value="윙팁" th:selected="${item.category == '윙팁'}">윙팁</option>
+						    <option value="몽크 스트랩" th:selected="${item.category == '몽크 스트랩'}">몽크 스트랩</option>
+						    <option value="스트레이트 팁" th:selected="${item.category == '스트레이트 팁'}">스트레이트 팁</option>
+						    <option value="모카신" th:selected="${item.category == '모카신'}">모카신</option>
+						    <option value="더비" th:selected="${item.category == '더비'}">더비</option>
+						    <option value="로퍼" th:selected="${item.category == '로퍼'}">로퍼</option>
+						    <option value="옥스포드" th:selected="${item.category == '옥스포드'}">옥스포드</option>
+						    <option value="보트 슈즈" th:selected="${item.category == '보트 슈즈'}">보트 슈즈</option>
+						</select>
+					</div>
+				</div>
+			
+				<div>
+					<label>신발번호:</label>
+					<div><input type="number" name="id" th:value="${item.id}" readonly></div>
+				</div>
+				
+				<div>
+					<label>사업자번호:</label>
+					<div><input type="text" name="ceonum" th:value="${item.ceonum}" readonly></div>
+				</div>
+				
+				<div>
+					<label>신발이름:</label>
+					<div><input type="text" name="name" th:value="${item.name}"></div>
+				</div>
+				
+				<div class="form-group mt-3">
+					<label>가격:</label>
+					<div><input type="number" name="price" th:value="${item.price}"></div>
+				</div>
+				
+				<div>
+					<label>세부사항:</label>
+					<div><input type="text" name="detail" th:value="${item.detail}"></div>
+				</div>
+				
+				<div id="image-section">
+				<!-- 기존 이미지가 있을 경우 -->
+				<div th:if="${item.shoeImg != null and item.shoeImg.size() > 0}">
+					<img th:src="@{'/upload/' + ${item.shoeImg[0].uuid} + '_' + ${item.shoeImg[0].file}}"
+						 width="150" height="150" alt="신발 이미지"/>
+					<input type="hidden" name="existingImageId" th:value="${item.shoeImg[0].id}" />
+					<button type="button" id="delete-image-btn">삭제</button>
+				</div>
+	
+				<!-- 이미지 없을 때 파일 업로드 -->
+				<div th:if="${item.shoeImg == null or item.shoeImg.size() == 0}" id="upload-field">
+					<input type="file" name="uploadFile" accept="image/*">
+				</div>
+			</div>
+				
+				<div>
+					<div><button>변경</button></div>
+					<div><a href="../list">취소</a></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

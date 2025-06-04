@@ -2,27 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extra/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Fait Main</title>
+
+<th:block th:replace="/fragment/head.html :: header"></th:block>
 </head>
 <body>
-	
+
 	<div>
-		<div sec:authorize="isAnonymous()"> 
-			<a href="/login">로그인</a>
+		<div>
+			<h1>신발 가게</h1>
 		</div>
+		
+		<div>
+			<div><a href="shoe/list">신발관리</a></div>
+			<div><a href="store/add">가게등록</a></div>
 			
-		<div sec:authorize="isAuthenticated()">
-			<div><div sec:authentication="name"></div></div>
-			<div><div sec:authentication="principal.name"></div></div>
-			<div><div sec:authentication="authorities"></div></div>
-			<a href="/logout">로그아웃</a>
+			<div th:each="store : ${storeList}">
+				<a th:href="@{'/store/list/' + ${store.ceonum}}" th:text="${store.name}">가게 이름</a>
+			</div>
 		</div>
 	</div>
-	
-	<div>
-		<div><a href="/member/list">사용자 관리</a></div>
-		<div><a href="/role/list">권한 관리</a></div>
-	</div>
-	
+>>>>>>> 15a571b (신발 CRUD, 가게 CRUD, Maker테이블 생성, Review 테이블 생성, 가게 페이지 일부 구현)
 </body>
 </html>
