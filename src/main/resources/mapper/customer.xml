@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="customer">
-	
+
 	<select id="list" resultType="Customer">
 		SELECT * FROM customer
 	</select>
 	
 	<insert id="add">
-		INSERT INTO customer (id, passwd, name, address, phone, birth)
-		VALUES (#{id}, #{passwd}, #{name}, #{address}, #{phone}, #{birth})
+		INSERT INTO customer (id, password, name, address, phone, birth)
+		VALUES (#{id}, #{password}, #{name}, #{address}, #{phone}, #{birth})
 	</insert>
 	
 	<select id="item" resultType="Customer">
@@ -18,7 +18,7 @@
 	
 	<update id="update">
 		UPDATE customer
-		SET passwd=#{passwd}, name=#{name}, address=#{address}, phone=#{phone}, birth=#{birth}
+		SET password=#{password}, name=#{name}, address=#{address}, phone=#{phone}, birth=#{birth}
 		WHERE id=#{id}
 	</update>
 	
@@ -26,5 +26,9 @@
 		DELETE FROM customer
 		WHERE id=#{id}
 	</delete>
+	
+	<select id="login" resultType="Customer">
+    	SELECT * FROM customer WHERE id = #{id} AND password = #{password}
+	</select>
 	
 </mapper>

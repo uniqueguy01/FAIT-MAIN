@@ -7,6 +7,15 @@
 <th:block th:replace="/fragment/head.html :: header"></th:block>
 </head>
 <body>
+	<div>
+		<div>
+			<h1>FAIT-MAIN</h1>
+		</div>
+		
+          <div>
+            <div th:if="${loggedInCustomer == null}">
+                <a href="/customer/login">로그인</a>
+            </div>
 
 	<div>
 		<div>
@@ -22,6 +31,5 @@
 			</div>
 		</div>
 	</div>
->>>>>>> 15a571b (신발 CRUD, 가게 CRUD, Maker테이블 생성, Review 테이블 생성, 가게 페이지 일부 구현)
 </body>
 </html>

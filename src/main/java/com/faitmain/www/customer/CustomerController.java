@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.faitmain.www.model.Customer;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/customer")
@@ -31,8 +34,9 @@ final String path = "customer/";
    }
    
    @GetMapping("/add")
-   String add() {
-      return path + "add";
+   String add(Model model) {
+       model.addAttribute("customer", new Customer());
+       return path + "add";
    }
    
    @PostMapping("/add")
@@ -64,7 +68,33 @@ final String path = "customer/";
       
       service.update(item);
       
-      return "redirect:../list";
+      return "redirect:/customer/list";
+   }
+   
+   @GetMapping("/login")
+   public String loginPage() {
+       return path + "login";
+   }
+
+   @PostMapping("/login")
+   public String login(@RequestParam("id") String id, @RequestParam("password") String password, HttpSession session, Model model) {
+       System.out.println(id);
+       System.out.println(password);
+	   Customer customer = service.login(id, password);
+       
+       if (customer != null) {
+           session.setAttribute("loggedInCustomer", customer);
+           return "redirect:/index";
+       } else {
+           model.addAttribute("error", "아이디 또는 비밀번호가 잘못되었습니다.");
+           return path + "login";
+       }
+   }
+
+   @GetMapping("/customer/logout")
+   public String logout(HttpSession session) {
+       session.invalidate();
+       return "redirect:/index";
    }
 
 }
