@@ -20,8 +20,20 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public List<Store> list() {
 		
-		// 가게 정보 리턴
-		return dao.list();
+		List<Store> stores = dao.list();
+
+		for (Store store : stores) {
+	        if (store.getStoreImg() != null) {
+	            for (StoreImg img : store.getStoreImg()) {
+	                if ("main".equals(img.getType())) {
+	                    store.setMainImage(img);  // 대표 이미지 지정
+	                    break;  // 첫 번째 main만
+	                }
+	            }
+	        }
+	    }
+
+	    return stores;
 		
 	}
 
