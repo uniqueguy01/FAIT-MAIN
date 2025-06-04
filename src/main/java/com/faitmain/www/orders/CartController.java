@@ -52,9 +52,13 @@ public class CartController {
 	}
 	
 	@ResponseBody
-	@DeleteMapping("/{shoeid}")
-	void delete(@PathVariable Long shoeid, @SessionAttribute Cart cart) {
-		cart.delete(shoeid);
+	@DeleteMapping("/{shoeId}")
+	void delete(@PathVariable Long shoeId, @SessionAttribute Cart cart) {
+		cart.delete(shoeId);
+		
+		System.out.println("소스트리");
 	}
+	
+	
 
 }
