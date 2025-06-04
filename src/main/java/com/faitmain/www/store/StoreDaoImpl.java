@@ -61,4 +61,9 @@ public class StoreDaoImpl implements StoreDao {
 		sql.insert("store.addMaker", maker);
 	}
 
+	@Override
+	public Store getCeonum(String id) {
+		return sql.selectOne("store.getCeonum", id);
+	}
+
 }

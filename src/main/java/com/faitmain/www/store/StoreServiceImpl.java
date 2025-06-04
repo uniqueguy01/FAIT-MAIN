@@ -100,4 +100,9 @@ public class StoreServiceImpl implements StoreService {
 		
 	}
 
+	@Override
+	public Store getCeonum(String id) {
+		return dao.getCeonum(id);
+	}
+
 }

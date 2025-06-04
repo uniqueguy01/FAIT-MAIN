@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<th:block th:replace="~{/fragment/head.html :: header}"></th:block>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function searchRoadAddress() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            // ✅ 도로명 주소만 입력창에 삽입
+	            document.getElementById('roadAddress').value = data.roadAddress;
+	        }
+	    }).open();
+	}
+</script>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const deleteBtn = document.getElementById("delete-image-btn");
+		if (deleteBtn) {
+			deleteBtn.addEventListener("click", function () {
+				const imageId = document.querySelector('input[name="existingImageId"]').value;
+	
+				if (!imageId) return;
+	
+				// Ajax 요청으로 이미지 삭제
+				fetch(`/shoe/delete/storeimg/${imageId}`)
+					.then(res => res.text())
+					.then(result => {
+						console.log("삭제 완료:", result);
+	
+						// 이미지 영역을 업로드 필드로 교체
+						const imageSection = document.getElementById("image-section");
+						imageSection.innerHTML = `
+							<div id="upload-field">
+								<input type="file" name="uploadFile" accept="image/*">
+							</div>
+						`;
+					})
+					.catch(err => {
+						console.error("삭제 실패:", err);
+						alert("이미지 삭제 중 오류가 발생했습니다.");
+					});
+			});
+		}
+	});
+</script>
+</head>
+<body>
+	<div>
+		<div>
+			<h3>신발 정보 변경</h3>
+		</div>
+		
+		<div>
+			<form method="post" id="update" enctype="multipart/form-data">
+			
+				<div>
+					<label>사업자번호:</label>
+					<div><input type="text" name="ceonum" th:value="${item.ceonum}" readonly></div>
+				</div>
+				
+				<div>
+					<label>고객번호:</label>
+					<div><input type="text" name="custid" th:value="${item.custid}" readonly></div>
+				</div>
+				
+				<div>
+					<label>가게이름:</label>
+					<div><input type="text" name="name" th:value="${item.name}" required></div>
+				</div>
+				
+				<div>
+					<input type="text" id="roadAddress" name="address" placeholder="도로명 주소" th:value="${item.address}" required>
+					<button type="button" onclick="searchRoadAddress()">주소 검색</button>
+				</div>
+				
+				<div id="image-section">
+				<!-- 기존 이미지가 있을 경우 -->
+				<div th:if="${item.storeImg != null and item.storeImg.size() > 0}">
+					<img th:src="@{'/upload/' + ${item.storeImg[0].uuid} + '_' + ${item.storeImg[0].file}}"
+						 width="150" height="150" alt="가게 배너 이미지"/>
+					<input type="hidden" name="existingImageId" th:value="${item.storeImg[0].id}" required/>
+					<button type="button" id="delete-image-btn">삭제</button>
+				</div>
+	
+				<!-- 이미지 없을 때 파일 업로드 -->
+				<div th:if="${item.storeImg == null or item.storeImg.size() == 0}" id="upload-field">
+					<input type="file" name="uploadFile" accept="image/*">
+				</div>
+			</div>
+				
+				<div>
+					<div><button>변경</button></div>
+					<div><a href="/">취소</a></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

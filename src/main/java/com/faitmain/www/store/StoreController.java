@@ -153,7 +153,7 @@ public class StoreController {
 		
 		service.update(item);
 		
-		return "redirect:../list";
+		return "redirect:/";
 	}
 	
 	// 가게 정보 삭제
@@ -168,7 +168,7 @@ public class StoreController {
 		
 		service.delete(ceonum);
 		
-		return "redirect:../list";
+		return "redirect:/";
 	}
 	
 	// 가게 사진 삭제

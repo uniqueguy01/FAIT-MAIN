@@ -15,7 +15,7 @@ public interface CustomerService {
    Customer item(String id);
 
    void update(Customer item);
-
-   Customer login(String id, String password);
+   
+   boolean login(Customer item);
 
 }

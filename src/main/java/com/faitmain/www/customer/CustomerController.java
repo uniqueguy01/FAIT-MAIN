@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.faitmain.www.model.Customer;
 
 import jakarta.servlet.http.HttpSession;
@@ -19,10 +17,35 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/customer")
 public class CustomerController {
    
-final String path = "customer/";
+	final String path = "customer/";
    
    @Autowired
    CustomerService service;
+   
+   @GetMapping("/login")
+   public String loginPage() {
+       return path + "login";
+   }
+
+   @PostMapping("/login")
+   public String login(Customer item, HttpSession session) {
+       
+	   if (service.login(item)) {
+			session.setAttribute("customer", item);
+			
+			return "redirect:..";
+		}else {
+			return "redirect:login";
+		}
+   }
+
+   @GetMapping("/logout")
+   public String logout(HttpSession session) {
+	   
+       session.invalidate();
+       
+       return "redirect:/";
+   }
    
    @GetMapping("/list")
    String list(Model model) {
@@ -69,32 +92,6 @@ final String path = "customer/";
       service.update(item);
       
       return "redirect:/customer/list";
-   }
-   
-   @GetMapping("/login")
-   public String loginPage() {
-       return path + "login";
-   }
-
-   @PostMapping("/login")
-   public String login(@RequestParam("id") String id, @RequestParam("password") String password, HttpSession session, Model model) {
-       System.out.println(id);
-       System.out.println(password);
-	   Customer customer = service.login(id, password);
-       
-       if (customer != null) {
-           session.setAttribute("loggedInCustomer", customer);
-           return "redirect:/index";
-       } else {
-           model.addAttribute("error", "아이디 또는 비밀번호가 잘못되었습니다.");
-           return path + "login";
-       }
-   }
-
-   @GetMapping("/customer/logout")
-   public String logout(HttpSession session) {
-       session.invalidate();
-       return "redirect:/index";
    }
 
 }

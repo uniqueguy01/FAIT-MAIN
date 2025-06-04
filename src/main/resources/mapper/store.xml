@@ -79,6 +79,11 @@
 		SELECT * FROM storeimg
 		WHERE ceonum=#{ceonum}
 	</select>
+	
+	<select id="getCeonum" resultMap="storeMap">
+		SELECT * FROM store
+		WHERE custid=#{id}
+	</select>
     
     <!-- 가게 정보 추가 -->
     <insert id="add" parameterType="Store" useGeneratedKeys="true" keyProperty="ceonum">
