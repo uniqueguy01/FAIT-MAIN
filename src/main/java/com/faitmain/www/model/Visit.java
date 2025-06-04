@@ -3,16 +3,32 @@ package com.faitmain.www.model;
 import java.security.Timestamp;
 import java.util.Date;
 
-public class Real {
+public class Visit {
+	
+	private Long id;
+	private int amount;
+	private Timestamp reservation;
+	private int saleprice;
 	
 	private String custid;
 	private String ceonum;
 	private Long shoeid;
-	private int saleprice;
-	private int amount;
-	private Date orderdate;
-	private Timestamp reservation;
+	private Long orderid;
 	
+	
+	
+	public Long getOrderid() {
+		return orderid;
+	}
+	public void setOrderid(Long orderid) {
+		this.orderid = orderid;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getCustid() {
 		return custid;
 	}
@@ -43,12 +59,7 @@ public class Real {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public Date getOrderdate() {
-		return orderdate;
-	}
-	public void setOrderdate(Date orderdate) {
-		this.orderdate = orderdate;
-	}
+	
 	public Timestamp getReservation() {
 		return reservation;
 	}

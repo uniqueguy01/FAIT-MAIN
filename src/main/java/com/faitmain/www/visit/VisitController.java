@@ -1,8 +1,8 @@
-package com.faitmain.www.real;
+package com.faitmain.www.visit;
 
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class RealController {
+public class VisitController {
 
 }

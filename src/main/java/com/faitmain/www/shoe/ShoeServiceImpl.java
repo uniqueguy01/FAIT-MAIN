@@ -1,6 +1,8 @@
 package com.faitmain.www.shoe;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,6 +78,14 @@ public class ShoeServiceImpl implements ShoeService {
 	@Override
 	public List<String> getCategories(Long id) {
 		return dao.getCategories(id);
+	}
+
+	@Override
+	public List<Shoe> list(Set<Long> keySet) {		
+		if(keySet.isEmpty())
+			return new ArrayList<Shoe>();
+			
+		return dao.list(keySet);
 	}
 
 }

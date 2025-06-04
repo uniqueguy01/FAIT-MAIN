@@ -1,16 +1,30 @@
 package com.faitmain.www.model;
 
-import java.util.Date;
 
 public class Online {
 	
-	private String custid;
-	private String ceonum;
+	private Long id;
+	private String ceonum;	
+	private Long orderid;
 	private Long shoeid;
-	private int saleprice;
 	private int amount;
-	private Date orderdate;
+//	private int saleprice;
+//	private String custid;
 	
+	
+	
+	public Long getOrderid() {
+		return orderid;
+	}
+	public void setOrderid(Long orderid) {
+		this.orderid = orderid;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getCustid() {
 		return custid;
 	}
@@ -41,10 +55,5 @@ public class Online {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public Date getOrderdate() {
-		return orderdate;
-	}
-	public void setOrderdate(Date orderdate) {
-		this.orderdate = orderdate;
-	}
+	
 }

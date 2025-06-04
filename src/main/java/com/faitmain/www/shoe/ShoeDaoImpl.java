@@ -1,6 +1,8 @@
 package com.faitmain.www.shoe;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +80,15 @@ public class ShoeDaoImpl implements ShoeDao {
 	@Override
 	public List<String> getCategories(Long id) {
 		return sql.selectList("shoe.getCategories", id);
+	}
+
+	@Override
+	public List<Shoe> list(Set<Long> keySet) {		
+		HashMap<String, Set<Long>> map = new HashMap<String, Set<Long>>();
+		
+		map.put("keySet", keySet);
+		
+		return sql.selectList("shoe.list_keyset", map);
 	}
 
 }

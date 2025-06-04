@@ -112,6 +112,7 @@
 	<delete id="delete">
 		DELETE FROM shoe
 		WHERE id=#{id}
+<<<<<<< HEAD
 	</delete>
 
 	<!-- 신발 사진 삭제 -->
@@ -137,5 +138,17 @@
 	    DELETE FROM shoe
 	    WHERE store_id=#{id}
 	</delete>
+
+    <!-- 장바구니 관련 기능 -->
+    <select id="list_keyset" resultType="Shoe">
+		SELECT * FROM shoe
+		
+		<where>
+			id IN 
+			<foreach collection="keySet" item="key" open="(" close=")" separator=",">
+				#{key}
+			</foreach>
+		</where>
+	</select>
 
 </mapper>
