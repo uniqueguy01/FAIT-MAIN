@@ -10,26 +10,6 @@ CREATE TABLE IF NOT EXISTS customer (
     birth DATE NULL
 );
 
--- 권한 테이블
-DROP TABLE IF EXISTS authority;
-
-CREATE TABLE IF NOT EXISTS authority (
-    code INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    authority VARCHAR(32) NOT NULL,
-    subject VARCHAR(64) NOT NULL
-);
-
--- 권한 부여 테이블
-DROP TABLE IF EXISTS role;
-
-CREATE TABLE IF NOT EXISTS role (
-    code INT NOT NULL AUTO_INCREMENT,
-    custid VARCHAR(32) NOT NULL,
-    authority_code INT NOT NULL,
-    PRIMARY KEY(custid, authority_code),
-    FOREIGN KEY (custid) REFERENCES customer (id),
-    FOREIGN KEY (authority_code) REFERENCES authority (code)
-);
 
 -- 가게 테이블
 DROP TABLE IF EXISTS store;

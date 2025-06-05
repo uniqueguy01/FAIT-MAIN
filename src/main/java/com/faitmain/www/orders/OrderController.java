@@ -1,8 +1,8 @@
-package com.faitmain.www.real;
+package com.faitmain.www.orders;
 
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class RealController {
+public class OrderController {
 
 }

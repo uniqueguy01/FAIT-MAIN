@@ -1,4 +1,4 @@
-package com.faitmain.www.online;
+package com.faitmain.www.online_orders;
 
 import org.springframework.stereotype.Controller;
 
