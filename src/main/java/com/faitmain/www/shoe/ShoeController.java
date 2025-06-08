@@ -50,12 +50,17 @@ public class ShoeController {
 	
 	// 신발 상세정보 페이지
 	@GetMapping("/detail/{id}")
-	String detail(@PathVariable Long id, Model model) {
+	String detail(@PathVariable Long id, Model model, HttpSession session) {
 		
 		Shoe item = service.item(id);
 		
 		model.addAttribute("item", item);
 		
+		Customer customer = (Customer) session.getAttribute("customer");
+	    System.out.println("Session customer in ShoeController: " + (customer != null ? customer.getId() : "null"));
+	    
+	    model.addAttribute("customer", customer);
+	    
 		return path + "detail";
 	}
 	

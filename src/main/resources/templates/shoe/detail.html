@@ -111,8 +111,29 @@
 		    <!-- 상품 ID 전송 -->
 		    <input type="hidden" name="storeId" th:value="${item.id}" required>
 			
-			<button>주문</button>
 		</form>
+
+		<div>
+			<div><label>수량:</label></div>
+			<div>
+				<input type="number" id="amount" value="1">
+			</div>
+		</div>
+
+		<div>
+			<button id="cart" data-type="cart"
+				th:data-login="${customer != null}" th:data-id="${item.id}"
+				class="action btn">장바구니</button>
+		</div>
+
+		<div>
+			<button id="buy" data-type="buy"
+				th:data-login="${customer != null}" th:data-id="${item.id}"
+				class="action btn">구매하기</button>
+		</div>
+		
 	</div>
+	
+	<script th:src="@{/js/item.js}"></script>
 </body>
 </html>
