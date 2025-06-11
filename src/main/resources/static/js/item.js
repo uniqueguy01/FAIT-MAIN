@@ -1,29 +1,29 @@
-const cart = (shoeid, amount) => {
-    fetch(`/cart/${shoeid}/${amount}`)
+const cart = (shoeId, amount) => {
+    fetch(`/cart/${shoeId}/${amount}`)
     .then(resp => resp.json())
     .then(result => {
         console.log(result);        
     });
 };
 
-const buy = (shoeid, amount) => {
+const buy = (shoeId, amount) => {
 
 }
 
 window.postLogin = type => {
     const amount = document.getElementById("amount").value;
-    const productId = document.querySelector(`.action[data-type='${type}']`).dataset.id;
+    const shoeId = document.querySelector(`.action[data-type='${type}']`).dataset.id;
 
     alert(`로그인 완료: ${type}`);    
 
-    fetch("/nav").then(resp => resp.text()).then(result => {
+    fetch("/mypage").then(resp => resp.text()).then(result => {
         document.getElementById("nav").innerHTML = result;
     });
 
     if(type === "cart") {
-        cart(shoeid, amount);
+        cart(shoeId, amount);
     } else if(type === "buy") {
-        buy(shoeid, amount);
+        buy(shoeId, amount);
     }
 };
 

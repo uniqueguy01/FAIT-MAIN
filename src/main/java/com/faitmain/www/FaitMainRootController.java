@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.faitmain.www.customer.CustomerService;
 import com.faitmain.www.model.Customer;
 import com.faitmain.www.model.Shoe;
 import com.faitmain.www.model.Store;
@@ -23,6 +26,9 @@ public class FaitMainRootController {
 	
 	@Autowired
 	ShoeService shoeService;
+	
+	@Autowired
+	CustomerService service;
 	
 	// 메인 페이지
 	@GetMapping("/")
@@ -61,6 +67,28 @@ public class FaitMainRootController {
 	    }
 	    
 		return "mypage";
+	}
+	
+	// 로그인 팝업
+	@GetMapping("/login/{type}/popup")
+	String loginPopup(@PathVariable String type) {
+		return "login_popup";
+	}
+	
+	// 로그인 팝업
+	@PostMapping("/login/{type}/popup")
+	String loginPopup(@PathVariable String type, Model model, Customer item, HttpSession session) {
+		if(service.login(item)) {
+			session.setAttribute("customer", item);
+			Customer customer = (Customer) session.getAttribute("customer");
+			model.addAttribute("customer", customer);
+			
+			System.out.println("확인 " + (customer != null ? customer.getId() : "null"));
+			
+			return "login_popup";
+		} else {
+			return "redirect:popup";
+		}
 	}
 
 }
