@@ -1,75 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extra/spring-security">
 <head>
-<meta charset="UTF-8">
-<title></title>
-<link rel="stylesheet" href="/css/MainStyle.css" />
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
-   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<th:block th:replace="/fragment/head.html :: header"></th:block>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/MainStyle.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
 </head>
 <body>
-	<div th:fragment="nav"></div>
-
-	<header class="header">
-        <div class="header-container">
-            <div class="auth-links" th:if="${session.customer == null}">
-                <a href="customer/login">LOGIN</a>
-                <img src="/img/Line 1.png" alt="">
-                <a href="customer/signup">SIGNUP</a>
+    <div th:fragment="nav">
+        <header class="header">
+            <div class="header-container">
+                <div class="auth-links" th:if="${session.customer == null}">
+                    <a href="/customer/login">LOGIN</a>
+                    <img src="/img/Line 1.png" alt="" />
+                    <a href="/customer/signup">SIGNUP</a>
+                </div>
+                <div class="auth-links" th:if="${session.customer != null}">
+                    <a href="/mypage">MYPAGE</a>
+                    <img src="/img/Line 1.png" alt="" />
+                    <a href="/customer/logout">LOGOUT</a>
+                </div>
+                <div class="logo">
+                    <a href="/">
+                        <img src="/img/logo.png" alt="Logo" />
+                    </a>
+                </div>
+                <div class="header-bottom">
+                    <nav class="nav">
+                        <a href="#">STORES</a>
+                        <a href="#">JOURNAL</a>
+                        <a href="#">SUPPORT</a>
+                        <a href="#">ABOUT US</a>
+                    </nav>
+                </div>
             </div>
-            
-            <div class="auth-links" th:if="${session.customer != null}">
-	        	<a href="/mypage">MYPAGE</a>
-	        	<img src="/img/Line 1.png" alt="">
-				<a href="/customer/logout">LOGOUT</a>
-	        </div>
-        
-            <div class="logo">
-                <a href="#">
-                    <img src="/img/logo.png"/>
-                </a>
-            </div>
-            <div class="header-bottom">
-                <nav class="nav">
+        </header>
+        <header class="header-ver2 hidden">
+            <div class="header-ver2-container">
+                <div class="logo-ver2">
+                    <a href="/">
+                        <img src="/img/logo.png" alt="Logo" />
+                    </a>
+                </div>
+                <nav class="nav-ver2">
                     <a href="#">STORES</a>
                     <a href="#">JOURNAL</a>
                     <a href="#">SUPPORT</a>
                     <a href="#">ABOUT US</a>
                 </nav>
+                <div class="auth-links-ver2" th:if="${session.customer == null}">
+                    <a href="/customer/login">LOGIN</a>
+                    <img src="/img/Line 1.png" alt="" />
+                    <a href="/customer/signup">SIGNUP</a>
+                </div>
+                <div class="auth-links-ver2" th:if="${session.customer != null}">
+                    <a href="/mypage">MYPAGE</a>
+                    <img src="/img/Line 1.png" alt="" />
+                    <a href="/customer/logout">LOGOUT</a>
+                </div>
             </div>
-        </div>
-    </header>
-    <header class="header-ver2 hidden">
-        <div class="header-ver2-container">
-            <div class="logo-ver2">
-                <a href="#">
-                    <img src="/img/logo.png"/>
-                </a>
-            </div>
-            <nav class="nav-ver2">
-                <a href="#">STORES</a>
-                <a href="#">JOURNAL</a>
-                <a href="#">SUPPORT</a>
-                <a href="#">ABOUT US</a>
-            </nav>
-            <div class="auth-links-ver2" th:if="${session.customer == null}">
-                <a href="#">LOGIN</a>
-                <img src="/img/Line 1.png" alt="">
-                <a href="#">SIGNUP</a>
-            </div>
-        </div>
-    </header>
-
-	<script>
-		window.addEventListener('scroll', function() {
-			const header = document.querySelector('.header-ver2');
-			if (window.scrollY > 100) {
-				header.classList.remove('hidden');
-			} else {
-				header.classList.add('hidden');
-			}
-		});
-	</script>
+        </header>
+        <script>
+            window.addEventListener('scroll', function () {
+                const header = document.querySelector('.header-ver2');
+                if (window.scrollY > 100) {
+                    header.classList.remove('hidden');
+                } else {
+                    header.classList.add('hidden');
+                }
+            });
+        </script>
+    </div>
 </body>
 </html>
