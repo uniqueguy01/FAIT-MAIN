@@ -35,8 +35,7 @@
 					</div>
 					
 					<div>
-						<div><label>사업자번호:</label></div>
-						<div><input type="text" name="ceonum" th:value="${item.ceonum}" readonly></div>
+						<div><input type="hidden" name="storeId" th:value="${item.id}" readonly></div>
 					</div>
 					
 					<div>
@@ -61,7 +60,7 @@
 					
 					<div>
 						<div><button>등록</button></div>
-						<div><a href="list"><button type="button">취소</button></a></div>
+						<div><a th:href="@{'/shoe/list/' + ${item.id}}"><button type="button">취소</button></a></div>
 					</div>
 				</div>
 			</form>

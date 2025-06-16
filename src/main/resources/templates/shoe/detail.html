@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Fait Main Detail</title>
+<th:block th:replace="/fragment/head.html :: header"></th:block>
+<link rel="stylesheet" href="/css/MainStyle.css" />
+
+<style>
+  .dropdown-wrapper {
+    position: relative;
+    width: 250px;
+    font-family: sans-serif;
+  }
+
+  .dropdown-label {
+    background: #f8f8f8;
+    padding: 10px;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 200px;
+    border: 1px solid #ccc;
+    border-top: none;
+    background: #fff;
+    overflow-y: auto;
+    display: none; /* 기본은 숨김 */
+    z-index: 1000;
+  }
+
+  .dropdown-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+  }
+
+  .dropdown-item:hover {
+    background: #f0f0f0;
+  }
+
+  .selected {
+    color: #007bff;
+  }
+</style>
+
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+    	const dropdown = document.getElementById("dropdown");
+    	  const dropdownLabel = document.getElementById("dropdownLabel");
+    	  const sizeList = document.getElementById("sizeList");
+
+    	  // 사이즈 목록 추가
+    	  for (let size = 220; size <= 300; size += 5) {
+    	    const item = document.createElement("div");
+    	    item.className = "dropdown-item";
+    	    item.textContent = `${size}mm`;
+    	    item.addEventListener("click", () => {
+    	      dropdownLabel.textContent = `${size}mm 선택됨`;
+    	      document.getElementById("selectedSize").value = size; // ✅ 여기서 값 설정
+    	      sizeList.style.display = "none";
+    	    });
+    	    sizeList.appendChild(item);
+    	  }
+
+    	  // 옵션 선택 클릭 시 목록 토글
+    	  dropdownLabel.addEventListener("click", () => {
+    	    sizeList.style.display = sizeList.style.display === "block" ? "none" : "block";
+    	  });
+
+    	  // 외부 클릭 시 목록 닫기
+    	  window.addEventListener("click", (e) => {
+    	    if (!dropdown.contains(e.target)) {
+    	      sizeList.style.display = "none";
+    	    }
+    	  });
+    });
+</script>
+
+</head>
+<body>
+	<th:block th:replace="~{nav.html :: nav}"></th:block>
+	
+	<div>
+		<div>
+			<h3>신발 상세 정보</h3>
+		</div>
+		
+		<div>
+            <a href="/cart">장바구니</a>
+        </div>
+		<form method="post" action="/order">
+			<div th:each="img : ${item.shoeImg}">
+				<img th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.filename}}" width="100" />
+			</div>
+	
+			<!-- 기본 정보 -->
+			<div th:text="${item.name}"></div>
+			<div th:text="${item.price}"></div>
+			<div th:text="${item.detail}"></div>
+	
+			<!-- 발 사이즈 -->
+			<div class="dropdown-wrapper" id="dropdown">
+			  	<div class="dropdown-label" id="dropdownLabel">옵션 선택</div>
+			  	<div class="dropdown-list" id="sizeList"></div>
+			</div>
+			
+			<!-- ✅ 사이즈 전송용 hidden input -->
+		    <input type="hidden" name="size" id="selectedSize" required>
+		
+		    <!-- 상품 ID 전송 -->
+		    <input type="hidden" name="storeId" th:value="${item.id}" required>
+			
+		</form>
+
+		<div>
+			<div><label>수량:</label></div>
+			<div>
+				<input type="number" id="amount" value="1">
+			</div>
+		</div>
+
+		<div>
+			<button id="cart" data-type="cart"
+				th:data-login="${customer != null}" th:data-id="${item.id}"
+				class="action btn">장바구니</button>
+		</div>
+
+		<div>
+			<button id="buy" data-type="buy"
+				th:data-login="${customer != null}" th:data-id="${item.id}"
+				class="action btn">구매하기</button>
+		</div>
+		
+	</div>
+	
+	<script th:src="@{/js/item.js}"></script>
+</body>
+</html>

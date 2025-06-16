@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Fait Main</title>
+
+<th:block th:replace="/fragment/head.html :: header"></th:block>
+</head>
+<body>
+	<div>
+		<div>
+			<h1>FAIT-MAIN</h1>
+		</div>
+		
+		<div>
+			<div><a href="customer/list">고객관리</a></div>
+		</div>
+		
+		<div>
+			<div th:if="${myStore != null}">
+				<a th:href="@{'/shoe/list/' + ${myStore.id}}">신발관리</a>
+				<a th:href="@{'/store/update/' + ${myStore.id}}">가게수정</a>
+				<a th:href="@{'/store/delete/' + ${myStore.id}}">가게삭제</a>
+			</div>
+			
+			<div th:unless="${myStore != null}">
+	            <a href="store/add">가게등록</a> <!-- ✅ 조건에 따라 숨겨짐 -->
+	        </div>
+		</div>
+	</div>
+</body>
+</html>

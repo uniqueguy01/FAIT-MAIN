@@ -28,7 +28,7 @@
 	</delete>
 	
 	<select id="login" resultType="Customer">
-    	SELECT * FROM customer WHERE id = #{id} AND password = #{password}
+    	SELECT * FROM customer WHERE id=#{id} AND password=#{password}
 	</select>
 	
 </mapper>

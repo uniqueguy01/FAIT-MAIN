@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<div>
+		<div>
+			<h3>로그인</h3>
+		</div>
+		
+		<div>
+			<form method="post">
+				<div>
+					<div><label>아이디:</label></div>
+					<div><input type="text" name="id"></div>
+				</div>	
+				
+				<div>
+					<div><label>비밀번호:</label></div>
+					<div><input type="password" name="password"></div>
+				</div>
+				
+				<div>
+					<div><button>로그인</button></div>
+					<div><a href="javascript:self.close()"><button type="button">취소</button></a></div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+<th:block th:if="${customer != null}">
+	<script>
+		// window.opener.postLogin("${type}"); jsp 방식
+		window.opener.postLogin('[[${type}]]');
+		self.close();
+	</script>
+</body>
+</html>

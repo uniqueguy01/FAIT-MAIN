@@ -17,7 +17,7 @@
 					<tr>
 						<th>카테고리</th>
 						<th>신발번호</th>
-						<th>사업자번호</th>
+						<th>가게번호</th>
 						<th>신발이름</th>
 						<th>가격</th>
 						<th>세부사항</th>
@@ -34,24 +34,24 @@
 					<tr th:each="item : ${list}">
 						<td th:text="${item.category}"></td>
 						<td th:text="${item.id}"></td>
-						<td th:text="${item.ceonum}"></td>
+						<td th:text="${item.storeId}"></td>
 						<td th:text="${item.name}"></td>
 						<td th:text="${item.price}"></td>
 						<td th:text="${item.detail}"></td>
 						<td>
 							<div th:each="img : ${item.shoeImg}">
-								<img th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.file}}" width="100"/>
+								<img th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.filename}}" width="100"/>
 							</div>
 						</td>
-						<td><a th:href="@{|update/${item.id}|}">변경</a> <a th:href="@{|delete/${item.id}|}">삭제</a></td>
+						<td><a th:href="@{'/shoe/update/' + ${item.id}}">변경</a> <a th:href="@{'/shoe/delete/' + ${item.id}}">삭제</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		
 		<div>
-			<div><a href="add">등록</a></div>
-			<div><a href="..">이전</a></div>
+			<div><a href="/shoe/add">등록</a></div>
+			<div><a href="/mypage">이전</a></div>
 		</div>
 	</div>
 </body>

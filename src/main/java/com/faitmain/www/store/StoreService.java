@@ -2,6 +2,7 @@ package com.faitmain.www.store;
 
 import java.util.List;
 
+import com.faitmain.www.model.Maker;
 import com.faitmain.www.model.Store;
 import com.faitmain.www.model.StoreImg;
 
@@ -13,14 +14,20 @@ public interface StoreService {
 
 	void update(Store item);
 
-	void delete(String ceonum);
+	void delete(Long id);
 
-	Store item(String ceonum);
+	Store item(Long id);
 
-	StoreImg itemStoreImg(String ceonum);
+	StoreImg itemStoreImg(Long id);
 
-	void deleteStoreImg(String ceonum);
+	void deleteStoreImg(Long id);
 
-	Store getCeonum(String id);
+	Store getStoreId(String id);
+
+	Maker itemMaker(Long id);
+
+	void deleteMaker(Long id);
+
+	void updateNotice(Store store);
 
 }

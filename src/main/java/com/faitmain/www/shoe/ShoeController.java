@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.faitmain.www.model.Customer;
 import com.faitmain.www.model.Shoe;
 import com.faitmain.www.model.ShoeImg;
+import com.faitmain.www.model.Store;
+import com.faitmain.www.store.StoreService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/shoe")
@@ -29,20 +34,45 @@ public class ShoeController {
 	@Autowired
 	ShoeService service;
 	
+	@Autowired
+	StoreService storeService;
+	
 	// 신발 리스트 페이지
-	@GetMapping("/list")
-	String list(Model model) {
+	@GetMapping("/list/{id}")
+	String list(@PathVariable Long id, Model model) {
 		
-		List<Shoe> list = service.list();
+		List<Shoe> list = service.list(id); // storeId 기준 신발 목록
 		
-		model.addAttribute("list", list);
+	    model.addAttribute("list", list);
 		
 		return path + "list";
 	}
 	
+	// 신발 상세정보 페이지
+	@GetMapping("/detail/{id}")
+	String detail(@PathVariable Long id, Model model, HttpSession session) {
+		
+		Shoe item = service.item(id);
+		
+		model.addAttribute("item", item);
+		
+		Customer customer = (Customer) session.getAttribute("customer");
+	    System.out.println("Session customer in ShoeController: " + (customer != null ? customer.getId() : "null"));
+	    
+	    model.addAttribute("customer", customer);
+	    
+		return path + "detail";
+	}
+	
 	// 신발 정보 추가 페이지
 	@GetMapping("/add")
-	String add() {
+	String add(Model model, HttpSession session) {
+		
+		Customer customer = (Customer) session.getAttribute("customer");
+		
+		Store item = storeService.getStoreId(customer.getId());
+		
+	    model.addAttribute("item", item);
 		
 		return path + "add";
 	}
@@ -62,7 +92,7 @@ public class ShoeController {
 					file.transferTo(new File(uploadPath + uuid + "_" + filename));
 						
 					ShoeImg shoeImg = new ShoeImg();
-					shoeImg.setFile(filename);
+					shoeImg.setFilename(filename);
 					shoeImg.setUuid(uuid);
 						
 					shoeImgs.add(shoeImg);
@@ -76,7 +106,7 @@ public class ShoeController {
 		
 		service.add(item);
 		
-		return "redirect:list";
+		return "redirect:/shoe/list/" + item.getStoreId();
 
 	}
 	
@@ -96,30 +126,31 @@ public class ShoeController {
 		
 		List<ShoeImg> shoeImgs = new ArrayList<ShoeImg>();
 			
-		for(MultipartFile file : uploadFile) {
-			if(file != null && !file.isEmpty()) {
-				String filename = file.getOriginalFilename();
-				String uuid = UUID.randomUUID().toString();
-					
-				try {
-					file.transferTo(new File(uploadPath + uuid + "_" + filename));
-						
-					ShoeImg shoeImg = new ShoeImg();
-					shoeImg.setFile(filename);
-					shoeImg.setUuid(uuid);
-						
-					shoeImgs.add(shoeImg);
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		if (uploadFile != null) {
+	        for (MultipartFile file : uploadFile) {
+	            if (file != null && !file.isEmpty()) {
+	                String filename = file.getOriginalFilename();
+	                String uuid = UUID.randomUUID().toString();
+
+	                try {
+	                    file.transferTo(new File(uploadPath + uuid + "_" + filename));
+
+	                    ShoeImg shoeImg = new ShoeImg();
+	                    shoeImg.setFilename(filename);
+	                    shoeImg.setUuid(uuid);
+	                    shoeImgs.add(shoeImg);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	    }
 			
 		item.setShoeImg(shoeImgs);
 		
 		service.update(item);
 		
-		return "redirect:../list";
+		return "redirect:/shoe/list/" + item.getStoreId();
 	}
 	
 	// 신발 정보 삭제
@@ -128,13 +159,13 @@ public class ShoeController {
 		Shoe item = service.item(id);
 		
 		for(ShoeImg shoeImg : item.getShoeImg()) {
-			File file = new File (uploadPath + shoeImg.getUuid() + "_" + shoeImg.getFile());
+			File file = new File (uploadPath + shoeImg.getUuid() + "_" + shoeImg.getFilename());
 			file.delete();
 		}
 		
 		service.delete(id);
 		
-		return "redirect:../list";
+		return "redirect:/shoe/list/" + item.getStoreId();
 	}
 	
 	// 신발 사진 삭제
@@ -143,9 +174,9 @@ public class ShoeController {
 	String deleteShoeImg(@PathVariable Long id) {
 		ShoeImg item = service.itemShoeImg(id);
 		
-		service.deleteShoeImg(id);
+		service.deleteItemShoeImg(id);
 		
-		File file = new File (uploadPath + item.getUuid() + "_" + item.getFile());
+		File file = new File (uploadPath + item.getUuid() + "_" + item.getFilename());
 		file.delete();
 		
 		return id.toString();

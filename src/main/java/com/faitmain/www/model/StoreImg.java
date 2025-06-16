@@ -3,8 +3,9 @@ package com.faitmain.www.model;
 public class StoreImg {
 
 	private Long id;
-	private String ceonum;
-	private String file;
+	private Long storeId;
+	private String type;
+	private String filename;
 	private String uuid;
 
 	public Long getId() {
@@ -15,20 +16,28 @@ public class StoreImg {
 		this.id = id;
 	}
 
-	public String getCeonum() {
-		return ceonum;
+	public Long getStoreId() {
+		return storeId;
 	}
 
-	public void setCeonum(String ceonum) {
-		this.ceonum = ceonum;
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
 	}
 
-	public String getFile() {
-		return file;
+	public String getType() {
+		return type;
 	}
 
-	public void setFile(String file) {
-		this.file = file;
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public String getUuid() {

@@ -60,7 +60,7 @@ final String path = "foot/";
 	
 	@PostMapping("/update/{custid}")
 	String update(@PathVariable String custid, Foot item) {
-		item.setCustid(custid);
+		item.setCustId(custid);
 		
 		service.update(item);
 		

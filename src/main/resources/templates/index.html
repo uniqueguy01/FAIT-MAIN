@@ -1,44 +1,157 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extra/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>Fait Main</title>
-
-<th:block th:replace="/fragment/head.html :: header"></th:block>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/MainStyle.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <th:block th:replace="/fragment/head.html :: header"></th:block>
 </head>
+<script>
+    window.addEventListener('scroll', function () {
+        const header = document.querySelector('.header-ver2');
+        if (window.scrollY > 100) {
+            header.classList.remove('hidden');
+        } else {
+            header.classList.add('hidden');
+        }
+    });
+</script>
 <body>
-	<div>
-		<div>
-			<h1>FAIT-MAIN</h1>
-		</div>
-		
-		<div>
-            <div th:if="${session.customer == null}">
-                <a href="/customer/login">로그인</a>
+    <header class="header">
+        <div class="header-container">
+            <div class="auth-links" th:if="${session.customer == null}">
+                <a href="customer/login">LOGIN</a>
+                <img src="/img/Line 1.png" alt="">
+                <a href="customer/signup">SIGNUP</a>
             </div>
-
-            <div th:if="${session.customer != null}">
-                <p>안녕하세요, <span th:text="${session.customer.name}"></span>님!</p>
-                <a href="/customer/logout">로그아웃</a>
-                
-                <div>
-					<div><a href="customer/list">고객관리</a></div>
-				</div>
-				
-				<div>
-					<div><a href="shoe/list">신발관리</a></div>
-					<div><a th:href="@{'/store/update/' + ${myStore.ceonum}}">가게수정</a></div>
-					<div><a href="store/add">가게등록</a></div>
-				</div>
+            
+            <div class="auth-links" th:if="${session.customer != null}">
+	        	<a href="/mypage">MYPAGE</a>
+	        	<img src="/img/Line 1.png" alt="">
+				<a href="/customer/logout">LOGOUT</a>
+	        </div>
+        
+            <div class="logo">
+                <a href="#">
+                    <img src="/img/logo.png"/>
+                </a>
+            </div>
+            <div class="header-bottom">
+                <nav class="nav">
+                    <a href="#">STORES</a>
+                    <a href="#">JOURNAL</a>
+                    <a href="#">SUPPORT</a>
+                    <a href="#">ABOUT US</a>
+                </nav>
             </div>
         </div>
-		
-		
-			
-		<div th:each="store : ${storeList}">
-			<a th:href="@{'/store/list/' + ${store.ceonum}}" th:text="${store.name}">가게 이름</a>
-		</div>
+    </header>
+    <header class="header-ver2 hidden">
+        <div class="header-ver2-container">
+            <div class="logo-ver2">
+                <a href="#">
+                    <img src="/img/logo.png"/>
+                </a>
+            </div>
+            <nav class="nav-ver2">
+                <a href="#">STORES</a>
+                <a href="#">JOURNAL</a>
+                <a href="#">SUPPORT</a>
+                <a href="#">ABOUT US</a>
+            </nav>
+            <div class="auth-links-ver2" th:if="${session.customer == null}">
+                <a href="#">LOGIN</a>
+                <img src="/img/Line 1.png" alt="">
+                <a href="#">SIGNUP</a>
+            </div>
+        </div>
+    </header>
 
-	</div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <img class="slogan1" src="/img/slogan1.png">
+        <div class="search-bar">
+            <div class="label-group">
+                <label>STORE</label>
+                <label>SHOES</label>
+            </div>
+            <input type="text" placeholder="Province / City" />
+            <input type="text" placeholder="Store Name" />
+        </div>
+        <img class="slogan2" src="/img/slogan2.png">
+    </section>
+
+    <!-- Custom Shoes -->
+    <section class="custom-shoes">
+        <h2>CUSTOM SHOES</h2>
+        <p>장인들의 정성이 깃든 커스텀 수제화<br>정교한 제작과 섬세한 디테일을 경험하세요</p>
+        <div class="shoes-list">
+            <div class="shoe-item"><img src="img/oxford.jpg" alt="Oxford" /><p>OXFORD</p></div>
+            <div class="shoe-item"><img src="img/loafer.jpg" alt="Loafer" /><p>LOAFER</p></div>
+            <div class="shoe-item"><img src="img/derby.jpg" alt="Derby" /><p>DERBY</p></div>
+            <div class="shoe-item"><img src="img/chelsea.jpg" alt="Chelsea" /><p>CHELSEA</p></div>
+        </div>
+    </section>
+
+    <!-- Curated Selections -->
+    <section class="curated">
+        <h2>Curated Selections</h2>
+        <p><strong>다양한</strong> 수제화 가게<br><strong>개성 넘치는</strong> 디자인</p>
+    </section>
+
+    <!-- Curated Stores -->
+    <section class="stores">
+        <h2>CURATED STORES</h2>
+        <p>개성넘치는 디자인과 다양한 수제화 장인을<br>다양한 매장에서 특별한 신발을 만들어보세요</p>
+        <div class="store-logos">
+        	<th:block th:each="store, iter : ${storeList}">
+        		<th:block th:if="${iter.count <= 4}">
+        			<a th:href="@{'/store/list/' + ${store.id}}">
+			            <th:block th:each="img : ${store.storeImg}">
+	    					<img th:if="${img.type == 'main'}"
+	    					     th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.filename}}"
+	    					     alt="대표 이미지" />
+	    				</th:block>
+			        </a>
+        		</th:block>
+        	</th:block>
+        </div>
+    </section>
+
+    <!-- Journal -->
+    <section class="journal">
+        <h2>JOURNAL</h2>
+        <div class="journal-articles">
+            <article>
+                <img src="img/article1.jpg" alt="" />
+                <h3>수제화, 시장을 걷다</h3>
+                <p>Handmade shoes, Growing Market</p>
+            </article>
+            <article>
+                <img src="img/article2.jpg" alt="" />
+                <h3>이제는 LOAFERS 시대</h3>
+                <p>Now, the Era of Loafers</p>
+            </article>
+            <article>
+                <img src="img/article3.jpg" alt="" />
+                <h3>이태리 수제화 장인 Giovanni를 만나다</h3>
+                <p>Meet Giovanni, the Master Shoemaker</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>㈜00000 / 사업자등록번호 : 000-00-00000<br>
+        address : 서울특별시 중구 ... 가상의 주소 1104호<br>
+        Tel : 052-000-0000 / 070-0000-0000</p>
+        <div class="social-icons">
+            <span>💬</span><span>📷</span><span>📘</span>
+        </div>
+    </footer>
+
 </body>
 </html>

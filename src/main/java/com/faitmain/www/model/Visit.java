@@ -1,13 +1,15 @@
 package com.faitmain.www.model;
 
+import java.security.Timestamp;
 
-public class Online {
+public class Visit {
 	
 	private Long id;
-	private String storeId;	
+	private Long storeId;
 	private Long ordersId;
 	private Long shoeId;
 	private int amount;
+	private Timestamp reservation;
 //	private String custid;
 	
 	
@@ -17,10 +19,10 @@ public class Online {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getStoreId() {
+	public Long getStoreId() {
 		return storeId;
 	}
-	public void setStoreId(String storeId) {
+	public void setStoreId(Long storeId) {
 		this.storeId = storeId;
 	}
 	public Long getOrdersId() {
@@ -41,5 +43,11 @@ public class Online {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-
+	public Timestamp getReservation() {
+		return reservation;
+	}
+	public void setReservation(Timestamp reservation) {
+		this.reservation = reservation;
+	}
+	
 }

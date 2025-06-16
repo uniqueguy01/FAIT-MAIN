@@ -1,6 +1,8 @@
 package com.faitmain.www.shoe;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,7 @@ public class ShoeDaoImpl implements ShoeDao {
 
 	@Override
 	public void deleteShoeImg(Long id) {
-		sql.delete("shoe.delete_shoeImg", id);
+		sql.delete("shoe.deleteShoeImg", id);
 	}
 
 	@Override
@@ -56,8 +58,37 @@ public class ShoeDaoImpl implements ShoeDao {
 	}
 
 	@Override
-	public List<Shoe> list(String ceonum) {
-		return sql.selectList("shoe.storeList", ceonum);
+	public List<Shoe> list(Long id) {
+		return sql.selectList("shoe.storeList", id);
+	}
+
+	@Override
+	public void deleteItemShoeImg(Long id) {
+		sql.delete("shoe.deleteItemShoeImg", id);
+	}
+
+	@Override
+	public void delShoeImgs(Long id) {
+		sql.delete("shoe.delShoeImgs", id);
+	}
+
+	@Override
+	public void deleteShoes(Long id) {
+		sql.delete("shoe.delShoes", id);
+	}
+
+	@Override
+	public List<String> getCategories(Long id) {
+		return sql.selectList("shoe.getCategories", id);
+	}
+
+	@Override
+	public List<Shoe> list(Set<Long> keySet) {		
+		HashMap<String, Set<Long>> map = new HashMap<String, Set<Long>>();
+		
+		map.put("keySet", keySet);
+		
+		return sql.selectList("shoe.list_keyset", map);
 	}
 
 }

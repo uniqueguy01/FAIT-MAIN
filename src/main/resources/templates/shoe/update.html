@@ -6,33 +6,35 @@
 <th:block th:replace="/fragment/head.html :: header"></th:block>
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
-		const deleteBtn = document.getElementById("delete-image-btn");
-		if (deleteBtn) {
-			deleteBtn.addEventListener("click", function () {
-				const imageId = document.querySelector('input[name="existingImageId"]').value;
+	    const deleteBtn = document.getElementById("delete-image-btn");
+	    if (deleteBtn) {
+	        deleteBtn.addEventListener("click", function () {
+	            const imageId = document.querySelector('input[name="existingImageId"]').value;
+	            if (!imageId) return;
 	
-				if (!imageId) return;
+	            // 서버에 이미지 삭제 요청
+	            fetch(`/shoe/delete/shoeimg/${imageId}`)
+	                .then(res => res.text())
+	                .then(result => {
+	                    console.log("삭제 완료:", result);
 	
-				// Ajax 요청으로 이미지 삭제
-				fetch(`/shoe/delete/shoeimg/${imageId}`)
-					.then(res => res.text())
-					.then(result => {
-						console.log("삭제 완료:", result);
+	                    // 기존 이미지 영역 제거
+	                    const existing = document.getElementById("existing-image");
+	                    if (existing) existing.remove();
 	
-						// 이미지 영역을 업로드 필드로 교체
-						const imageSection = document.getElementById("image-section");
-						imageSection.innerHTML = `
-							<div id="upload-field">
-								<input type="file" name="uploadFile" accept="image/*">
-							</div>
-						`;
-					})
-					.catch(err => {
-						console.error("삭제 실패:", err);
-						alert("이미지 삭제 중 오류가 발생했습니다.");
-					});
-			});
-		}
+	                    // 업로드 input 동적으로 생성
+	                    const uploadField = document.getElementById("upload-field");
+	                    uploadField.innerHTML = `
+	                        <label>새 이미지 업로드:</label>
+	                        <input type="file" name="uploadFile" accept="image/*">
+	                    `;
+	                })
+	                .catch(err => {
+	                    console.error("삭제 실패:", err);
+	                    alert("이미지 삭제 중 오류가 발생했습니다.");
+	                });
+	        });
+	    }
 	});
 </script>
 
@@ -69,8 +71,8 @@
 				</div>
 				
 				<div>
-					<label>사업자번호:</label>
-					<div><input type="text" name="ceonum" th:value="${item.ceonum}" readonly></div>
+					<label>가게번호:</label>
+					<div><input type="text" name="storeId" th:value="${item.storeId}" readonly></div>
 				</div>
 				
 				<div>
@@ -89,23 +91,21 @@
 				</div>
 				
 				<div id="image-section">
-				<!-- 기존 이미지가 있을 경우 -->
-				<div th:if="${item.shoeImg != null and item.shoeImg.size() > 0}">
-					<img th:src="@{'/upload/' + ${item.shoeImg[0].uuid} + '_' + ${item.shoeImg[0].file}}"
-						 width="150" height="150" alt="신발 이미지"/>
-					<input type="hidden" name="existingImageId" th:value="${item.shoeImg[0].id}" />
-					<button type="button" id="delete-image-btn">삭제</button>
+					<!-- 기존 이미지 있을 때만 보여지는 영역 -->
+				    <div th:if="${item.shoeImg != null and item.shoeImg.size() > 0}" id="existing-image">
+				        <img th:src="@{'/upload/' + ${item.shoeImg[0].uuid} + '_' + ${item.shoeImg[0].filename}}"
+				             width="150" height="150" alt="신발 이미지" />
+				        <input type="hidden" name="existingImageId" th:value="${item.shoeImg[0].id}" />
+				        <button type="button" id="delete-image-btn">삭제</button>
+				    </div>
+				
+				    <!-- 업로드 input은 처음에는 비어 있음 -->
+				    <div id="upload-field"></div>
 				</div>
-	
-				<!-- 이미지 없을 때 파일 업로드 -->
-				<div th:if="${item.shoeImg == null or item.shoeImg.size() == 0}" id="upload-field">
-					<input type="file" name="uploadFile" accept="image/*">
-				</div>
-			</div>
 				
 				<div>
 					<div><button>변경</button></div>
-					<div><a href="../list">취소</a></div>
+					<div><a th:href="@{'/shoe/list/' + ${item.storeId}}">취소</a></div>
 				</div>
 			</form>
 		</div>

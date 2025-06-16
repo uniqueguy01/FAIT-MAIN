@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="orders">
+
+	<insert id="add">
+		INSERT INTO orders
+		VALUES (ORDERS_SEQ.nextval, #{custId}, #{storeId}, #{shoeId}, SYSDATE)
+		
+		<selectKey keyProperty="id" resultType="Long" order="AFTER" >
+			SELECT ORDERS_SEQ.currval FROM dual
+		</selectKey>
+	</insert>
+	
+	<insert id="add_online">
+		INSERT INTO online
+		VALUES (ONLINE_SEQ.nextval, #{storeId}, #{ordersId}, #{shoeId}, #{amount})
+	</insert>
+	
+	<resultMap type="Orders" id="OrdersMap" autoMapping="true">
+		<id column="id" property="id"/>
+		
+		<collection property="online" column="orders_id" javaType="ArrayList" ofType="Online" autoMapping="true"> <!-- javaType이 Orders 테이블에서 List<Online> online;이여서 -->
+			<id column="online_id" property="id"/>
+		</collection>
+	</resultMap>
+	
+	<select id="item" resultMap="OrdersMap">
+		SELECT orders.*, orders_detail.id detail_id, orders_detail.orders_id, orders_detail.product_id, orders_detail.amount  
+		FROM orders
+		LEFT JOIN orders_detail ON orders.id=orders_detail.orders_id
+		WHERE orders.id=#{id}
+	</select>
+
+</mapper>

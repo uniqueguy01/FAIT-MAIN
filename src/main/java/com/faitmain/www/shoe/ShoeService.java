@@ -1,6 +1,7 @@
 package com.faitmain.www.shoe;
 
 import java.util.List;
+import java.util.Set;
 
 import com.faitmain.www.model.Shoe;
 import com.faitmain.www.model.ShoeImg;
@@ -19,8 +20,12 @@ public interface ShoeService {
 
 	ShoeImg itemShoeImg(Long id);
 
-	void deleteShoeImg(Long id);
+	void deleteItemShoeImg(Long id);
 
-	List<Shoe> list(String ceonum);
+	List<Shoe> list(Long id);
+
+	List<String> getCategories(Long id);
+
+	List<Shoe> list(Set<Long> keySet);
 	
 }

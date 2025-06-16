@@ -3,12 +3,30 @@ package com.faitmain.www.model;
 import java.util.List;
 
 public class Store {
+	private Long id;
+	private String custId;
 	private String ceonum;
-	private String custid;
 	private String name;
 	private String address;
+	private String notice;
 	private List<StoreImg> storeImg;
 	private List<Maker> maker;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getCustId() {
+		return custId;
+	}
+
+	public void setCustId(String custId) {
+		this.custId = custId;
+	}
 
 	public String getCeonum() {
 		return ceonum;
@@ -16,14 +34,6 @@ public class Store {
 
 	public void setCeonum(String ceonum) {
 		this.ceonum = ceonum;
-	}
-
-	public String getCustid() {
-		return custid;
-	}
-
-	public void setCustid(String custid) {
-		this.custid = custid;
 	}
 
 	public String getName() {
@@ -40,6 +50,14 @@ public class Store {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getNotice() {
+		return notice;
+	}
+
+	public void setNotice(String notice) {
+		this.notice = notice;
 	}
 
 	public List<StoreImg> getStoreImg() {
