@@ -306,12 +306,24 @@ public class StoreController {
 	@ResponseBody
 	@GetMapping("/delete/storeimg/{id}")
 	String deleteStoreImg(@PathVariable Long id) {
-		StoreImg item = service.itemStoreImg(id);
 		
-		service.deleteStoreImg(id);
-		
-		File file = new File (uploadPath + item.getUuid() + "_" + item.getFilename());
-		file.delete();
+		// 1. 이미지 정보 조회 (DB 삭제 전에 조회해야 함)
+	    StoreImg item = service.itemStoreImg(id);
+	    if (item == null) {
+	        return "이미지 없음";
+	    }
+
+	    // 2. DB에서 이미지 정보 삭제
+	    service.deleteStoreImg(id);
+
+	    // 3. 물리 파일 삭제
+	    File file = new File(uploadPath + item.getUuid() + "_" + item.getFilename());
+	    if (file.exists()) {
+	        boolean deleted = file.delete();
+	        if (!deleted) {
+	            System.out.println("파일 삭제 실패: " + file.getAbsolutePath());
+	        }
+	    }
 		
 		return id.toString();
 	}

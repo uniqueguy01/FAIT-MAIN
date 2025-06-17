@@ -6,48 +6,48 @@
 <th:block th:replace="/fragment/head.html :: header"></th:block>
 
 <style>
-  .dropdown-wrapper {
-    position: relative;
-    width: 250px;
-    font-family: sans-serif;
-  }
+.dropdown-wrapper {
+	position: relative;
+	width: 250px;
+	font-family: sans-serif;
+}
 
-  .dropdown-label {
-    background: #f8f8f8;
-    padding: 10px;
-    font-weight: bold;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-  }
+.dropdown-label {
+	background: #f8f8f8;
+	padding: 10px;
+	font-weight: bold;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	cursor: pointer;
+}
 
-  .dropdown-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    max-height: 200px;
-    border: 1px solid #ccc;
-    border-top: none;
-    background: #fff;
-    overflow-y: auto;
-    display: none; /* 기본은 숨김 */
-    z-index: 1000;
-  }
+.dropdown-list {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	max-height: 200px;
+	border: 1px solid #ccc;
+	border-top: none;
+	background: #fff;
+	overflow-y: auto;
+	display: none;
+	z-index: 1000;
+}
 
-  .dropdown-item {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-  }
+.dropdown-item {
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+	cursor: pointer;
+}
 
-  .dropdown-item:hover {
-    background: #f0f0f0;
-  }
+.dropdown-item:hover {
+	background: #f0f0f0;
+}
 
-  .selected {
-    color: #007bff;
-  }
+.selected {
+	color: #007bff;
+}
 </style>
 
 <script>
@@ -84,34 +84,30 @@
 </script>
 
 </head>
-<body>
-	<div>
-		<div>
-			<h3>신발 상세 정보</h3>
+<body class="bg-light">
+	<div class="container py-5">
+		<div class="mb-4">
+			<h3 class="fw-bold">신발 상세 정보</h3>
 		</div>
-		<form method="post" action="/order">
-			<div th:each="img : ${item.shoeImg}">
-				<img th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.filename}}" width="100" />
+		<form method="post" action="/order"
+			class="card p-4 shadow-sm bg-white">
+			<div class="mb-3" th:each="img : ${item.shoeImg}">
+				<img th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.filename}}"
+					class="img-fluid mb-2" style="max-width: 200px;" />
 			</div>
-	
-			<!-- 기본 정보 -->
-			<div th:text="${item.name}"></div>
-			<div th:text="${item.price}"></div>
-			<div th:text="${item.detail}"></div>
-	
-			<!-- 발 사이즈 -->
-			<div class="dropdown-wrapper" id="dropdown">
-			  	<div class="dropdown-label" id="dropdownLabel">옵션 선택</div>
-			  	<div class="dropdown-list" id="sizeList"></div>
+			<div class="mb-2 fw-semibold" th:text="${item.name}"></div>
+			<div class="mb-2 text-muted" th:text="${item.price}"></div>
+			<div class="mb-4" th:text="${item.detail}"></div>
+
+			<label class="form-label fw-semibold">발 사이즈 선택</label>
+			<div class="dropdown-wrapper mb-4" id="dropdown">
+				<div class="dropdown-label" id="dropdownLabel">옵션 선택</div>
+				<div class="dropdown-list" id="sizeList"></div>
 			</div>
-			
-			<!-- ✅ 사이즈 전송용 hidden input -->
-		    <input type="hidden" name="size" id="selectedSize" required>
-		
-		    <!-- 상품 ID 전송 -->
-		    <input type="hidden" name="storeId" th:value="${item.id}" required>
-			
-			<button>주문</button>
+			<input type="hidden" name="size" id="selectedSize" required>
+			<input type="hidden" name="storeId" th:value="${item.id}" required>
+
+			<button type="submit" class="btn btn-dark w-100">주문</button>
 		</form>
 	</div>
 </body>

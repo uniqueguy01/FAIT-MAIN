@@ -5,27 +5,104 @@
 <title>Fait Main</title>
 
 <th:block th:replace="/fragment/head.html :: header"></th:block>
+
+<style>
+body {
+	background-color: #f9f9f9;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.mypage-container {
+	max-width: 700px;
+	margin: 100px auto;
+	background: white;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mypage-title {
+	font-family: 'Noto Serif KR', serif;
+	font-size: 2.2rem;
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.btn-group-vertical .btn {
+	margin-bottom: 10px;
+}
+
+.brand-logo {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.brand-logo a {
+	font-size: 2rem;
+	font-weight: bold;
+	font-family: 'Noto Serif KR', serif;
+	color: #000;
+	text-decoration: none;
+}
+
+.brand-logo a:hover {
+	text-decoration: underline;
+}
+</style>
+<style>
+.equal-btn-group {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* 3등분 */
+	gap: 10px;
+	width: 100%; /* 👉 고객 관리 버튼과 같은 너비 */
+}
+
+.equal-btn-group .btn {
+	height: 50px;
+	font-size: 1rem;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+</style>
 </head>
 <body>
-	<div>
-		<div>
-			<h1>FAIT-MAIN</h1>
+
+	<div th:replace="/fragment/nav.html :: nav"></div>
+
+	<div class="mypage-container">
+		<div class="brand-logo">
+			<a href="/">FAIT-MAIN</a>
 		</div>
-		
-		<div>
-			<div><a href="customer/list">고객관리</a></div>
+
+		<h2 class="mypage-title">마이페이지</h2>
+
+		<!-- ✅ 고객 관리: 관리자만 보이도록 -->
+		<div class="mb-4"
+			th:if="${session.customer != null and session.customer.id == 'admin'}">
+			<a href="/customer/list" class="btn btn-outline-dark w-100">고객 관리</a>
 		</div>
-		
-		<div>
-			<div th:if="${myStore != null}">
-				<a th:href="@{'/shoe/list/' + ${myStore.id}}">신발관리</a>
-				<a th:href="@{'/store/update/' + ${myStore.id}}">가게수정</a>
-				<a th:href="@{'/store/delete/' + ${myStore.id}}">가게삭제</a>
+
+		<!-- 가게 관련 -->
+		<div class="btn-group-vertical w-100">
+			<!-- 조건: myStore가 있을 때 -->
+			<div th:if="${myStore != null}" class="equal-btn-group mt-3">
+				<a th:href="@{'/shoe/list/' + ${myStore.id}}"
+					class="btn btn-warning text-dark fw-semibold">신발 관리</a> <a
+					th:href="@{'/store/update/' + ${myStore.id}}"
+					class="btn btn-outline-secondary">가게 수정</a> <a
+					th:href="@{'/store/delete/' + ${myStore.id}}"
+					class="btn btn-outline-danger">가게 삭제</a>
 			</div>
-			
-			<div th:unless="${myStore != null}">
-	            <a href="store/add">가게등록</a> <!-- ✅ 조건에 따라 숨겨짐 -->
-	        </div>
+
+			<!-- 조건: myStore가 없을 때 -->
+			<div th:unless="${myStore != null}" class="d-grid mt-3">
+				<a href="/store/add" class="btn btn-warning text-dark fw-semibold">가게
+					등록</a>
+			</div>
 		</div>
 	</div>
 </body>
