@@ -1,167 +1,382 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extra/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/MainStyle.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-    <th:block th:replace="/fragment/head.html :: header"></th:block>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link rel="stylesheet" href="/css/MainStyle.css" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
+<th:block th:replace="/fragment/head.html :: header"></th:block>
 </head>
 <script>
-    window.addEventListener('scroll', function () {
-        const header = document.querySelector('.header-ver2');
-        if (window.scrollY > 100) {
-            header.classList.remove('hidden');
-        } else {
-            header.classList.add('hidden');
-        }
-    });
+	window.addEventListener('scroll', function() {
+		const header = document.querySelector('.header-ver2');
+		if (window.scrollY > 100) {
+			header.classList.remove('hidden');
+		} else {
+			header.classList.add('hidden');
+		}
+	});
 </script>
+
+<style>
+.custom-shoes {
+	text-align: center;
+	padding: 40px 0;
+}
+
+.shoes-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 30px;
+	margin-top: 30px;
+}
+
+.shoe-item {
+	width: 305px;
+	text-align: center;
+}
+
+.shoe-item img {
+	width: 305px;
+	height: 230px;
+	object-fit: cover; /* 비율 유지 안 하고 꽉 채움 */
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stores {
+	text-align: center;
+	padding: 40px 0;
+}
+
+.store-logos {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 30px;
+	margin-top: 30px;
+}
+
+.store-logos a {
+	display: block;
+	width: 305px;
+	height: 230px;
+}
+
+.store-logos img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	/* border-radius: 0; // 기본값이라 생략 가능 */
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+img, .card, .card img, .store-logos img, .shoe-item img {
+	border-radius: 0 !important;
+}
+
+footer.footer {
+  background-color: #000;
+  color: #ccc; /* 텍스트 회색톤 */
+  padding: 40px 60px;
+  text-align: left;
+  font-family: 'Noto Sans KR';
+  font-size: 1rem;
+}
+
+
+.footer p {
+  margin-bottom: 20px; /* 간격을 더 넓게 */
+  line-height: 1.6;
+}
+
+.footer .social-icons {
+  margin-top: 20px;     /* 위쪽 여백 증가 */
+  display: flex;
+  gap: 24px;            /* 아이콘 간격 증가 */
+  font-size: 1.4rem;    /* 아이콘 크기 키우기 (선택) */
+  color: #fff;
+}
+</style>
+
+<style>
+.journal {
+	text-align: center;
+	padding: 60px 20px;
+}
+
+.journal h2 {
+	font-size: 2rem;
+	margin-bottom: 40px;
+}
+
+.journal-wrapper {
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+	max-width: 1220px;
+	margin: 0 auto;
+}
+
+.left-column, .right-column {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.journal-bottom-row {
+	display: flex;
+	gap: 20px;
+}
+
+.card {
+	position: relative;
+	overflow: hidden;
+}
+
+.card img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.overlay {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding: 20px;
+	color: white;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+	text-align: left;
+}
+
+.tall {
+	width: 508.76px;
+	height: 1117px;
+}
+
+.wide {
+	width: 786.58px;
+	height: 408.72px;
+}
+
+.small {
+	width: 383px;
+	height: 690px;
+}
+
+.curated {
+	position: relative;
+	background-image: url('/img/쇼핑아케이드.jpg'); /* 이미지 경로 */
+	background-size: cover;
+	background-position: center;
+	padding: 120px 60px; /* 여백 충분히 */
+	color: white;
+	text-align: left; /* 👉 왼쪽 정렬 */
+	font-family: 'Noto Serif KR', serif;
+}
+
+/* 어두운 오버레이 */
+.curated::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5); /* 어둡게 */
+	z-index: 0;
+}
+
+.curated h2, .curated p {
+	position: relative;
+	z-index: 1;
+	margin: 0;
+}
+
+.curated h2 {
+	font-size: 3rem; /* 더 크게 */
+	font-weight: 700;
+	margin-bottom: 20px;
+	color: #FFCF40;
+	font-family: 'Noto Serif', serif;
+}
+
+.curated p {
+	font-size: 1.5rem; /* 더 큼 */
+	line-height: 1.8;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+</style>
+
+
 <body>
-    <header class="header">
-        <div class="header-container">
-            <div class="auth-links" th:if="${session.customer == null}">
-                <a href="customer/login">LOGIN</a>
-                <img src="/img/Line 1.png" alt="">
-                <a href="customer/signup">SIGNUP</a>
-            </div>
-            
-            <div class="auth-links" th:if="${session.customer != null}">
-	        	<a href="/mypage">MYPAGE</a>
-	        	<img src="/img/Line 1.png" alt="">
+	<header class="header">
+		<div class="header-container">
+			<div class="auth-links" th:if="${session.customer == null}">
+				<a href="customer/login">LOGIN</a> <img src="/img/Line 1.png" alt="">
+				<a href="customer/signup">SIGNUP</a>
+			</div>
+
+			<div class="auth-links" th:if="${session.customer != null}">
+				<a href="/mypage">MYPAGE</a> <img src="/img/Line 1.png" alt="">
 				<a href="/customer/logout">LOGOUT</a>
-				<img src="/img/Line 1.png" alt="">
-                <a href="/cart">장바구니</a>
-	        </div>
-        
-            <div class="logo">
-                <a href="#">
-                    <img src="/img/logo.png"/>
-                </a>
-            </div>
-            <div class="header-bottom">
-                <nav class="nav">
-                    <a href="#">STORES</a>
-                    <a href="#">JOURNAL</a>
-                    <a href="#">SUPPORT</a>
-                    <a href="#">ABOUT US</a>
-                </nav>
-            </div>
-        </div>
-    </header>
-    <header class="header-ver2 hidden">
-        <div class="header-ver2-container">
-            <div class="logo-ver2">
-                <a href="#">
-                    <img src="/img/logo.png"/>
-                </a>
-            </div>
-            <nav class="nav-ver2">
-                <a href="#">STORES</a>
-                <a href="#">JOURNAL</a>
-                <a href="#">SUPPORT</a>
-                <a href="#">ABOUT US</a>
-            </nav>
-            <div class="auth-links-ver2" th:if="${session.customer == null}">
-                <a href="#">LOGIN</a>
-                <img src="/img/Line 1.png" alt="">
-                <a href="#">SIGNUP</a>
-            </div>
-            
-            <div class="auth-links-ver2" th:if="${session.customer != null}">
-                <a href="/mypage">MYPAGE</a>
-	        	<img src="/img/Line 1.png" alt="">
-				<a href="/customer/logout">LOGOUT</a>
-                <img src="/img/Line 1.png" alt="">
-                <a href="/cart">장바구니</a>
-            </div>
-        </div>
-    </header>
+			</div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <img class="slogan1" src="/img/slogan1.png">
-        <div class="search-bar">
-            <div class="label-group">
-                <label>STORE</label>
-                <label>SHOES</label>
-            </div>
-            <input type="text" placeholder="Province / City" />
-            <input type="text" placeholder="Store Name" />
-        </div>
-        <img class="slogan2" src="/img/slogan2.png">
-    </section>
+			<div class="logo">
+				<a href="#"> <img src="/img/logo.png" />
+				</a>
+			</div>
+			<div class="header-bottom">
+				<nav class="nav">
+					<a href="#">STORES</a> <a href="#">JOURNAL</a> <a href="#">SUPPORT</a>
+					<a href="#">ABOUT US</a>
+				</nav>
+			</div>
+		</div>
+	</header>
+	<header class="header-ver2 hidden">
+		<div class="header-ver2-container">
+			<div class="logo-ver2">
+				<a href="#"> <img src="/img/logo.png" />
+				</a>
+			</div>
+			<nav class="nav-ver2">
+				<a href="#">STORES</a> <a href="#">JOURNAL</a> <a href="#">SUPPORT</a>
+				<a href="#">ABOUT US</a>
+			</nav>
+			<div class="auth-links-ver2" th:if="${session.customer == null}">
+				<a href="#">LOGIN</a> <img src="/img/Line 1.png" alt=""> <a
+					href="#">SIGNUP</a>
+			</div>
+		</div>
+	</header>
 
-    <!-- Custom Shoes -->
-    <section class="custom-shoes">
-        <h2>CUSTOM SHOES</h2>
-        <p>장인들의 정성이 깃든 커스텀 수제화<br>정교한 제작과 섬세한 디테일을 경험하세요</p>
-        <div class="shoes-list">
-            <div class="shoe-item"><img src="img/oxford.jpg" alt="Oxford" /><p>OXFORD</p></div>
-            <div class="shoe-item"><img src="img/loafer.jpg" alt="Loafer" /><p>LOAFER</p></div>
-            <div class="shoe-item"><img src="img/derby.jpg" alt="Derby" /><p>DERBY</p></div>
-            <div class="shoe-item"><img src="img/chelsea.jpg" alt="Chelsea" /><p>CHELSEA</p></div>
-        </div>
-    </section>
+	<!-- Hero Section -->
+	<section class="hero">
+		<img class="slogan1" src="/img/slogan1.png">
+		<div class="search-bar">
+			<div class="label-group">
+				<label>STORE</label> <label>SHOES</label>
+			</div>
+			<input type="text" placeholder="Province / City" /> <input
+				type="text" placeholder="Store Name" />
+		</div>
+		<img class="slogan2" src="/img/slogan2.png">
+	</section>
 
-    <!-- Curated Selections -->
-    <section class="curated">
-        <h2>Curated Selections</h2>
-        <p><strong>다양한</strong> 수제화 가게<br><strong>개성 넘치는</strong> 디자인</p>
-    </section>
+	<!-- Custom Shoes -->
+	<section class="custom-shoes">
+		<h2>CUSTOM SHOES</h2>
+		<p>
+			장인들의 정성이 깃든 커스텀 수제화<br>정교한 제작과 섬세한 디테일을 경험하세요
+		</p>
+		<div class="shoes-list">
+			<div class="shoe-item">
+				<img src="img/옥스포드.jpeg" alt="Oxford" />
+				<p>OXFORD</p>
+			</div>
+			<div class="shoe-item">
+				<img src="img/로퍼.webp" alt="Loafer" />
+				<p>LOAFER</p>
+			</div>
+			<div class="shoe-item">
+				<img src="img/더비.jpg" alt="Derby" />
+				<p>DERBY</p>
+			</div>
+			<div class="shoe-item">
+				<img src="img/첼시.jpg" alt="Chelsea" />
+				<p>CHELSEA</p>
+			</div>
+		</div>
+	</section>
 
-    <!-- Curated Stores -->
-    <section class="stores">
-        <h2>CURATED STORES</h2>
-        <p>개성넘치는 디자인과 다양한 수제화 장인을<br>다양한 매장에서 특별한 신발을 만들어보세요</p>
-        <div class="store-logos">
-        	<th:block th:each="store, iter : ${storeList}">
-        		<th:block th:if="${iter.count <= 4}">
-        			<a th:href="@{'/store/list/' + ${store.id}}">
-			            <th:block th:each="img : ${store.storeImg}">
-	    					<img th:if="${img.type == 'main'}"
-	    					     th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.filename}}"
-	    					     alt="대표 이미지" />
-	    				</th:block>
-			        </a>
-        		</th:block>
-        	</th:block>
-        </div>
-    </section>
+	<!-- Curated Selections -->
+	<section class="curated">
+		<h2>Curated Selections</h2>
+		<p>
+			<strong>다양한</strong> 수제화 가게<br> <strong>개성 넘치는</strong> 디자인
+		</p>
+	</section>
 
-    <!-- Journal -->
-    <section class="journal">
-        <h2>JOURNAL</h2>
-        <div class="journal-articles">
-            <article>
-                <img src="img/article1.jpg" alt="" />
-                <h3>수제화, 시장을 걷다</h3>
-                <p>Handmade shoes, Growing Market</p>
-            </article>
-            <article>
-                <img src="img/article2.jpg" alt="" />
-                <h3>이제는 LOAFERS 시대</h3>
-                <p>Now, the Era of Loafers</p>
-            </article>
-            <article>
-                <img src="img/article3.jpg" alt="" />
-                <h3>이태리 수제화 장인 Giovanni를 만나다</h3>
-                <p>Meet Giovanni, the Master Shoemaker</p>
-            </article>
-        </div>
-    </section>
+	<!-- Curated Stores -->
+	<section class="stores">
+		<h2>CURATED STORES</h2>
+		<p>
+			개성넘치는 디자인과 다양한 수제화 장인을<br>다양한 매장에서 특별한 신발을 만들어보세요
+		</p>
+		<div class="store-logos">
+			<th:block th:each="store, iter : ${storeList}">
+				<th:block th:if="${iter.count <= 4}">
+					<a th:href="@{'/store/list/' + ${store.id}}"> <th:block
+							th:each="img : ${store.storeImg}">
+							<img th:if="${img.type == 'main'}"
+								th:src="@{'/upload/' + ${img.uuid} + '_' + ${img.filename}}"
+								alt="대표 이미지" />
+						</th:block>
+					</a>
+				</th:block>
+			</th:block>
+		</div>
+	</section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>㈜00000 / 사업자등록번호 : 000-00-00000<br>
-        address : 서울특별시 중구 ... 가상의 주소 1104호<br>
-        Tel : 052-000-0000 / 070-0000-0000</p>
-        <div class="social-icons">
-            <span>💬</span><span>📷</span><span>📘</span>
-        </div>
-    </footer>
+	<!-- Journal -->
+	<section class="journal">
+		<h2>JOURNAL</h2>
+		<div class="journal-wrapper">
+			<div class="left-column">
+				<div class="card tall">
+					<img src="img/저널1.jpg" alt="">
+					<div class="overlay">
+						<h3>수제화, 시장을 걷다</h3>
+						<p>Handmade shoes, Growing Market</p>
+					</div>
+				</div>
+			</div>
+			<div class="right-column">
+				<div class="card wide">
+					<img src="img/저널2.jpeg" alt="">
+					<div class="overlay">
+						<h3>맞춤 구두를 위한 다양한 가죽 탐구</h3>
+						<p>Exploring Various Leathers for Bespoke Shoes</p>
+					</div>
+				</div>
+				<div class="journal-bottom-row">
+					<div class="card small">
+						<img src="img/저널4.jpg" alt="">
+						<div class="overlay">
+							<h3>이태리 수제화 장인 Giovanni를 만나다</h3>
+							<p>Meet Giovanni, the Master Shoemaker</p>
+						</div>
+					</div>
+					<div class="card small">
+						<img src="img/저널3.jpg" alt="">
+						<div class="overlay">
+							<h3>이제는 LOAFERS 시대</h3>
+							<p>Now, the Era of Loafers</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
+	<!-- Footer -->
+	<footer class="footer">
+		<p>
+			㈜00000 / 사업자등록번호 : 000-00-00000<br> address : 서울특별시 중구 ... 가상의
+			주소 1104호<br> Tel : 052-000-0000 / 070-0000-0000
+		</p>
+		<div class="social-icons">
+			<span>💬</span><span>📷</span><span>📘</span>
+		</div>
+	</footer>
+>>>>>>> 546c748471ab6dcc4997512607ec04832728685e
 </body>
 </html>

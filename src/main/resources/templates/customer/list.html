@@ -3,44 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<th:block th:replace="~{/fragment/head.html :: header}"></th:block>itle>Insert title here</title>
+<th:block th:replace="~{/fragment/head.html :: header}"></th:block>
 </head>
+<style>
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+	background-color: #f8f9fa;
+	padding-top: 80px;
+}
+
+.btn-space {
+	margin-right: 5px;
+}
+
+.card {
+	border-radius: 12px;
+}
+
+.btn-warning {
+	background-color: #FFCF40;
+	color: #000;
+	font-weight: 500;
+}
+
+.btn-warning:hover {
+	background-color: #e6b931;
+	color: #000;
+}
+</style>
 <body>
-	<div>
-		<div>
-			<h3>고객 목록</h3>
+
+	<!-- 상단 네비게이션 -->
+	<div th:replace="/fragment/nav.html :: nav"></div>
+
+	<div class="container">
+		<!-- 페이지 제목 -->
+		<div class="mb-4 text-center mt-4">
+			<h3 class="fw-bold">고객 목록</h3>
 		</div>
-		<div>
-			<table>
-				<thead>
-					<tr>
-						<th>아이디</th>
-						<th>비밀번호</th>
-						<th>이름</th>
-						<th>주소</th>
-						<th>전화번호</th>
-						<th>생년월일</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<tr th:each="customer : ${list}">
-						<td th:text="${customer.id}"></td>
-						<td th:text="${customer.password}"></td>
-						<td th:text="${customer.name}"></td>
-						<td th:text="${customer.address}"></td>
-						<td th:text="${customer.phone}"></td>
-						<td th:text="${customer.birth}"></td>
-						<td>
-            				<a th:href="@{'/customer/update/' + ${customer.id}}">변경</a>
-            				<a th:href="@{/customer/delete/{id}(id=${customer.id})}">삭제</a>
-        				</td>
-					</tr>
+
+		<!-- 목록 카드 -->
+		<div class="card shadow-sm">
+			<div class="card-body p-4">
+				<table
+					class="table table-striped table-bordered text-center align-middle">
+					<thead class="table-dark">
+						<tr>
+							<th>아이디</th>
+							<th>비밀번호</th>
+							<th>이름</th>
+							<th>주소</th>
+							<th>전화번호</th>
+							<th>생년월일</th>
+							<th>관리</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- 고객 목록 -->
+						<tr th:each="customer : ${list}">
+							<td th:text="${customer.id}"></td>
+							<td th:text="${customer.password}"></td>
+							<td th:text="${customer.name}"></td>
+							<td th:text="${customer.address}"></td>
+							<td th:text="${customer.phone}"></td>
+							<td th:text="${customer.birth}"></td>
+							<td>
+								<div class="btn-group" role="group">
+									<a th:href="@{'/customer/update/' + ${customer.id}}"
+										class="btn btn-sm btn-outline-primary btn-space">변경</a> <a
+										th:href="@{/customer/delete/{id}(id=${customer.id})}"
+										class="btn btn-sm btn-outline-danger">삭제</a>
+								</div>
+							</td>
+						</tr>
+
+						<!-- 목록이 비어 있을 때 -->
 						<tr th:if="${#lists.isEmpty(list)}">
-                        <td colspan="5">검색 된 고객이 없습니다</td>
-                    </tr>
-				</tbody>
-			</table>
+							<td colspan="7" class="text-center text-muted fw-semibold py-3">
+								검색된 고객이 없습니다</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<!-- 하단 버튼 -->
+				<div class="d-flex justify-content-between mt-4">
+					<a th:href="@{/customer/add}" class="btn btn-warning px-4">고객
+						등록</a> <a href="../mypage" class="btn btn-outline-secondary px-4">←
+						마이페이지</a>
+				</div>
+			</div>
 		</div>
 		 <div>
             <a th:href="@{/customer/add}">등록</a>
