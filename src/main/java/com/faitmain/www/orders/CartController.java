@@ -27,26 +27,33 @@ public class CartController {
 	ShoeService service;
 	
 	@GetMapping
-	String cart(@SessionAttribute(required=false) Cart cart, Model model) {		
-		if(cart == null)
-			cart = new Cart(); 
+	String cart(@SessionAttribute(required=false) Cart cart, Model model, HttpSession session) {		
+		if(cart == null) {
+			cart = new Cart();
+			session.setAttribute("cart", cart); // 세션에 cart 저장
+		}
 			
 		List<Shoe> list = service.list(cart.getCart().keySet() );
 		
 		model.addAttribute("list", list);
+		model.addAttribute("cart", cart); // 모델에 cart 추가
+		
+		// 디버깅 로그
+		System.out.println("Cart in /cart: " + cart);
+        System.out.println("List in /cart: " + list);
 		
 		return "cart";
 	}
 	
 	@ResponseBody
-	@GetMapping("/{shoeid}/{amount}")
-	Cart add(@PathVariable Long shoeid, @PathVariable int amount, @SessionAttribute Customer customer, @SessionAttribute(required=false) Cart cart, HttpSession session) {
+	@GetMapping("/{shoeId}/{amount}")
+	Cart add(@PathVariable Long shoeId, @PathVariable int amount, @SessionAttribute Customer customer, @SessionAttribute(required=false) Cart cart, HttpSession session) {
 		if(cart == null) {
 			cart = new Cart();
 			session.setAttribute("cart", cart);
 		}
 		
-		cart.setCart(shoeid, amount);
+		cart.setCart(shoeId, amount);
 		
 		return cart;
 	}
