@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title></title>
 </head>
 <body>
-	<div>장바구니</div>
+<div class="container">
+    <div>
+        <h3>장바구니</h3>
+    </div>
+    
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>제품번호</th>
+                    <th>제품명</th>
+                    <th>수량</th>
+                    <th>단가</th>
+                    <th>주문금액</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                <tr th:if="${#lists.size(list) < 1}">
+                    <td colspan="5">장바구니에 등록 된 제품이 없습니다</td>
+                </tr>
+                
+                <tr th:each="item : ${list}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${cart.cart.get(item.id)}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td th:text="${item.detail}"></td>
+                    <td th:text="${item.price * cart.cart.get(item.id)}"></td>
+                    <td><button class="btn delete" th:attr="data-id=${item.id}">삭제</button></td>
+                </tr>
+            </tbody>    
+        </table>
+    </div>
+    
+    <div>
+        <div></div>
+        <div><a href="/orders" class="btn">주문</a></div>
+        <div><a href="." class="btn">처음으로</a></div>
+    </div>
+</div>
 </body>
 </html>

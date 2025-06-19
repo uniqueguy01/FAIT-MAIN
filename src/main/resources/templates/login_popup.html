@@ -33,7 +33,7 @@
 <th:block th:if="${customer != null}">
 	<script>
 		// window.opener.postLogin("${type}"); jsp 방식
-		window.opener.postLogin('[[${type}]]');
+		window.opener.postLogin('[[${type}]]'); // thymeleaf 방식
 		self.close();
 	</script>
 </body>

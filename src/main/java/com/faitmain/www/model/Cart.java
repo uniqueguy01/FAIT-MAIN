@@ -7,11 +7,11 @@ public class Cart {
 	
 private Map<Long, Integer> cart = new HashMap<Long, Integer>();
 	
-	public void setCart(Long shoeid, Integer amount) {
-		if(cart.containsKey(shoeid))
-			cart.put(shoeid, cart.get(shoeid) + amount);
+	public void setCart(Long shoeId, Integer amount) {
+		if(cart.containsKey(shoeId))
+			cart.put(shoeId, cart.get(shoeId) + amount);
 		else
-			cart.put(shoeid, amount);			
+			cart.put(shoeId, amount);			
 	}
 	
 	public Map<Long, Integer> getCart() {
